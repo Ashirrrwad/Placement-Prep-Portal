@@ -121,7 +121,7 @@ h1 {
     border-radius: 10px;
     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
     text-align: center;
-    width: 200px;
+    width: 300px;
     transition: transform 0.3s ease-in-out;
 }
 
@@ -147,6 +147,15 @@ p {
     color: white;
    
 } */
+ .btn1{
+    background-color: #007bff;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+ }
 
 
 
