@@ -5,7 +5,7 @@ import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com
 
 // Firebase config
 const firebaseConfig = {
-  apiKey: "AIzaSyCElSztsflZeyVdYD_xH1KYEfNFAwexY98",
+  apiKey: "******************************",
   authDomain: "placement-prep-portal.firebaseapp.com",
   projectId: "placement-prep-portal",
   storageBucket: "placement-prep-portal.appspot.com",
