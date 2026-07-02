@@ -17,30 +17,46 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-// Dynamic login/logout
+// DOM Elements
 const authBtns = document.getElementById("auth-buttons");
+const userNameEl = document.querySelector(".user-name");
+const userAvatarEl = document.querySelector(".user-avatar");
+const userRankEl = document.querySelector(".user-rank");
 
 onAuthStateChanged(auth, (user) => {
   if (user) {
-    // Logged in
-    authBtns.innerHTML = `<button id="logoutBtn" class="btn">Logout</button>`;
+    // Logged in user info
+    const displayName = user.displayName || user.email.split('@')[0];
+    const firstInitial = displayName.charAt(0).toUpperCase();
 
-    document.getElementById("logoutBtn").addEventListener("click", () => {
-      signOut(auth)
-        .then(() => {
+    if (userNameEl) userNameEl.textContent = displayName;
+    if (userAvatarEl) userAvatarEl.textContent = firstInitial;
+    if (userRankEl) userRankEl.textContent = "Rank: Pro Candidate";
+
+    // Dynamic navbar logout button
+    if (authBtns) {
+      authBtns.innerHTML = `<button id="logoutBtn" class="btn btn-secondary" style="padding:0.4rem 1rem;">Sign Out</button>`;
+      document.getElementById("logoutBtn").addEventListener("click", async () => {
+        try {
+          await signOut(auth);
           alert("Logged out successfully!");
-          window.location.href = "index.html"; // 👈 redirect to home
-        })
-        .catch((error) => {
+          window.location.href = "index.html";
+        } catch (error) {
           alert("Logout failed: " + error.message);
-        });
-    });
+        }
+      });
+    }
   } else {
-    // Not logged in
-    authBtns.innerHTML = `
-      <button class="btn" onclick="window.location.href='login.html'">Login</button>
-      <button class="btn" onclick="window.location.href='signup.html'">Sign Up</button>
-    `;
+    // Guest State
+    if (userNameEl) userNameEl.textContent = "Guest";
+    if (userAvatarEl) userAvatarEl.textContent = "U";
+    if (userRankEl) userRankEl.textContent = "Rank: Unranked";
+
+    if (authBtns) {
+      authBtns.innerHTML = `
+        <button class="nav-btn nav-btn-ghost" onclick="window.location.href='login.html'">Sign In</button>
+        <button class="nav-btn nav-btn-primary" onclick="window.location.href='signup.html'">Get Started</button>
+      `;
+    }
   }
 });
-
