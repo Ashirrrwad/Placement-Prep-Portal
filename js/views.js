@@ -13,7 +13,7 @@ import {
 } from "./auth.js";
 
 // ════════════════════════════════════════════════════════════
-// 1. HOME VIEW
+// 1. HOME VIEW (#home)
 // ════════════════════════════════════════════════════════════
 export function renderHome() {
   return `
@@ -181,7 +181,6 @@ export function renderHome() {
 }
 
 export function initHome() {
-  // Animated Stats
   const counters = document.querySelectorAll('.hero-stat-num');
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
@@ -201,7 +200,6 @@ export function initHome() {
   }, { threshold: 0.5 });
   counters.forEach(c => observer.observe(c));
 
-  // Challenge Widget
   const challenges = [
     { q: "What is the time complexity of searching in a balanced Binary Search Tree?", topic: "Trees", difficulty: "easy", options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"], correct: 1, explanation: "BST search halves the search space each step → O(log n)" },
     { q: "Which data structure is used for BFS (Breadth-First Search)?", topic: "Graphs", difficulty: "easy", options: ["Stack", "Heap", "Queue", "Linked List"], correct: 2, explanation: "BFS processes nodes level by level using a Queue (FIFO)" },
@@ -448,7 +446,6 @@ export function renderLearn() {
           </div>
         </div>
 
-        <!-- Prep Kits -->
         <section class="learn-section">
           <div class="learn-section-header">
             <h2>Preparation Kits</h2>
@@ -475,7 +472,6 @@ export function renderLearn() {
           </div>
         </section>
 
-        <!-- Certifications -->
         <section class="learn-section">
           <div class="learn-section-header">
             <h2>Skill Certifications</h2>
@@ -543,7 +539,7 @@ export function renderResources() {
 }
 
 // ════════════════════════════════════════════════════════════
-// 5. QUIZ ARENA VIEW (#quiz)
+// 5. QUIZ ARENA VIEW (#quiz) — FULL 40-QUESTION BANK
 // ════════════════════════════════════════════════════════════
 export function renderQuiz() {
   return `
@@ -560,7 +556,7 @@ export function renderQuiz() {
         </div>
 
         <div>
-          <div class="sidebar-title">Topic</div>
+          <div class="sidebar-title">Topic Filter</div>
           <select class="quiz-select" id="topicFilter">
             <option value="All">All Topics</option>
             <option value="Data Structures">Data Structures</option>
@@ -568,7 +564,22 @@ export function renderQuiz() {
             <option value="DBMS">DBMS</option>
             <option value="Networking">Networking</option>
           </select>
+
+          <div class="sidebar-title" style="margin-top:0.6rem;">Difficulty</div>
+          <select class="quiz-select" id="diffFilter">
+            <option value="All">All Levels</option>
+            <option value="Beginner">Beginner</option>
+            <option value="Intermediate">Intermediate</option>
+            <option value="Advanced">Advanced</option>
+          </select>
+
           <button class="apply-btn" id="quizApplyBtn">Apply Filters</button>
+          <button class="reset-score-btn" id="quizResetBtn" style="margin-top:0.5rem;width:100%;padding:0.4rem;background:transparent;border:1px solid var(--border);color:var(--text-muted);border-radius:var(--radius-sm);cursor:pointer;">↺ Reset Score</button>
+        </div>
+
+        <div class="tip-card" style="margin-top:1rem;background:rgba(44,187,93,0.08);border:1px solid rgba(44,187,93,0.18);border-radius:var(--radius-md);padding:0.85rem;font-size:0.8rem;color:var(--text-secondary);">
+          <strong style="color:var(--green);display:block;margin-bottom:0.3rem;">💡 Quick Tip</strong>
+          Focus on understanding the logic behind answers. Daily practice = mastery! 🔥
         </div>
       </aside>
 
@@ -585,30 +596,79 @@ export function renderQuiz() {
 
 export function initQuiz() {
   const mcqs = [
+    // Data Structures (10)
     { question: "Which data structure uses LIFO (Last In First Out)?", options: ["Queue","Stack","Array","Linked List"], answer: "Stack", topic: "Data Structures", difficulty: "Beginner" },
     { question: "In a binary tree, each node has at most how many children?", options: ["1","2","3","4"], answer: "2", topic: "Data Structures", difficulty: "Beginner" },
+    { question: "Which of the following is a non-linear data structure?", options: ["Array","Linked List","Tree","Stack"], answer: "Tree", topic: "Data Structures", difficulty: "Beginner" },
     { question: "Which data structure is used in BFS of a graph?", options: ["Stack","Queue","Heap","Set"], answer: "Queue", topic: "Data Structures", difficulty: "Intermediate" },
+    { question: "What is the time complexity of inserting at the end in a dynamic array?", options: ["O(1)","O(n)","O(log n)","O(n log n)"], answer: "O(1)", topic: "Data Structures", difficulty: "Intermediate" },
+    { question: "Which structure gives faster search — Array or Hash Table?", options: ["Array","Hash Table"], answer: "Hash Table", topic: "Data Structures", difficulty: "Intermediate" },
+    { question: "Heap is mainly used to implement which data structure?", options: ["Queue","Priority Queue","Stack","Set"], answer: "Priority Queue", topic: "Data Structures", difficulty: "Intermediate" },
+    { question: "Which tree traversal gives sorted order output in a BST?", options: ["Preorder","Inorder","Postorder","Level Order"], answer: "Inorder", topic: "Data Structures", difficulty: "Intermediate" },
+    { question: "What is the height of an AVL Tree maintained as?", options: ["O(1)","O(n)","O(log n)","O(n log n)"], answer: "O(log n)", topic: "Data Structures", difficulty: "Advanced" },
+    { question: "Which data structure is best suited for implementing recursion internally?", options: ["Queue","Stack","Heap","Graph"], answer: "Stack", topic: "Data Structures", difficulty: "Advanced" },
+
+    // Algorithms (10)
     { question: "What is the time complexity of binary search?", options: ["O(n)","O(log n)","O(n log n)","O(1)"], answer: "O(log n)", topic: "Algorithms", difficulty: "Beginner" },
     { question: "Which sorting algorithm is the fastest on average?", options: ["Bubble Sort","Quick Sort","Selection Sort","Insertion Sort"], answer: "Quick Sort", topic: "Algorithms", difficulty: "Intermediate" },
+    { question: "Which algorithm finds the shortest path in a graph?", options: ["Prim's","Dijkstra's","Kruskal's","DFS"], answer: "Dijkstra's", topic: "Algorithms", difficulty: "Intermediate" },
+    { question: "Which sorting algorithm has O(n²) worst-case complexity?", options: ["Merge Sort","Heap Sort","Bubble Sort","Quick Sort"], answer: "Bubble Sort", topic: "Algorithms", difficulty: "Beginner" },
+    { question: "What approach does Dynamic Programming follow?", options: ["Divide and Conquer","Greedy","Backtracking","Overlapping Subproblems"], answer: "Overlapping Subproblems", topic: "Algorithms", difficulty: "Advanced" },
+    { question: "Which algorithm technique does Kruskal's MST algorithm use?", options: ["Greedy","Dynamic Programming","Backtracking","Branch and Bound"], answer: "Greedy", topic: "Algorithms", difficulty: "Advanced" },
+    { question: "Time complexity of Merge Sort is?", options: ["O(n)","O(n log n)","O(log n)","O(n²)"], answer: "O(n log n)", topic: "Algorithms", difficulty: "Intermediate" },
+    { question: "Bellman-Ford algorithm can handle graphs with:", options: ["Only positive weights","Negative weights","Zero weights only","No cycles"], answer: "Negative weights", topic: "Algorithms", difficulty: "Advanced" },
+    { question: "Which algorithm is used to find Minimum Spanning Tree?", options: ["Kruskal's Algorithm","Dijkstra's Algorithm","Bellman-Ford","Floyd-Warshall"], answer: "Kruskal's Algorithm", topic: "Algorithms", difficulty: "Intermediate" },
+    { question: "What is the worst-case search time complexity in a Hash Table?", options: ["O(1)","O(n)","O(log n)","O(n log n)"], answer: "O(n)", topic: "Algorithms", difficulty: "Advanced" },
+
+    // DBMS (10)
     { question: "Which normal form removes transitive dependency?", options: ["1NF","2NF","3NF","BCNF"], answer: "3NF", topic: "DBMS", difficulty: "Intermediate" },
+    { question: "Which command removes a table completely from the database?", options: ["DROP","DELETE","REMOVE","ERASE"], answer: "DROP", topic: "DBMS", difficulty: "Beginner" },
+    { question: "What does ACID stand for in databases?", options: ["Atomicity, Consistency, Isolation, Durability","Access, Control, Integrity, Durability","Atomicity, Concurrency, Isolation, Distribution","All of the above"], answer: "Atomicity, Consistency, Isolation, Durability", topic: "DBMS", difficulty: "Beginner" },
+    { question: "Which key uniquely identifies each record in a table?", options: ["Foreign Key","Primary Key","Super Key","Candidate Key"], answer: "Primary Key", topic: "DBMS", difficulty: "Beginner" },
+    { question: "Which SQL keyword sorts the result-set?", options: ["ORDER","SORT","BY","ORDER BY"], answer: "ORDER BY", topic: "DBMS", difficulty: "Beginner" },
+    { question: "Which JOIN returns all records when there is a match in either table?", options: ["INNER JOIN","LEFT JOIN","RIGHT JOIN","FULL JOIN"], answer: "FULL JOIN", topic: "DBMS", difficulty: "Intermediate" },
+    { question: "Which constraint ensures all values in a column are unique?", options: ["NOT NULL","UNIQUE","PRIMARY KEY","FOREIGN KEY"], answer: "UNIQUE", topic: "DBMS", difficulty: "Intermediate" },
+    { question: "What is a Foreign Key in DBMS?", options: ["Primary Key of another table","Unique constraint","Index key","Auto-increment key"], answer: "Primary Key of another table", topic: "DBMS", difficulty: "Intermediate" },
+    { question: "Which command is used to retrieve data from a database?", options: ["SELECT","INSERT","UPDATE","DELETE"], answer: "SELECT", topic: "DBMS", difficulty: "Beginner" },
+    { question: "Which transaction property ensures all or nothing execution?", options: ["Atomicity","Consistency","Isolation","Durability"], answer: "Atomicity", topic: "DBMS", difficulty: "Intermediate" },
+
+    // Networking (10)
     { question: "What does TCP stand for?", options: ["Transmission Control Protocol","Transfer Control Protocol","Transmission Communication Protocol","Transport Communication Protocol"], answer: "Transmission Control Protocol", topic: "Networking", difficulty: "Beginner" },
-    { question: "Which layer of OSI model is responsible for routing?", options: ["Application Layer","Network Layer","Transport Layer","Data Link Layer"], answer: "Network Layer", topic: "Networking", difficulty: "Intermediate" }
+    { question: "Which of these is a connection-oriented protocol?", options: ["UDP","TCP","IP","ICMP"], answer: "TCP", topic: "Networking", difficulty: "Intermediate" },
+    { question: "Which OSI layer is responsible for routing?", options: ["Application Layer","Network Layer","Transport Layer","Data Link Layer"], answer: "Network Layer", topic: "Networking", difficulty: "Intermediate" },
+    { question: "Which protocol is used for secure Web communication?", options: ["HTTP","HTTPS","FTP","POP3"], answer: "HTTPS", topic: "Networking", difficulty: "Beginner" },
+    { question: "What is the main function of ARP?", options: ["Resolving IP addresses to MAC addresses","Routing IP addresses","Error correction","Message encryption"], answer: "Resolving IP addresses to MAC addresses", topic: "Networking", difficulty: "Intermediate" },
+    { question: "What is the default port number for HTTP?", options: ["21","80","443","8080"], answer: "80", topic: "Networking", difficulty: "Beginner" },
+    { question: "What is the main function of DNS?", options: ["Translation of IP to MAC address","Translation of domain name to IP address","Data transmission","Routing"], answer: "Translation of domain name to IP address", topic: "Networking", difficulty: "Intermediate" },
+    { question: "Which device connects different networks together?", options: ["Switch","Router","Hub","Bridge"], answer: "Router", topic: "Networking", difficulty: "Intermediate" },
+    { question: "The OSI reference model consists of how many layers?", options: ["4","5","6","7"], answer: "7", topic: "Networking", difficulty: "Beginner" },
+    { question: "Which protocol is used to send email messages?", options: ["POP3","SMTP","IMAP","FTP"], answer: "SMTP", topic: "Networking", difficulty: "Intermediate" }
   ];
 
   let correct = 0, wrong = 0, answered = 0;
   let filtered = [...mcqs];
 
   function updateScore() {
-    document.getElementById('scoreNum').textContent = correct;
-    document.getElementById('scoreDenom').textContent = `out of ${answered} answered`;
-    document.getElementById('correctCount').textContent = correct;
-    document.getElementById('wrongCount').textContent = wrong;
+    const sNum = document.getElementById('scoreNum');
+    const sDenom = document.getElementById('scoreDenom');
+    const cCount = document.getElementById('correctCount');
+    const wCount = document.getElementById('wrongCount');
+    if (sNum) sNum.textContent = correct;
+    if (sDenom) sDenom.textContent = `out of ${answered} answered`;
+    if (cCount) cCount.textContent = correct;
+    if (wCount) wCount.textContent = wrong;
   }
 
   function renderQuestions() {
     const area = document.getElementById('questionsArea');
     if (!area) return;
-    document.getElementById('questionCountBadge').textContent = filtered.length + ' Questions';
+    const badge = document.getElementById('questionCountBadge');
+    if (badge) badge.textContent = filtered.length + ' Questions';
+
+    if (!filtered.length) {
+      area.innerHTML = `<div class="quiz-empty" style="text-align:center;padding:4rem 2rem;color:var(--text-muted);"><h3>No questions match your filters</h3><p>Try changing the topic or difficulty level.</p></div>`;
+      return;
+    }
 
     area.innerHTML = filtered.map((q, i) => `
       <div class="quiz-card unanswered" id="card-${i}">
@@ -647,7 +707,7 @@ export function initQuiz() {
             card.classList.replace('unanswered','wrong-card');
             opts.forEach(b => { if (b.dataset.val === q.answer) b.classList.add('opt-correct'); });
             ansDiv.classList.add('show','ans-wrong');
-            ansDiv.innerHTML = `<span class="ans-label" style="color:var(--red)">✗ Wrong.</span> Correct answer: <strong>${q.answer}</strong>`;
+            ansDiv.innerHTML = `<span class="ans-label" style="color:var(--red)">✗ Wrong.</span> Correct answer: <strong style="color:var(--text-primary)">${q.answer}</strong>`;
             wrong++;
           }
           updateScore();
@@ -656,10 +716,21 @@ export function initQuiz() {
     });
   }
 
-  document.getElementById('quizApplyBtn')?.addEventListener('click', () => {
-    const topic = document.getElementById('topicFilter').value;
-    filtered = mcqs.filter(q => topic === 'All' || q.topic === topic);
+  function applyFilters() {
+    const topic = document.getElementById('topicFilter')?.value || 'All';
+    const diff = document.getElementById('diffFilter')?.value || 'All';
+    filtered = mcqs.filter(q =>
+      (topic === 'All' || q.topic === topic) &&
+      (diff === 'All' || q.difficulty === diff)
+    );
     renderQuestions();
+  }
+
+  document.getElementById('quizApplyBtn')?.addEventListener('click', applyFilters);
+  document.getElementById('quizResetBtn')?.addEventListener('click', () => {
+    correct = 0; wrong = 0; answered = 0;
+    updateScore();
+    applyFilters();
   });
 
   renderQuestions();
@@ -785,28 +856,101 @@ export function renderTopicTracker(topicName) {
 // ════════════════════════════════════════════════════════════
 export function renderLogin() {
   return `
-    <div class="auth-body" style="min-height:80vh;">
-      <div class="auth-panel" style="max-width:440px;margin:3rem auto;width:100%;">
-        <div class="auth-form-wrap">
-          <div class="auth-header">
-            <h1>Welcome back</h1>
-            <p>Don't have an account? <a href="#signup">Sign up free</a></p>
+    <div class="auth-body" style="display:flex;flex-direction:row;width:100%;min-height:calc(100vh - 60px);background:var(--bg-primary);">
+      <!-- Left Brand Panel -->
+      <div class="auth-brand" style="flex:0 0 460px;display:flex;flex-direction:column;justify-content:center;padding:2.5rem;background:var(--bg-secondary);border-right:1px solid var(--border);position:relative;overflow:hidden;">
+        <div class="auth-brand-bg"></div>
+        <div class="auth-brand-orb orb-a"></div>
+        <div class="auth-brand-orb orb-b"></div>
+
+        <div class="auth-brand-content" style="position:relative;z-index:2;display:flex;flex-direction:column;gap:1.5rem;max-width:400px;width:100%;">
+          <a href="#home" class="auth-logo" style="text-decoration:none;display:flex;align-items:center;gap:0.5rem;">
+            <div class="nav-logo-mark">A</div>
+            <span class="nav-logo-text">Arankerzz</span>
+          </a>
+
+          <div class="auth-brand-text">
+            <h2 style="font-size:1.6rem;font-weight:900;line-height:1.3;margin-bottom:0.5rem;">The smartest way to<br><span class="gradient-text">prep for placements</span></h2>
+            <p style="color:var(--text-secondary);font-size:0.875rem;line-height:1.6;">Practice problems, track progress, earn certificates, and land your dream job.</p>
           </div>
+
+          <!-- Animated code snippet -->
+          <div class="auth-code-snippet" style="background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-md);padding:1rem;font-family:monospace;">
+            <div class="snippet-header" style="display:flex;align-items:center;justify-content:space-between;margin-bottom:0.5rem;">
+              <div class="code-dots" style="display:flex;gap:0.35rem;">
+                <span class="dot dot-red" style="width:8px;height:8px;border-radius:50%;background:#ef4743;"></span>
+                <span class="dot dot-yellow" style="width:8px;height:8px;border-radius:50%;background:#fbbf24;"></span>
+                <span class="dot dot-green" style="width:8px;height:8px;border-radius:50%;background:#2cbb5d;"></span>
+              </div>
+              <span style="font-size:0.75rem;color:var(--text-muted);">daily-challenge.py</span>
+            </div>
+            <pre class="snippet-body" style="font-size:0.78rem;color:var(--text-secondary);margin:0;"><code><span style="color:var(--accent)">class</span> <span style="color:#3b82f6">Solution</span>:
+    <span style="color:var(--accent)">def</span> <span style="color:#3b82f6">maxProfit</span>(self, prices):
+        min_p = float(<span style="color:#2cbb5d">'inf'</span>)
+        max_p = <span style="color:#2cbb5d">0</span>
+        <span style="color:var(--accent)">for</span> p <span style="color:var(--accent)">in</span> prices:
+            min_p = min(min_p, p)
+            max_p = max(max_p, p - min_p)
+        <span style="color:var(--accent)">return</span> max_p</code></pre>
+          </div>
+
+          <!-- Stats row -->
+          <div class="auth-stats" style="display:flex;justify-content:space-between;padding-top:1rem;border-top:1px solid var(--border);">
+            <div class="auth-stat"><span class="auth-stat-num" style="font-size:1.1rem;font-weight:800;display:block;color:var(--text-primary);">2500+</span><span class="auth-stat-label" style="font-size:0.72rem;color:var(--text-muted);">Problems</span></div>
+            <div class="auth-stat"><span class="auth-stat-num" style="font-size:1.1rem;font-weight:800;display:block;color:var(--text-primary);">50K+</span><span class="auth-stat-label" style="font-size:0.72rem;color:var(--text-muted);">Learners</span></div>
+            <div class="auth-stat"><span class="auth-stat-num" style="font-size:1.1rem;font-weight:800;display:block;color:var(--accent);">92%</span><span class="auth-stat-label" style="font-size:0.72rem;color:var(--text-muted);">Placed</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Form Panel -->
+      <div class="auth-panel" style="flex:1;display:flex;align-items:center;justify-content:center;padding:3rem 2rem;">
+        <div class="auth-form-wrap" style="width:100%;max-width:380px;">
+          <div class="auth-header" style="margin-bottom:1.5rem;">
+            <h1 style="font-size:1.75rem;font-weight:800;margin-bottom:0.4rem;">Welcome back</h1>
+            <p style="color:var(--text-muted);font-size:0.875rem;">Don't have an account? <a href="#signup" style="color:var(--accent);text-decoration:none;font-weight:600;">Sign up free</a></p>
+          </div>
+
           <form class="auth-form" id="loginForm" novalidate>
-            <div class="form-group">
-              <label>Email address</label>
-              <input type="email" id="email" placeholder="you@example.com" required />
+            <div class="form-group" style="margin-bottom:1.25rem;">
+              <label for="email" style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:0.4rem;">Email address</label>
+              <div class="input-wrap" style="position:relative;">
+                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);color:var(--text-muted);"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required style="width:100%;padding:0.65rem 0.85rem 0.65rem 2.4rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:0.875rem;outline:none;" />
+              </div>
             </div>
-            <div class="form-group">
-              <label>Password <a href="#resetPW" class="form-link-inline">Forgot password?</a></label>
-              <input type="password" id="password" placeholder="Enter password" required />
+
+            <div class="form-group" style="margin-bottom:1.5rem;">
+              <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.4rem;">
+                <label for="password" style="font-size:0.82rem;font-weight:600;">Password</label>
+                <a href="#resetPW" class="form-link-inline" style="font-size:0.78rem;color:var(--accent);text-decoration:none;">Forgot password?</a>
+              </div>
+              <div class="input-wrap" style="position:relative;">
+                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);color:var(--text-muted);"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required style="width:100%;padding:0.65rem 2.4rem 0.65rem 2.4rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:0.875rem;outline:none;" />
+                <button type="button" class="toggle-pw" id="togglePw" tabindex="-1" style="position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;padding:0;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
             </div>
-            <button type="submit" class="btn btn-primary auth-submit" id="submit">Sign In</button>
+
+            <button type="submit" class="btn btn-primary auth-submit" id="submit" style="width:100%;padding:0.75rem;font-weight:700;font-size:0.9rem;display:flex;align-items:center;justify-content:center;gap:0.5rem;">
+              Sign In
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </button>
           </form>
-          <div class="auth-divider"><span>or continue with</span></div>
-          <div class="auth-socials">
-            <button class="social-btn" id="btnGoogle" type="button">Google</button>
-            <button class="social-btn" id="btnGithub" type="button">GitHub</button>
+
+          <div class="auth-divider" style="text-align:center;margin:1.5rem 0;position:relative;border-bottom:1px solid var(--border);"><span style="position:relative;top:0.6rem;background:var(--bg-primary);padding:0 0.75rem;font-size:0.75rem;color:var(--text-muted);">or continue with</span></div>
+
+          <div class="auth-socials" style="display:flex;gap:0.75rem;margin-top:1.25rem;">
+            <button class="social-btn" id="btnGoogle" type="button" style="flex:1;padding:0.6rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:0.85rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.5rem;">
+              <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+              Google
+            </button>
+            <button class="social-btn" id="btnGithub" type="button" style="flex:1;padding:0.6rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:0.85rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.5rem;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </button>
           </div>
         </div>
       </div>
@@ -815,11 +959,23 @@ export function renderLogin() {
 }
 
 export function initLogin() {
+  document.getElementById('togglePw')?.addEventListener('click', () => {
+    const pw = document.getElementById('password');
+    if (pw) pw.type = pw.type === 'password' ? 'text' : 'password';
+  });
+
   document.getElementById("loginForm")?.addEventListener("submit", async (e) => {
     e.preventDefault();
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
-    if (!email || !password) return alert("Please fill in both fields!");
+    const submitBtn = document.getElementById("submit");
+
+    if (!email || !password) return alert("Please fill in both email and password!");
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Signing In...";
+    }
 
     try {
       const u = await loginEmail(email, password);
@@ -827,6 +983,11 @@ export function initLogin() {
       window.location.hash = "#learn";
     } catch (err) {
       alert(getFriendlyErrorMessage(err));
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Sign In";
+      }
     }
   });
 
@@ -853,28 +1014,83 @@ export function initLogin() {
 
 export function renderSignup() {
   return `
-    <div class="auth-body" style="min-height:80vh;">
-      <div class="auth-panel" style="max-width:440px;margin:3rem auto;width:100%;">
-        <div class="auth-form-wrap">
-          <div class="auth-header">
-            <h1>Create your account</h1>
-            <p>Already have an account? <a href="#login">Sign in</a></p>
+    <div class="auth-body" style="display:flex;flex-direction:row;width:100%;min-height:calc(100vh - 60px);background:var(--bg-primary);">
+      <div class="auth-brand" style="flex:0 0 460px;display:flex;flex-direction:column;justify-content:center;padding:2.5rem;background:var(--bg-secondary);border-right:1px solid var(--border);position:relative;overflow:hidden;">
+        <div class="auth-brand-bg"></div>
+        <div class="auth-brand-orb orb-a"></div>
+        <div class="auth-brand-orb orb-b"></div>
+
+        <div class="auth-brand-content" style="position:relative;z-index:2;display:flex;flex-direction:column;gap:1.5rem;max-width:400px;width:100%;">
+          <a href="#home" class="auth-logo" style="text-decoration:none;display:flex;align-items:center;gap:0.5rem;">
+            <div class="nav-logo-mark">A</div>
+            <span class="nav-logo-text">Arankerzz</span>
+          </a>
+
+          <div class="auth-brand-text">
+            <h2 style="font-size:1.6rem;font-weight:900;line-height:1.3;margin-bottom:0.5rem;">Start your journey to<br><span class="gradient-text">placement success</span></h2>
+            <p style="color:var(--text-secondary);font-size:0.875rem;line-height:1.6;">Join 50,000+ students mastering DSA and acing technical interviews.</p>
           </div>
+
+          <ul class="signup-features" style="list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:0.75rem;font-size:0.875rem;color:var(--text-secondary);">
+            <li style="display:flex;align-items:center;gap:0.5rem;"><span class="feature-check" style="color:var(--green);font-weight:bold;">✓</span> 2500+ curated coding problems</li>
+            <li style="display:flex;align-items:center;gap:0.5rem;"><span class="feature-check" style="color:var(--green);font-weight:bold;">✓</span> Company-specific preparation kits</li>
+            <li style="display:flex;align-items:center;gap:0.5rem;"><span class="feature-check" style="color:var(--green);font-weight:bold;">✓</span> Earn skill certifications</li>
+            <li style="display:flex;align-items:center;gap:0.5rem;"><span class="feature-check" style="color:var(--green);font-weight:bold;">✓</span> AI-powered learning paths</li>
+            <li style="display:flex;align-items:center;gap:0.5rem;"><span class="feature-check" style="color:var(--green);font-weight:bold;">✓</span> Track your progress & streaks</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="auth-panel" style="flex:1;display:flex;align-items:center;justify-content:center;padding:3rem 2rem;">
+        <div class="auth-form-wrap" style="width:100%;max-width:380px;">
+          <div class="auth-header" style="margin-bottom:1.5rem;">
+            <h1 style="font-size:1.75rem;font-weight:800;margin-bottom:0.4rem;">Create your account</h1>
+            <p style="color:var(--text-muted);font-size:0.875rem;">Already have an account? <a href="#login" style="color:var(--accent);text-decoration:none;font-weight:600;">Sign in</a></p>
+          </div>
+
           <form class="auth-form" id="signupForm" novalidate>
-            <div class="form-group">
-              <label>Full Name</label>
-              <input type="text" id="fullname" placeholder="Your full name" required />
+            <div class="form-group" style="margin-bottom:1.25rem;">
+              <label for="fullname" style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:0.4rem;">Full Name</label>
+              <div class="input-wrap" style="position:relative;">
+                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);color:var(--text-muted);"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+                <input type="text" id="fullname" placeholder="Your full name" required style="width:100%;padding:0.65rem 0.85rem 0.65rem 2.4rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:0.875rem;outline:none;" />
+              </div>
             </div>
-            <div class="form-group">
-              <label>Email address</label>
-              <input type="email" id="email" placeholder="you@example.com" required />
+
+            <div class="form-group" style="margin-bottom:1.25rem;">
+              <label for="email" style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:0.4rem;">Email address</label>
+              <div class="input-wrap" style="position:relative;">
+                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);color:var(--text-muted);"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <input type="email" id="email" placeholder="you@example.com" required style="width:100%;padding:0.65rem 0.85rem 0.65rem 2.4rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:0.875rem;outline:none;" />
+              </div>
             </div>
-            <div class="form-group">
-              <label>Password</label>
-              <input type="password" id="password" placeholder="Min 6 characters" required />
+
+            <div class="form-group" style="margin-bottom:1.5rem;">
+              <label for="password" style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:0.4rem;">Password</label>
+              <div class="input-wrap" style="position:relative;">
+                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);color:var(--text-muted);"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+                <input type="password" id="password" placeholder="Min 6 characters" required style="width:100%;padding:0.65rem 2.4rem 0.65rem 2.4rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:0.875rem;outline:none;" />
+                <button type="button" class="toggle-pw" id="togglePw" tabindex="-1" style="position:absolute;right:0.75rem;top:50%;transform:translateY(-50%);background:none;border:none;color:var(--text-muted);cursor:pointer;padding:0;">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </button>
+              </div>
             </div>
-            <button type="submit" class="btn btn-primary auth-submit" id="submit">Create Account</button>
+
+            <button type="submit" class="btn btn-primary auth-submit" id="submit" style="width:100%;padding:0.75rem;font-weight:700;font-size:0.9rem;">Create Account</button>
           </form>
+
+          <div class="auth-divider" style="text-align:center;margin:1.5rem 0;position:relative;border-bottom:1px solid var(--border);"><span style="position:relative;top:0.6rem;background:var(--bg-primary);padding:0 0.75rem;font-size:0.75rem;color:var(--text-muted);">or sign up with</span></div>
+
+          <div class="auth-socials" style="display:flex;gap:0.75rem;margin-top:1.25rem;">
+            <button class="social-btn" id="btnGoogleSignup" type="button" style="flex:1;padding:0.6rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:0.85rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.5rem;">
+              <svg width="18" height="18" viewBox="0 0 24 24"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>
+              Google
+            </button>
+            <button class="social-btn" id="btnGithubSignup" type="button" style="flex:1;padding:0.6rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:0.85rem;font-weight:600;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:0.5rem;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+              GitHub
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -882,38 +1098,78 @@ export function renderSignup() {
 }
 
 export function initSignup() {
+  document.getElementById('togglePw')?.addEventListener('click', () => {
+    const pw = document.getElementById('password');
+    if (pw) pw.type = pw.type === 'password' ? 'text' : 'password';
+  });
+
   document.getElementById("signupForm")?.addEventListener("submit", async (e) => {
     e.preventDefault();
     const name = document.getElementById("fullname").value.trim();
     const email = document.getElementById("email").value.trim();
     const password = document.getElementById("password").value.trim();
-    if (!name || !email || !password) return alert("Please fill in all fields!");
+    const submitBtn = document.getElementById("submit");
+
+    if (!name || !email || !password) return alert("Please fill in all required fields!");
+
+    if (submitBtn) {
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Creating Account...";
+    }
 
     try {
       const u = await signupEmail(name, email, password);
-      alert(`Account created! Welcome, ${name}!`);
+      alert(`Account created! Welcome to Arankerzz, ${name}!`);
       window.location.hash = "#learn";
     } catch (err) {
       alert(getFriendlyErrorMessage(err));
+    } finally {
+      if (submitBtn) {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Create Account";
+      }
+    }
+  });
+
+  document.getElementById("btnGoogleSignup")?.addEventListener("click", async () => {
+    try {
+      const u = await loginGoogle();
+      alert(`Welcome to Arankerzz, ${u.displayName || u.email}!`);
+      window.location.hash = "#learn";
+    } catch (err) {
+      if (err.code !== 'auth/popup-closed-by-user') alert(getFriendlyErrorMessage(err));
+    }
+  });
+
+  document.getElementById("btnGithubSignup")?.addEventListener("click", async () => {
+    try {
+      const u = await loginGithub();
+      alert(`Welcome to Arankerzz, ${u.displayName || u.email}!`);
+      window.location.hash = "#learn";
+    } catch (err) {
+      if (err.code !== 'auth/popup-closed-by-user') alert(getFriendlyErrorMessage(err));
     }
   });
 }
 
 export function renderResetPW() {
   return `
-    <div class="auth-body" style="min-height:70vh;">
-      <div class="auth-panel" style="max-width:440px;margin:3rem auto;width:100%;">
+    <div class="auth-body" style="display:flex;width:100%;min-height:calc(100vh - 60px);background:var(--bg-primary);align-items:center;justify-content:center;padding:3rem 1.5rem;">
+      <div class="auth-panel" style="max-width:440px;width:100%;">
         <div class="auth-form-wrap">
           <div class="auth-header">
             <h1>Reset Password</h1>
             <p>Enter your email to receive a reset link.</p>
           </div>
           <form class="auth-form" id="resetForm">
-            <div class="form-group">
-              <label>Email address</label>
-              <input type="email" id="email" placeholder="you@example.com" required />
+            <div class="form-group" style="margin-bottom:1.25rem;">
+              <label for="email" style="display:block;font-size:0.82rem;font-weight:600;margin-bottom:0.4rem;">Email address</label>
+              <div class="input-wrap" style="position:relative;">
+                <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="position:absolute;left:0.75rem;top:50%;transform:translateY(-50%);color:var(--text-muted);"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                <input type="email" id="email" placeholder="you@example.com" required style="width:100%;padding:0.65rem 0.85rem 0.65rem 2.4rem;background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius-sm);color:var(--text-primary);font-size:0.875rem;outline:none;" />
+              </div>
             </div>
-            <button type="submit" class="btn btn-primary auth-submit">Send Reset Link</button>
+            <button type="submit" class="btn btn-primary auth-submit" style="width:100%;padding:0.75rem;font-weight:700;">Send Reset Link</button>
           </form>
         </div>
       </div>
