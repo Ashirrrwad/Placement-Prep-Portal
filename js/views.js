@@ -804,21 +804,57 @@ export function renderCertPython() {
 // ════════════════════════════════════════════════════════════
 export function renderDSAHub() {
   return `
-    <section class="dsa-hero">
-      <span class="section-label">📚 Topic Library</span>
+    <section class="dsa-hero" style="text-align:center;padding:3rem 1.5rem 2rem;">
+      <span class="section-label">📚 Concept & Problem Library</span>
       <h1>Data Structures & <span class="gradient-text">Algorithms</span></h1>
-      <p>Pick a topic track below to view and solve curated problems.</p>
+      <p style="max-width:640px;margin:0.5rem auto 1.5rem;">Pick a topic track below to open comprehensive study notes, complexity analysis, and interactive code playgrounds.</p>
     </section>
-    <section class="dsa-grid-section">
-      <div class="dsa-topics-grid">
-        <a href="#topic-arrays" class="dsa-topic-card" style="text-decoration:none;--card-accent:#ffa116;">📌 Arrays</a>
-        <a href="#topic-linkedlist" class="dsa-topic-card" style="text-decoration:none;--card-accent:#3b82f6;">🔗 Linked Lists</a>
-        <a href="#topic-binarytrees" class="dsa-topic-card" style="text-decoration:none;--card-accent:#2cbb5d;">🌳 Binary Trees</a>
-        <a href="#topic-graphs" class="dsa-topic-card" style="text-decoration:none;--card-accent:#a78bfa;">🔵 Graphs</a>
-        <a href="#topic-dynamicprogramming" class="dsa-topic-card" style="text-decoration:none;--card-accent:#fbbf24;">💡 Dynamic Programming</a>
-        <a href="#topic-stacks&queues" class="dsa-topic-card" style="text-decoration:none;--card-accent:#ef4743;">📦 Stacks & Queues</a>
-        <a href="#topic-strings" class="dsa-topic-card" style="text-decoration:none;--card-accent:#06b6d4;">📝 Strings</a>
-        <a href="#topic-heaps" class="dsa-topic-card" style="text-decoration:none;--card-accent:#10b981;">⛰️ Heaps</a>
+    <section class="dsa-grid-section" style="max-width:1100px;margin:0 auto;padding:0 1.5rem 4rem;">
+      <div class="dsa-topics-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:1rem;">
+        <div class="dsa-topic-card card" style="display:flex;flex-direction:column;gap:0.75rem;padding:1.25rem;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--bg-card);">
+          <div style="font-size:1.5rem;">📌 Arrays & Two Pointers</div>
+          <p style="font-size:0.82rem;color:var(--text-secondary);flex:1;">Contiguous memory, sliding window pattern, Kadane's algorithm, and 2-pointer searching.</p>
+          <div style="display:flex;gap:0.5rem;">
+            <a href="#topic-arrays" class="btn btn-secondary" style="flex:1;padding:0.4rem;font-size:0.78rem;text-align:center;text-decoration:none;">Problems</a>
+            <button class="btn btn-primary open-study-btn" href="arrays" style="flex:1;padding:0.4rem;font-size:0.78rem;text-align:center;">📖 Study Notes</button>
+          </div>
+        </div>
+
+        <div class="dsa-topic-card card" style="display:flex;flex-direction:column;gap:0.75rem;padding:1.25rem;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--bg-card);">
+          <div style="font-size:1.5rem;">🔗 Linked Lists</div>
+          <p style="font-size:0.82rem;color:var(--text-secondary);flex:1;">Singly & Doubly Linked Lists, Fast & Slow pointers (Floyd's Cycle), LRU Cache.</p>
+          <div style="display:flex;gap:0.5rem;">
+            <a href="#topic-linkedlist" class="btn btn-secondary" style="flex:1;padding:0.4rem;font-size:0.78rem;text-align:center;text-decoration:none;">Problems</a>
+            <button class="btn btn-primary open-study-btn" href="linkedlist" style="flex:1;padding:0.4rem;font-size:0.78rem;text-align:center;">📖 Study Notes</button>
+          </div>
+        </div>
+
+        <div class="dsa-topic-card card" style="display:flex;flex-direction:column;gap:0.75rem;padding:1.25rem;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--bg-card);">
+          <div style="font-size:1.5rem;">🌳 Trees & BST</div>
+          <p style="font-size:0.82rem;color:var(--text-secondary);flex:1;">Inorder, Preorder, Postorder, Level Order BFS, LCA, and BST Validation.</p>
+          <div style="display:flex;gap:0.5rem;">
+            <a href="#topic-binarytrees" class="btn btn-secondary" style="flex:1;padding:0.4rem;font-size:0.78rem;text-align:center;text-decoration:none;">Problems</a>
+            <button class="btn btn-primary open-study-btn" href="binarytrees" style="flex:1;padding:0.4rem;font-size:0.78rem;text-align:center;">📖 Study Notes</button>
+          </div>
+        </div>
+
+        <div class="dsa-topic-card card" style="display:flex;flex-direction:column;gap:0.75rem;padding:1.25rem;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--bg-card);">
+          <div style="font-size:1.5rem;">🔵 Graphs</div>
+          <p style="font-size:0.82rem;color:var(--text-secondary);flex:1;">BFS & DFS traversals, Dijkstra's shortest path, Topological Sort, MST.</p>
+          <div style="display:flex;gap:0.5rem;">
+            <a href="#topic-graphs" class="btn btn-secondary" style="flex:1;padding:0.4rem;font-size:0.78rem;text-align:center;text-decoration:none;">Problems</a>
+            <button class="btn btn-primary open-study-btn" href="graphs" style="flex:1;padding:0.4rem;font-size:0.78rem;text-align:center;">📖 Study Notes</button>
+          </div>
+        </div>
+
+        <div class="dsa-topic-card card" style="display:flex;flex-direction:column;gap:0.75rem;padding:1.25rem;border:1px solid var(--border);border-radius:var(--radius-md);background:var(--bg-card);">
+          <div style="font-size:1.5rem;">⚙️ CS Core (OS, DBMS, Networks)</div>
+          <p style="font-size:0.82rem;color:var(--text-secondary);flex:1;">Process vs Thread, Deadlocks, SQL Joins, ACID properties, TCP/IP OSI model.</p>
+          <div style="display:flex;gap:0.5rem;">
+            <a href="#quiz" class="btn btn-secondary" style="flex:1;padding:0.4rem;font-size:0.78rem;text-align:center;text-decoration:none;">MCQ Quiz</a>
+            <button class="btn btn-primary open-study-btn" href="os_dbms_networks" style="flex:1;padding:0.4rem;font-size:0.78rem;text-align:center;">📖 Theory Notes</button>
+          </div>
+        </div>
       </div>
     </section>
   `;
@@ -828,28 +864,68 @@ export function renderDSAHub() {
 // 9. TOPIC TRACKER VIEW (#topic-name)
 // ════════════════════════════════════════════════════════════
 export function renderTopicTracker(topicName) {
+  const topicKey = topicName.toLowerCase();
+
   return `
-    <div class="topic-hero">
+    <div class="topic-hero" style="max-width:1100px;margin:2rem auto 1.5rem;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;">
       <div class="topic-hero-left">
-        <h1>Topic: <span class="gradient-text">${topicName.toUpperCase()}</span></h1>
-        <p>Track your progress and solve curated problems for ${topicName}.</p>
+        <span class="badge badge-easy" style="text-transform:uppercase;">Topic Track</span>
+        <h1 style="font-size:2rem;margin-top:0.3rem;">${topicName.toUpperCase()}</h1>
+        <p style="color:var(--text-secondary);">Master problems and study core patterns for ${topicName}.</p>
       </div>
+      <button class="btn btn-primary open-study-btn" href="${topicKey}" style="display:flex;align-items:center;gap:0.5rem;padding:0.6rem 1.1rem;">
+        📖 Read Study Guide Notes
+      </button>
     </div>
-    <div class="topic-main">
+
+    <div class="topic-main" style="max-width:1100px;margin:0 auto;padding:0 1.5rem 4rem;">
       <div class="problem-table-wrap">
-        <table class="prob-table">
+        <table class="problem-table">
           <thead>
-            <tr><th>Status</th><th>#</th><th>Problem Title</th><th>Difficulty</th></tr>
+            <tr>
+              <th class="col-status">Status</th>
+              <th>Problem Title</th>
+              <th>Difficulty</th>
+              <th>Acceptance</th>
+              <th>Action</th>
+            </tr>
           </thead>
           <tbody>
-            <tr class="prob-row"><td><input type="checkbox" class="prob-check" /></td><td class="prob-num">01</td><td>Sample ${topicName} Problem 1</td><td><span class="badge diff-easy">Easy</span></td></tr>
-            <tr class="prob-row"><td><input type="checkbox" class="prob-check" /></td><td class="prob-num">02</td><td>Sample ${topicName} Problem 2</td><td><span class="badge diff-medium">Medium</span></td></tr>
+            <tr class="problem-row">
+              <td class="col-status"><span class="text-green">✓</span></td>
+              <td><a href="#" class="problem-link prob-card-btn" data-probid="1">Two Sum</a></td>
+              <td><span class="badge badge-easy">Easy</span></td>
+              <td class="col-acceptance">52.4%</td>
+              <td><button class="btn btn-secondary prob-card-btn" data-probid="1" style="padding:0.3rem 0.65rem;font-size:0.78rem;">Solve in Playground</button></td>
+            </tr>
+            <tr class="problem-row">
+              <td class="col-status"><span style="color:var(--text-muted)">-</span></td>
+              <td><a href="#" class="problem-link prob-card-btn" data-probid="2">Reverse Linked List</a></td>
+              <td><span class="badge badge-easy">Easy</span></td>
+              <td class="col-acceptance">74.1%</td>
+              <td><button class="btn btn-secondary prob-card-btn" data-probid="2" style="padding:0.3rem 0.65rem;font-size:0.78rem;">Solve in Playground</button></td>
+            </tr>
+            <tr class="problem-row">
+              <td class="col-status"><span style="color:var(--text-muted)">-</span></td>
+              <td><a href="#" class="problem-link prob-card-btn" data-probid="1">Maximum Subarray (Kadane's)</a></td>
+              <td><span class="badge badge-medium">Medium</span></td>
+              <td class="col-acceptance">49.8%</td>
+              <td><button class="btn btn-secondary prob-card-btn" data-probid="1" style="padding:0.3rem 0.65rem;font-size:0.78rem;">Solve in Playground</button></td>
+            </tr>
+            <tr class="problem-row">
+              <td class="col-status"><span style="color:var(--text-muted)">-</span></td>
+              <td><a href="#" class="problem-link prob-card-btn" data-probid="2">Lowest Common Ancestor in BST</a></td>
+              <td><span class="badge badge-medium">Medium</span></td>
+              <td class="col-acceptance">61.2%</td>
+              <td><button class="btn btn-secondary prob-card-btn" data-probid="2" style="padding:0.3rem 0.65rem;font-size:0.78rem;">Solve in Playground</button></td>
+            </tr>
           </tbody>
         </table>
       </div>
     </div>
   `;
 }
+
 
 // ════════════════════════════════════════════════════════════
 // 10. AUTH VIEWS (#login, #signup, #resetPW)
