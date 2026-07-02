@@ -4,295 +4,50 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Arankerzz — Placement Prep Portal</title>
-  <meta name="description" content="Arankerzz is a premium placement preparation portal to help you master DSA, ace interviews, and land your dream job. Inspired by LeetCode." />
+  <meta name="description" content="Arankerzz is a premium placement preparation portal to help you master DSA, ace interviews, and land your dream job." />
+
+  <!-- Stylesheets for all SPA views -->
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/index.css" />
+  <link rel="stylesheet" href="css/login.css" />
+  <link rel="stylesheet" href="css/signup.css" />
+  <link rel="stylesheet" href="css/practice.css" />
+  <link rel="stylesheet" href="css/learning.css" />
+  <link rel="stylesheet" href="css/resources.css" />
+  <link rel="stylesheet" href="css/topic-page.css" />
 </head>
 <body>
 
-  <!-- ── NAVBAR ── -->
+  <!-- ── NAVBAR HEADER ── -->
   <header class="navbar" id="navbar">
     <div class="nav-left">
-      <div class="nav-logo-mark">A</div>
-      <span class="nav-logo-text">Arankerzz</span>
+      <a href="#home" style="text-decoration:none;display:flex;align-items:center;gap:0.5rem;">
+        <div class="nav-logo-mark">A</div>
+        <span class="nav-logo-text">Arankerzz</span>
+      </a>
     </div>
 
     <nav>
       <ul class="nav-links">
-        <li><a href="index.html" class="active">Home</a></li>
-        <li><a href="practice.html">Problems</a></li>
-        <li><a href="learning.html">Learn</a></li>
-        <li><a href="resource.html">Resources</a></li>
+        <li><a href="#home" class="active">Home</a></li>
+        <li><a href="#problems">Problems</a></li>
+        <li><a href="#learn">Learn</a></li>
+        <li><a href="#resources">Resources</a></li>
+        <li><a href="#quiz">Quiz Arena</a></li>
       </ul>
     </nav>
 
-    <div class="nav-right">
-      <button class="nav-btn nav-btn-ghost" onclick="window.location.href='login.html'">Sign In</button>
-      <button class="nav-btn nav-btn-primary" onclick="window.location.href='signup.html'">Get Started</button>
+    <!-- Dynamic Auth Container -->
+    <div class="nav-right" id="navAuthRight">
+      <a href="#login" class="nav-btn nav-btn-ghost" style="text-decoration:none;">Sign In</a>
+      <a href="#signup" class="nav-btn nav-btn-primary" style="text-decoration:none;">Get Started</a>
     </div>
   </header>
 
-  <!-- ── HERO SECTION ── -->
-  <section class="hero" id="hero">
-    <!-- Animated background grid -->
-    <div class="hero-grid-bg"></div>
-    <!-- Glowing orbs -->
-    <div class="hero-orb orb-1"></div>
-    <div class="hero-orb orb-2"></div>
-    <div class="hero-orb orb-3"></div>
+  <!-- ── MAIN SPA CONTAINER ── -->
+  <main id="app-root"></main>
 
-    <div class="hero-content">
-      <div class="hero-badge">
-        <span class="hero-badge-dot"></span>
-        <span>1M+ Problems Solved Worldwide</span>
-      </div>
-
-      <h1 class="hero-title">
-        Skills speak<br>
-        <span class="gradient-text">louder than words</span>
-      </h1>
-
-      <p class="hero-subtitle">
-        Master Data Structures & Algorithms, ace your technical interviews,
-        and land offers at top tech companies — all in one place.
-      </p>
-
-      <div class="hero-actions">
-        <button class="btn btn-primary hero-cta" onclick="window.location.href='signup.html'">
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
-          Start for Free
-        </button>
-        <button class="btn btn-secondary" onclick="window.location.href='practice.html'">
-          Browse Problems
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-      </div>
-
-      <!-- Inline Stats -->
-      <div class="hero-stats">
-        <div class="hero-stat">
-          <span class="hero-stat-num" data-target="2500">0</span><span>+</span>
-          <span class="hero-stat-label">Problems</span>
-        </div>
-        <div class="hero-stat-divider"></div>
-        <div class="hero-stat">
-          <span class="hero-stat-num" data-target="150">0</span><span>+</span>
-          <span class="hero-stat-label">Companies</span>
-        </div>
-        <div class="hero-stat-divider"></div>
-        <div class="hero-stat">
-          <span class="hero-stat-num" data-target="40">0</span><span>%</span>
-          <span class="hero-stat-label">Devs use us</span>
-        </div>
-      </div>
-    </div>
-
-    <!-- Interactive Challenge Widget -->
-    <div class="hero-challenge-card" id="challengeCard">
-      <div class="challenge-card-header">
-        <div class="challenge-meta">
-          <span class="challenge-label">🎯 Daily Challenge</span>
-          <div class="challenge-badges">
-            <span class="badge badge-medium" id="challengeDifficulty">Medium</span>
-            <span class="challenge-topic" id="challengeTopic">Arrays</span>
-          </div>
-        </div>
-        <div class="challenge-progress">
-          <span id="challengeCounter">1 / 4</span>
-        </div>
-      </div>
-
-      <div class="challenge-question-wrap">
-        <p class="challenge-question" id="challengeQuestion">Loading...</p>
-      </div>
-
-      <div class="challenge-options" id="challengeOptions">
-        <!-- Options injected by JS -->
-      </div>
-
-      <div class="challenge-footer">
-        <div class="challenge-feedback" id="challengeFeedback"></div>
-        <button class="challenge-next-btn" id="challengeNextBtn" style="display:none;" onclick="nextChallenge()">
-          Next Challenge
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-      </div>
-
-      <div class="challenge-progress-bar">
-        <div class="challenge-progress-fill" id="challengeProgressFill" style="width:25%"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── FEATURES SECTION ── -->
-  <section class="section features-section" id="features">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">What We Offer</span>
-        <h2>Everything you need to <span class="gradient-text">ace placements</span></h2>
-        <p>A comprehensive platform built by engineers, for engineers preparing for top companies.</p>
-      </div>
-
-      <div class="features-grid">
-        <a href="practice.html" class="feature-card card glow-ring">
-          <div class="feature-icon" style="background: var(--orange-bg);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/></svg>
-          </div>
-          <h3>Coding Practice</h3>
-          <p>2500+ problems with LeetCode-style difficulty ratings — Easy, Medium, Hard.</p>
-          <span class="feature-tag">Problems →</span>
-        </a>
-
-        <a href="learning.html" class="feature-card card glow-ring">
-          <div class="feature-icon" style="background: var(--blue-bg);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
-          </div>
-          <h3>Structured Learning</h3>
-          <p>Topic-wise study plans for DSA, System Design, and language fundamentals.</p>
-          <span class="feature-tag" style="color:var(--blue)">Learn More →</span>
-        </a>
-
-        <a href="learning.html" class="feature-card card glow-ring">
-          <div class="feature-icon" style="background: var(--green-bg);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
-          </div>
-          <h3>Certifications</h3>
-          <p>Earn skill certificates in Problem Solving, Python, Java and more to stand out.</p>
-          <span class="feature-tag" style="color:var(--green)">Get Certified →</span>
-        </a>
-
-        <a href="practice.html" class="feature-card card glow-ring">
-          <div class="feature-icon" style="background: rgba(167,139,250,0.12);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#a78bfa" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-          </div>
-          <h3>Mock Interviews</h3>
-          <p>Simulate real interviews with curated company-specific question sets and MCQs.</p>
-          <span class="feature-tag" style="color:#a78bfa">Start Interview →</span>
-        </a>
-
-        <a href="resource.html" class="feature-card card glow-ring">
-          <div class="feature-icon" style="background: rgba(239,71,67,0.12);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--red)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          </div>
-          <h3>Resume Building</h3>
-          <p>Templates, guides, and LinkedIn tips to make your profile stand out to recruiters.</p>
-          <span class="feature-tag" style="color:var(--red)">View Resources →</span>
-        </a>
-
-        <a href="practice.html" class="feature-card card glow-ring">
-          <div class="feature-icon" style="background: rgba(251,191,36,0.12);">
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#fbbf24" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-          </div>
-          <h3>Aptitude & Quizzes</h3>
-          <p>Sharpen your quantitative, logical, and verbal reasoning with timed practice sessions.</p>
-          <span class="feature-tag" style="color:#fbbf24">Take Quiz →</span>
-        </a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── STATS SECTION ── -->
-  <section class="stats-section">
-    <div class="container">
-      <div class="stats-bar">
-        <div class="stats-item">
-          <div class="stats-num">2,500+</div>
-          <div class="stats-label">Coding Problems</div>
-        </div>
-        <div class="stats-sep"></div>
-        <div class="stats-item">
-          <div class="stats-num">150+</div>
-          <div class="stats-label">Companies Covered</div>
-        </div>
-        <div class="stats-sep"></div>
-        <div class="stats-item">
-          <div class="stats-num">50K+</div>
-          <div class="stats-label">Active Learners</div>
-        </div>
-        <div class="stats-sep"></div>
-        <div class="stats-item">
-          <div class="stats-num">92%</div>
-          <div class="stats-label">Placement Rate</div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TOPICS SECTION ── -->
-  <section class="section topics-section" id="topics">
-    <div class="container">
-      <div class="section-header">
-        <span class="section-label">Topic Coverage</span>
-        <h2>Prepare by <span class="gradient-text">topic</span></h2>
-        <p>Structured paths for every concept you'll encounter in placement drives.</p>
-      </div>
-
-      <div class="topics-grid">
-        <a href="learning.html" class="topic-chip"><span>🧮</span> Arrays</a>
-        <a href="learning.html" class="topic-chip"><span>🔗</span> Linked Lists</a>
-        <a href="learning.html" class="topic-chip"><span>🌳</span> Trees</a>
-        <a href="learning.html" class="topic-chip"><span>📊</span> Graphs</a>
-        <a href="learning.html" class="topic-chip"><span>⚡</span> Dynamic Programming</a>
-        <a href="learning.html" class="topic-chip"><span>🔍</span> Searching & Sorting</a>
-        <a href="learning.html" class="topic-chip"><span>📌</span> Algorithms</a>
-        <a href="learning.html" class="topic-chip"><span>🪣</span> Stacks & Queues</a>
-        <a href="learning.html" class="topic-chip"><span>💡</span> Bit Manipulation</a>
-        <a href="learning.html" class="topic-chip"><span>🐍</span> Python</a>
-        <a href="learning.html" class="topic-chip"><span>☕</span> Java</a>
-        <a href="learning.html" class="topic-chip"><span>⚙️</span> C++</a>
-        <a href="learning.html" class="topic-chip"><span>🔢</span> SQL</a>
-        <a href="learning.html" class="topic-chip"><span>⚛️</span> ReactJS</a>
-        <a href="learning.html" class="topic-chip"><span>🤖</span> AI / ML</a>
-        <a href="learning.html" class="topic-chip"><span>📐</span> System Design</a>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── TRUSTED BY SECTION ── -->
-  <section class="section trusted-section" id="companies">
-    <div class="container">
-      <p class="trusted-label">Trusted by developers hired at</p>
-      <div class="logos-marquee">
-        <div class="logos-track">
-          <div class="logo-item"><img src="assets/airbnb.png" alt="Airbnb"><span>Airbnb</span></div>
-          <div class="logo-item"><img src="assets/stripe.png" alt="Stripe"><span>Stripe</span></div>
-          <div class="logo-item"><img src="assets/linkedin-logo.webp" alt="LinkedIn"><span>LinkedIn</span></div>
-          <div class="logo-item"><img src="assets/Atlassian-Logo.png" alt="Atlassian"><span>Atlassian</span></div>
-          <div class="logo-item"><img src="assets/ibm.png" alt="IBM"><span>IBM</span></div>
-          <div class="logo-item"><img src="assets/doordash.png" alt="DoorDash"><span>DoorDash</span></div>
-          <div class="logo-item"><img src="assets/insta.jpeg" alt="Instagram"><span>Instagram</span></div>
-          <!-- Duplicate for seamless loop -->
-          <div class="logo-item"><img src="assets/airbnb.png" alt="Airbnb"><span>Airbnb</span></div>
-          <div class="logo-item"><img src="assets/stripe.png" alt="Stripe"><span>Stripe</span></div>
-          <div class="logo-item"><img src="assets/linkedin-logo.webp" alt="LinkedIn"><span>LinkedIn</span></div>
-          <div class="logo-item"><img src="assets/Atlassian-Logo.png" alt="Atlassian"><span>Atlassian</span></div>
-          <div class="logo-item"><img src="assets/ibm.png" alt="IBM"><span>IBM</span></div>
-          <div class="logo-item"><img src="assets/doordash.png" alt="DoorDash"><span>DoorDash</span></div>
-          <div class="logo-item"><img src="assets/insta.jpeg" alt="Instagram"><span>Instagram</span></div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── CTA SECTION ── -->
-  <section class="section cta-section">
-    <div class="cta-inner">
-      <div class="cta-orb"></div>
-      <span class="section-label">Join Today</span>
-      <h2>Ready to land your <span class="gradient-text">dream job?</span></h2>
-      <p>Join 50,000+ students who are already preparing with Arankerzz.</p>
-      <div class="cta-actions">
-        <button class="btn btn-primary" onclick="window.location.href='signup.html'">
-          Create Free Account
-        </button>
-        <button class="btn btn-secondary" onclick="window.location.href='login.html'">
-          Sign In
-        </button>
-      </div>
-    </div>
-  </section>
-
-  <!-- ── FOOTER ── -->
+  <!-- ── GLOBAL FOOTER ── -->
   <footer class="site-footer">
     <div class="container footer-inner">
       <div class="footer-brand">
@@ -305,14 +60,15 @@
       <div class="footer-links">
         <div class="footer-col">
           <h4>Platform</h4>
-          <a href="practice.html">Problems</a>
-          <a href="learning.html">Learn</a>
-          <a href="resource.html">Resources</a>
+          <a href="#problems">Problems</a>
+          <a href="#learn">Learn</a>
+          <a href="#resources">Resources</a>
+          <a href="#quiz">Quiz Arena</a>
         </div>
         <div class="footer-col">
           <h4>Account</h4>
-          <a href="login.html">Sign In</a>
-          <a href="signup.html">Register</a>
+          <a href="#login">Sign In</a>
+          <a href="#signup">Register</a>
         </div>
       </div>
     </div>
@@ -321,139 +77,9 @@
     </div>
   </footer>
 
-  <script src="js/script.js"></script>
-  <script>
-    // ── Animated counter ──
-    const counters = document.querySelectorAll('.hero-stat-num');
-    const observerOpts = { threshold: 0.5 };
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const el = entry.target;
-          const target = parseInt(el.dataset.target);
-          let current = 0;
-          const step = Math.ceil(target / 60);
-          const timer = setInterval(() => {
-            current = Math.min(current + step, target);
-            el.textContent = current.toLocaleString();
-            if (current >= target) clearInterval(timer);
-          }, 20);
-          observer.unobserve(el);
-        }
-      });
-    }, observerOpts);
-    counters.forEach(c => observer.observe(c));
-
-    // ── Interactive Challenge Widget ──
-    const challenges = [
-      {
-        q: "What is the time complexity of searching in a balanced Binary Search Tree?",
-        topic: "Trees",
-        difficulty: "easy",
-        options: ["O(1)", "O(log n)", "O(n)", "O(n log n)"],
-        correct: 1,
-        explanation: "BST search halves the search space each step → O(log n)"
-      },
-      {
-        q: "Which data structure is used for BFS (Breadth-First Search)?",
-        topic: "Graphs",
-        difficulty: "easy",
-        options: ["Stack", "Heap", "Queue", "Linked List"],
-        correct: 2,
-        explanation: "BFS processes nodes level by level using a Queue (FIFO)"
-      },
-      {
-        q: "What is the worst-case time complexity of QuickSort?",
-        topic: "Sorting",
-        difficulty: "medium",
-        options: ["O(n)", "O(n log n)", "O(n²)", "O(log n)"],
-        correct: 2,
-        explanation: "When the pivot is always the smallest/largest — O(n²). Average is O(n log n)"
-      },
-      {
-        q: "In Dynamic Programming, what technique stores results of already-solved sub-problems?",
-        topic: "DP",
-        difficulty: "medium",
-        options: ["Recursion", "Memoization", "Backtracking", "Greedy"],
-        correct: 1,
-        explanation: "Memoization caches sub-problem results to avoid redundant computation"
-      }
-    ];
-
-    let currentChallenge = 0;
-    let answered = false;
-    const diffColors = { easy: 'badge-easy', medium: 'badge-medium', hard: 'badge-hard' };
-
-    function loadChallenge(index) {
-      const c = challenges[index];
-      answered = false;
-
-      document.getElementById('challengeQuestion').textContent = c.q;
-      document.getElementById('challengeDifficulty').textContent = c.difficulty.charAt(0).toUpperCase() + c.difficulty.slice(1);
-      document.getElementById('challengeDifficulty').className = 'badge ' + diffColors[c.difficulty];
-      document.getElementById('challengeTopic').textContent = c.topic;
-      document.getElementById('challengeCounter').textContent = (index + 1) + ' / ' + challenges.length;
-      document.getElementById('challengeFeedback').innerHTML = '';
-      document.getElementById('challengeNextBtn').style.display = 'none';
-      document.getElementById('challengeProgressFill').style.width = ((index + 1) / challenges.length * 100) + '%';
-
-      const optWrap = document.getElementById('challengeOptions');
-      optWrap.innerHTML = c.options.map((opt, i) =>
-        `<button class="challenge-opt" onclick="selectAnswer(${i})" id="opt-${i}">${String.fromCharCode(65+i)}. ${opt}</button>`
-      ).join('');
-    }
-
-    function selectAnswer(chosen) {
-      if (answered) return;
-      answered = true;
-      const c = challenges[currentChallenge];
-      const buttons = document.querySelectorAll('.challenge-opt');
-
-      buttons.forEach((btn, i) => {
-        btn.disabled = true;
-        if (i === c.correct) {
-          btn.classList.add('opt-correct');
-        } else if (i === chosen && chosen !== c.correct) {
-          btn.classList.add('opt-wrong');
-        }
-      });
-
-      const fb = document.getElementById('challengeFeedback');
-      if (chosen === c.correct) {
-        fb.innerHTML = `<span class="fb-correct">✓ Correct! </span><span class="fb-explain">${c.explanation}</span>`;
-      } else {
-        fb.innerHTML = `<span class="fb-wrong">✗ Not quite. </span><span class="fb-explain">${c.explanation}</span>`;
-      }
-
-      const nextBtn = document.getElementById('challengeNextBtn');
-      if (currentChallenge < challenges.length - 1) {
-        nextBtn.style.display = 'flex';
-        nextBtn.textContent = '';
-        nextBtn.innerHTML = 'Next Challenge <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
-      } else {
-        nextBtn.style.display = 'flex';
-        nextBtn.innerHTML = 'Try More on Platform <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>';
-        nextBtn.onclick = () => window.location.href = 'practice.html';
-      }
-    }
-
-    function nextChallenge() {
-      currentChallenge = (currentChallenge + 1) % challenges.length;
-      // Animate out then in
-      const card = document.getElementById('challengeCard');
-      card.style.opacity = '0.4';
-      card.style.transform = 'translateX(20px)';
-      setTimeout(() => {
-        loadChallenge(currentChallenge);
-        card.style.opacity = '1';
-        card.style.transform = 'translateX(0)';
-      }, 200);
-    }
-
-    // Init
-    loadChallenge(0);
-  </script>
-<script src="js/particles.js"></script>
+  <!-- Background Particle Canvas & SPA Scripts -->
+  <script src="js/particles.js"></script>
+  <script type="module" src="js/auth.js"></script>
+  <script type="module" src="js/router.js"></script>
 </body>
 </html>
-
