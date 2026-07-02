@@ -1,271 +1,439 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CodeQuest | Arankerzz</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz Arena | Arankerzz</title>
+  <meta name="description" content="Test your knowledge with MCQ quizzes on Data Structures, Algorithms, DBMS and Networking." />
+  <link rel="stylesheet" href="css/style.css" />
   <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #f4f7fa;
-      color: #333;
-    }
-
-    .navbar {
-      background: #1e3a8a;
-      color: #fff;
-      padding: 15px;
-      text-align: center;
-      font-size: 26px;
-      font-weight: bold;
-    }
-
-    .container {
+    /* ── Quiz-specific layout ── */
+    .quiz-layout {
       display: flex;
-      flex-wrap: wrap;
-      padding: 20px;
+      min-height: calc(100vh - 60px);
     }
 
-    .sidebar {
-      flex: 1;
-      min-width: 250px;
-      background: #edf2f4;
-      padding: 20px;
-      border-right: 2px solid #ccc;
+    /* Sidebar */
+    .quiz-sidebar {
+      width: 240px;
+      flex-shrink: 0;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border);
+      padding: 1.5rem 1rem;
+      position: sticky;
+      top: 60px;
+      height: calc(100vh - 60px);
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-      height: calc(100vh - 70px); /* 70px = navbar height */
+      gap: 1.5rem;
     }
 
-    .filter-section {
-      flex-grow: 1;
+    .quiz-score-card {
+      background: linear-gradient(135deg, rgba(255,161,22,0.1), rgba(59,130,246,0.08));
+      border: 1px solid rgba(255,161,22,0.2);
+      border-radius: var(--radius-md);
+      padding: 1rem;
+      text-align: center;
     }
+    .score-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 0.3rem; }
+    .score-num   { font-size: 2rem; font-weight: 900; color: var(--accent); }
+    .score-denom { font-size: 0.85rem; color: var(--text-muted); margin-top: 0.1rem; }
 
-    .sidebar h3 {
-      margin-bottom: 10px;
-      color: #2b2d42;
-    }
+    .score-breakdown { display: flex; justify-content: space-around; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border); }
+    .score-part      { text-align: center; }
+    .score-part-num  { font-size: 1rem; font-weight: 800; }
+    .score-part-lbl  { font-size: 0.68rem; color: var(--text-muted); }
 
-    .sidebar select, .sidebar button {
+    /* Filter controls */
+    .sidebar-title  { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); margin-bottom: 0.5rem; }
+    .quiz-select {
       width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      font-size: 16px;
+      padding: 0.55rem 0.85rem;
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      font-family: 'Inter', sans-serif;
+      outline: none;
+      cursor: pointer;
+      margin-bottom: 0.6rem;
+      transition: var(--transition);
+    }
+    .quiz-select:focus { border-color: var(--accent); }
+
+    .apply-btn {
+      width: 100%;
+      padding: 0.65rem;
+      background: var(--accent);
+      color: #000;
+      border: none;
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+      font-size: 0.875rem;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    .apply-btn:hover { background: var(--accent-hover); box-shadow: var(--shadow-glow); }
+
+    .reset-score-btn {
+      width: 100%;
+      padding: 0.5rem;
+      background: transparent;
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      font-family: 'Inter', sans-serif;
+      cursor: pointer;
+      margin-top: 0.4rem;
+      transition: var(--transition);
+    }
+    .reset-score-btn:hover { color: var(--red); border-color: var(--red); }
+
+    .tip-card {
+      background: rgba(44,187,93,0.08);
+      border: 1px solid rgba(44,187,93,0.18);
+      border-radius: var(--radius-md);
+      padding: 0.85rem;
+      font-size: 0.8rem;
+      color: var(--text-secondary);
+      line-height: 1.55;
+    }
+    .tip-card strong { color: var(--green); display: block; margin-bottom: 0.3rem; }
+
+    /* Main quiz area */
+    .quiz-main {
+      flex: 1;
+      padding: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      overflow-x: hidden;
     }
 
-    .tips-section {
-      background: #d9ed92;
-      padding: 15px;
-      border-radius: 10px;
-      margin-top: 20px;
-      font-size: 14px;
-      color: #234d20;
+    .quiz-header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.5rem;
+    }
+    .quiz-header-bar h1 { font-size: 1.4rem; font-weight: 800; }
+    .question-count-badge {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 0.3rem 0.85rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
     }
 
-    .main {
-      flex: 3;
-      padding: 20px;
+    /* Question card */
+    .quiz-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+    .quiz-card::before {
+      content: '';
+      position: absolute;
+      left: 0; top: 0; bottom: 0;
+      width: 3px;
+      border-radius: 3px 0 0 3px;
+    }
+    .quiz-card.unanswered::before { background: var(--border); }
+    .quiz-card.correct-card::before { background: var(--green); }
+    .quiz-card.wrong-card::before   { background: var(--red); }
+
+    .quiz-card:hover { border-color: rgba(255,255,255,0.1); }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      margin-bottom: 0.85rem;
+    }
+    .q-num { font-size: 0.72rem; color: var(--text-muted); font-family: 'JetBrains Mono', monospace; }
+
+    .quiz-question {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.55;
+      margin-bottom: 1rem;
     }
 
-    .question-card {
-      background: white;
-      margin-bottom: 20px;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-      transition: 0.3s;
+    /* Options grid */
+    .options-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.5rem;
     }
-
-    .question-card:hover {
-      transform: translateY(-5px);
+    .opt-btn {
+      padding: 0.6rem 0.9rem;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-size: 0.82rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 500;
+      text-align: left;
+      cursor: pointer;
+      transition: all 0.18s ease;
+      line-height: 1.4;
     }
+    .opt-btn:hover:not(:disabled) { background: rgba(255,161,22,0.08); border-color: rgba(255,161,22,0.35); color: var(--text-primary); }
+    .opt-btn.opt-correct { background: rgba(44,187,93,0.12); border-color: var(--green); color: var(--green); font-weight: 600; }
+    .opt-btn.opt-wrong   { background: rgba(239,71,67,0.12);  border-color: var(--red);   color: var(--red); }
+    .opt-btn:disabled { cursor: default; }
 
-    .question-card h4 {
-      margin-bottom: 10px;
-    }
-
-    .solution {
-      margin-top: 10px;
-      padding: 10px;
-      background: #dfe6e9;
-      border-radius: 8px;
+    .card-answer {
+      margin-top: 0.85rem;
+      padding: 0.6rem 0.85rem;
+      background: var(--bg-secondary);
+      border-radius: var(--radius-sm);
+      font-size: 0.8rem;
+      line-height: 1.5;
       display: none;
+      border-left: 3px solid;
     }
+    .card-answer.show { display: block; }
+    .card-answer.ans-correct { border-color: var(--green); color: var(--green); }
+    .card-answer.ans-wrong   { border-color: var(--red); }
+    .card-answer .ans-label  { font-weight: 700; margin-right: 0.4rem; }
 
-    .answer-box {
-      margin-right: 10px;
+    /* Empty state */
+    .quiz-empty {
+      text-align: center;
+      padding: 4rem 2rem;
+      color: var(--text-muted);
     }
-
-    .correct {
-  color: green;
-  font-weight: bold;
-}
-.incorrect {
-  color: red;
-  font-weight: bold;
-}
-
-    @media(max-width: 768px) {
-      .container { flex-direction: column; }
-      .sidebar { border-right: none; border-bottom: 2px solid #ccc; height: auto; }
-    }
+    .quiz-empty h3 { font-size: 1.1rem; margin-bottom: 0.5rem; color: var(--text-secondary); }
   </style>
 </head>
 <body>
 
-<div class="navbar">
-  CodeQuest ⚡ Quiz Arena
-</div>
-
-<div class="container">
-
-  <div class="sidebar">
-    <div class="filter-section">
-      <h3>Choose Topic</h3>
-      <select id="topic">
-        <option>All</option>
-        <option>Data Structures</option>
-        <option>Algorithms</option>
-        <option>DBMS</option>
-        <option>Networking</option>
-      </select>
-
-      <h3>Choose Difficulty</h3>
-      <select id="difficulty">
-        <option>All</option>
-        <option>Beginner</option>
-        <option>Intermediate</option>
-        <option>Advanced</option>
-      </select>
-
-      <button onclick="filterQuestions()">Apply Filters</button>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.5rem;">
+        <div class="nav-logo-mark">A</div>
+        <span class="nav-logo-text">Arankerzz</span>
+      </a>
     </div>
-
-    <div class="tips-section">
-      <h4>💡 Quick Tip</h4>
-      <p>Focus on understanding the *logic* behind the answers, not just memorizing them!</p>
-      <p>Daily practice = Mastery. 🔥</p>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="practice.html">Problems</a></li>
+        <li><a href="learning.html">Learn</a></li>
+        <li><a href="resource.html">Resources</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-btn nav-btn-ghost" onclick="window.location.href='login.html'">Sign In</button>
+      <button class="nav-btn nav-btn-primary" onclick="window.location.href='signup.html'">Get Started</button>
     </div>
-  </div>
+  </header>
 
-  <div class="main" id="questionsArea">
-    <!-- MCQs will be dynamically inserted here -->
-  </div>
+  <div class="quiz-layout">
 
-</div>
+    <!-- Sidebar -->
+    <aside class="quiz-sidebar">
+      <!-- Score Card -->
+      <div class="quiz-score-card">
+        <div class="score-label">Your Score</div>
+        <div class="score-num" id="scoreNum">0</div>
+        <div class="score-denom" id="scoreDenom">out of 0 answered</div>
+        <div class="score-breakdown">
+          <div class="score-part">
+            <div class="score-part-num text-green" id="correctCount">0</div>
+            <div class="score-part-lbl">Correct</div>
+          </div>
+          <div class="score-part">
+            <div class="score-part-num text-red" id="wrongCount">0</div>
+            <div class="score-part-lbl">Wrong</div>
+          </div>
+        </div>
+      </div>
 
-<script>
-const mcqs = [
-  // ------------------ Data Structures ------------------
-  { question: "Which data structure uses LIFO (Last In First Out)?", options: ["Queue", "Stack", "Array", "Linked List"], answer: "Stack", topic: "Data Structures", difficulty: "Beginner" },
-  { question: "In a binary tree, each node has at most how many children?", options: ["1", "2", "3", "4"], answer: "2", topic: "Data Structures", difficulty: "Beginner" },
-  { question: "Which of the following is non-linear data structure?", options: ["Array", "Linked List", "Tree", "Stack"], answer: "Tree", topic: "Data Structures", difficulty: "Beginner" },
-  { question: "Which data structure is used in BFS of a graph?", options: ["Stack", "Queue", "Heap", "Set"], answer: "Queue", topic: "Data Structures", difficulty: "Intermediate" },
-  { question: "What is the time complexity of inserting at the end in a dynamic array?", options: ["O(1)", "O(n)", "O(log n)", "O(n log n)"], answer: "O(1)", topic: "Data Structures", difficulty: "Intermediate" },
-  { question: "Which structure gives faster search - Array or Hash Table?", options: ["Array", "Hash Table"], answer: "Hash Table", topic: "Data Structures", difficulty: "Intermediate" },
-  { question: "Heap is mainly used to implement which data structure?", options: ["Queue", "Priority Queue", "Stack", "Set"], answer: "Priority Queue", topic: "Data Structures", difficulty: "Intermediate" },
-  { question: "Which tree traversal gives sorted order output?", options: ["Preorder", "Inorder", "Postorder", "Level Order"], answer: "Inorder", topic: "Data Structures", difficulty: "Intermediate" },
-  { question: "What is the height of AVL Tree maintained as?", options: ["O(1)", "O(n)", "O(log n)", "O(n log n)"], answer: "O(log n)", topic: "Data Structures", difficulty: "Advanced" },
-  { question: "Which data structure is best suited for implementing recursion internally?", options: ["Queue", "Stack", "Heap", "Graph"], answer: "Stack", topic: "Data Structures", difficulty: "Advanced" },
-
-  // ------------------ Algorithms ------------------
-  { question: "What is the time complexity of binary search?", options: ["O(n)", "O(log n)", "O(n log n)", "O(1)"], answer: "O(log n)", topic: "Algorithms", difficulty: "Beginner" },
-  { question: "Which sorting algorithm is the fastest on average?", options: ["Bubble Sort", "Quick Sort", "Selection Sort", "Insertion Sort"], answer: "Quick Sort", topic: "Algorithms", difficulty: "Intermediate" },
-  { question: "Which algorithm is used for finding the shortest path in a graph?", options: ["Prim's", "Dijkstra's", "Kruskal's", "DFS"], answer: "Dijkstra's", topic: "Algorithms", difficulty: "Intermediate" },
-  { question: "Which sorting algorithm has O(n^2) worst-case complexity?", options: ["Merge Sort", "Heap Sort", "Bubble Sort", "Quick Sort"], answer: "Bubble Sort", topic: "Algorithms", difficulty: "Beginner" },
-  { question: "What approach does Dynamic Programming follow?", options: ["Divide and Conquer", "Greedy", "Backtracking", "Overlapping Subproblems"], answer: "Overlapping Subproblems", topic: "Algorithms", difficulty: "Advanced" },
-  { question: "Which algorithm technique does Kruskal’s MST algorithm use?", options: ["Greedy", "Dynamic Programming", "Backtracking", "Branch and Bound"], answer: "Greedy", topic: "Algorithms", difficulty: "Advanced" },
-  { question: "Time complexity of Merge Sort is?", options: ["O(n)", "O(n log n)", "O(log n)", "O(n^2)"], answer: "O(n log n)", topic: "Algorithms", difficulty: "Intermediate" },
-  { question: "Bellman-Ford algorithm can handle graphs with:", options: ["Only positive weights", "Negative weights", "Zero weights only", "No cycles"], answer: "Negative weights", topic: "Algorithms", difficulty: "Advanced" },
-  { question: "Which is better for large data: Merge Sort or Quick Sort?", options: ["Merge Sort", "Quick Sort"], answer: "Merge Sort", topic: "Algorithms", difficulty: "Advanced" },
-  { question: "What is the worst case time complexity for searching in a hash table?", options: ["O(1)", "O(n)", "O(log n)", "O(n log n)"], answer: "O(n)", topic: "Algorithms", difficulty: "Advanced" },
-
-  // ------------------ DBMS ------------------
-  { question: "Which normal form removes transitive dependency?", options: ["1NF", "2NF", "3NF", "BCNF"], answer: "3NF", topic: "DBMS", difficulty: "Intermediate" },
-  { question: "Which command is used to remove a table from database?", options: ["DROP", "DELETE", "REMOVE", "ERASE"], answer: "DROP", topic: "DBMS", difficulty: "Beginner" },
-  { question: "What does ACID in database stand for?", options: ["Atomicity, Consistency, Isolation, Durability", "Access, Control, Integrity, Durability", "Atomicity, Concurrency, Isolation, Distribution"], answer: "Atomicity, Consistency, Isolation, Durability", topic: "DBMS", difficulty: "Beginner" },
-  { question: "Which key uniquely identifies each record in a table?", options: ["Foreign Key", "Primary Key", "Super Key", "Candidate Key"], answer: "Primary Key", topic: "DBMS", difficulty: "Beginner" },
-  { question: "Which SQL keyword is used to sort the result-set?", options: ["ORDER", "SORT", "BY", "ORDER BY"], answer: "ORDER BY", topic: "DBMS", difficulty: "Beginner" },
-  { question: "Which JOIN returns all records when there is a match in either left or right table?", options: ["INNER JOIN", "LEFT JOIN", "RIGHT JOIN", "FULL JOIN"], answer: "FULL JOIN", topic: "DBMS", difficulty: "Intermediate" },
-  { question: "Which constraint ensures all values in a column are different?", options: ["NOT NULL", "UNIQUE", "PRIMARY KEY", "FOREIGN KEY"], answer: "UNIQUE", topic: "DBMS", difficulty: "Intermediate" },
-  { question: "What is a foreign key in DBMS?", options: ["A key that links two tables", "A primary key in another table", "A key that points to a non-existing value", "A key that holds null values"], answer: "A key that links two tables", topic: "DBMS", difficulty: "Intermediate" },
-  { question: "Which is not a type of relationship in DBMS?", options: ["One to Many", "Many to Many", "One to One", "All to All"], answer: "All to All", topic: "DBMS", difficulty: "Intermediate" },
-  { question: "Which of these SQL commands is used to retrieve data?", options: ["SELECT", "INSERT", "UPDATE", "DELETE"], answer: "SELECT", topic: "DBMS", difficulty: "Beginner" },
-
-  // ------------------ Networking ------------------
-  { question: "What does TCP stand for?", options: ["Transmission Control Protocol", "Transfer Control Protocol", "Transmission Communication Protocol", "Transport Communication Protocol"], answer: "Transmission Control Protocol", topic: "Networking", difficulty: "Beginner" },
-  { question: "Which of these is a connection-oriented protocol?", options: ["UDP", "TCP", "IP", "ICMP"], answer: "TCP", topic: "Networking", difficulty: "Intermediate" },
-  { question: "Which layer of the OSI model is responsible for routing?", options: ["Application Layer", "Network Layer", "Transport Layer", "Data Link Layer"], answer: "Network Layer", topic: "Networking", difficulty: "Intermediate" },
-  { question: "Which protocol is used for secure communication over the internet?", options: ["HTTP", "HTTPS", "FTP", "POP3"], answer: "HTTPS", topic: "Networking", difficulty: "Beginner" },
-  { question: "What is the main function of ARP?", options: ["Resolving IP addresses to MAC addresses", "Routing IP addresses", "Error correction", "Message encryption"], answer: "Resolving IP addresses to MAC addresses", topic: "Networking", difficulty: "Intermediate" },
-  { question: "What is the default port number for HTTP?", options: ["21", "80", "443", "8080"], answer: "80", topic: "Networking", difficulty: "Beginner" },
-  { question: "In the OSI model, the layer responsible for data transmission is?", options: ["Physical Layer", "Network Layer", "Transport Layer", "Data Link Layer"], answer: "Physical Layer", topic: "Networking", difficulty: "Intermediate" },
-  { question: "What is the main function of DNS?", options: ["Translation of IP to MAC address", "Translation of IP address to domain name", "Data transmission", "Routing"], answer: "Translation of IP address to domain name", topic: "Networking", difficulty: "Intermediate" },
-  { question: "Which device is used to connect different networks?", options: ["Switch", "Router", "Hub", "Bridge"], answer: "Router", topic: "Networking", difficulty: "Intermediate" },
-  { question: "What is the term for the conversion of data from one format to another?", options: ["Encapsulation", "Encryption", "Decoding", "Data Compression"], answer: "Encapsulation", topic: "Networking", difficulty: "Advanced" }
-];
-
-let filteredQuestions = mcqs; // Initially display all questions
-
-// Function to filter questions
-function filterQuestions() {
-  const topic = document.getElementById('topic').value;
-  const difficulty = document.getElementById('difficulty').value;
-
-  filteredQuestions = mcqs.filter(question => {
-    const isTopicMatch = topic === 'All' || question.topic === topic;
-    const isDifficultyMatch = difficulty === 'All' || question.difficulty === difficulty;
-    return isTopicMatch && isDifficultyMatch;
-  });
-
-  displayQuestions();
-}
-
-// Function to display questions
-function displayQuestions() {
-  const questionArea = document.getElementById('questionsArea');
-  questionArea.innerHTML = '';
-
-  filteredQuestions.forEach((question, index) => {
-    const questionCard = document.createElement('div');
-    questionCard.classList.add('question-card');
-    questionCard.innerHTML = `
-      <h4>${question.question}</h4>
+      <!-- Filters -->
       <div>
-        ${question.options.map((option, i) => `
-          <label>
-            <input type="radio" name="q${index}" value="${option}" onclick="checkAnswer(${index}, '${option}')"> ${option}
-          </label><br>
-        `).join('')}
-      </div>
-      <div class="solution">
-        <strong>Correct Answer:</strong> ${question.answer}
-      </div>
-    `;
-    questionArea.appendChild(questionCard);
-  });
-}
+        <div class="sidebar-title">Topic</div>
+        <select class="quiz-select" id="topicFilter">
+          <option value="All">All Topics</option>
+          <option value="Data Structures">Data Structures</option>
+          <option value="Algorithms">Algorithms</option>
+          <option value="DBMS">DBMS</option>
+          <option value="Networking">Networking</option>
+        </select>
 
-// Function to check answers
-function checkAnswer(index, selectedOption) {
-  const question = filteredQuestions[index];
-  const solutionDiv = document.querySelectorAll('.question-card')[index].querySelector('.solution');
+        <div class="sidebar-title" style="margin-top:0.6rem;">Difficulty</div>
+        <select class="quiz-select" id="diffFilter">
+          <option value="All">All Levels</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+        </select>
 
-  if (selectedOption === question.answer) {
-    solutionDiv.classList.remove('incorrect');
-    solutionDiv.classList.add('correct');
-  } else {
-    solutionDiv.classList.remove('correct');
-    solutionDiv.classList.add('incorrect');
+        <button class="apply-btn" onclick="applyFilters()">Apply Filters</button>
+        <button class="reset-score-btn" onclick="resetScore()">↺ Reset Score</button>
+      </div>
+
+      <!-- Tip -->
+      <div class="tip-card">
+        <strong>💡 Quick Tip</strong>
+        Focus on understanding the <em>logic</em> behind answers, not just memorizing them. Daily practice = mastery. 🔥
+      </div>
+    </aside>
+
+    <!-- Main Quiz Area -->
+    <main class="quiz-main">
+      <div class="quiz-header-bar">
+        <h1>⚡ Quiz Arena</h1>
+        <span class="question-count-badge" id="questionCountBadge">40 Questions</span>
+      </div>
+      <div id="questionsArea"></div>
+    </main>
+  </div>
+
+  <footer style="padding:1.25rem 2rem;text-align:center;border-top:1px solid var(--border);background:var(--bg-secondary);">
+    <p style="color:var(--text-muted);font-size:0.82rem;">&copy; 2025 Placement Prep Portal. All rights reserved.</p>
+  </footer>
+
+  <script>
+  const mcqs = [
+    { question: "Which data structure uses LIFO (Last In First Out)?", options: ["Queue","Stack","Array","Linked List"], answer: "Stack", topic: "Data Structures", difficulty: "Beginner" },
+    { question: "In a binary tree, each node has at most how many children?", options: ["1","2","3","4"], answer: "2", topic: "Data Structures", difficulty: "Beginner" },
+    { question: "Which of the following is a non-linear data structure?", options: ["Array","Linked List","Tree","Stack"], answer: "Tree", topic: "Data Structures", difficulty: "Beginner" },
+    { question: "Which data structure is used in BFS of a graph?", options: ["Stack","Queue","Heap","Set"], answer: "Queue", topic: "Data Structures", difficulty: "Intermediate" },
+    { question: "What is the time complexity of inserting at the end in a dynamic array?", options: ["O(1)","O(n)","O(log n)","O(n log n)"], answer: "O(1)", topic: "Data Structures", difficulty: "Intermediate" },
+    { question: "Which structure gives faster search — Array or Hash Table?", options: ["Array","Hash Table"], answer: "Hash Table", topic: "Data Structures", difficulty: "Intermediate" },
+    { question: "Heap is mainly used to implement which data structure?", options: ["Queue","Priority Queue","Stack","Set"], answer: "Priority Queue", topic: "Data Structures", difficulty: "Intermediate" },
+    { question: "Which tree traversal gives sorted order output?", options: ["Preorder","Inorder","Postorder","Level Order"], answer: "Inorder", topic: "Data Structures", difficulty: "Intermediate" },
+    { question: "What is the height of AVL Tree maintained as?", options: ["O(1)","O(n)","O(log n)","O(n log n)"], answer: "O(log n)", topic: "Data Structures", difficulty: "Advanced" },
+    { question: "Which data structure is best suited for implementing recursion internally?", options: ["Queue","Stack","Heap","Graph"], answer: "Stack", topic: "Data Structures", difficulty: "Advanced" },
+    { question: "What is the time complexity of binary search?", options: ["O(n)","O(log n)","O(n log n)","O(1)"], answer: "O(log n)", topic: "Algorithms", difficulty: "Beginner" },
+    { question: "Which sorting algorithm is the fastest on average?", options: ["Bubble Sort","Quick Sort","Selection Sort","Insertion Sort"], answer: "Quick Sort", topic: "Algorithms", difficulty: "Intermediate" },
+    { question: "Which algorithm finds the shortest path in a graph?", options: ["Prim's","Dijkstra's","Kruskal's","DFS"], answer: "Dijkstra's", topic: "Algorithms", difficulty: "Intermediate" },
+    { question: "Which sorting algorithm has O(n²) worst-case complexity?", options: ["Merge Sort","Heap Sort","Bubble Sort","Quick Sort"], answer: "Bubble Sort", topic: "Algorithms", difficulty: "Beginner" },
+    { question: "What approach does Dynamic Programming follow?", options: ["Divide and Conquer","Greedy","Backtracking","Overlapping Subproblems"], answer: "Overlapping Subproblems", topic: "Algorithms", difficulty: "Advanced" },
+    { question: "Which algorithm technique does Kruskal's MST algorithm use?", options: ["Greedy","Dynamic Programming","Backtracking","Branch and Bound"], answer: "Greedy", topic: "Algorithms", difficulty: "Advanced" },
+    { question: "Time complexity of Merge Sort is?", options: ["O(n)","O(n log n)","O(log n)","O(n²)"], answer: "O(n log n)", topic: "Algorithms", difficulty: "Intermediate" },
+    { question: "Bellman-Ford algorithm can handle graphs with:", options: ["Only positive weights","Negative weights","Zero weights only","No cycles"], answer: "Negative weights", topic: "Algorithms", difficulty: "Advanced" },
+    { question: "What is the worst case time complexity for searching in a hash table?", options: ["O(1)","O(n)","O(log n)","O(n log n)"], answer: "O(n)", topic: "Algorithms", difficulty: "Advanced" },
+    { question: "Which normal form removes transitive dependency?", options: ["1NF","2NF","3NF","BCNF"], answer: "3NF", topic: "DBMS", difficulty: "Intermediate" },
+    { question: "Which command removes a table from the database?", options: ["DROP","DELETE","REMOVE","ERASE"], answer: "DROP", topic: "DBMS", difficulty: "Beginner" },
+    { question: "What does ACID stand for?", options: ["Atomicity, Consistency, Isolation, Durability","Access, Control, Integrity, Durability","Atomicity, Concurrency, Isolation, Distribution","All of the above"], answer: "Atomicity, Consistency, Isolation, Durability", topic: "DBMS", difficulty: "Beginner" },
+    { question: "Which key uniquely identifies each record in a table?", options: ["Foreign Key","Primary Key","Super Key","Candidate Key"], answer: "Primary Key", topic: "DBMS", difficulty: "Beginner" },
+    { question: "Which SQL keyword sorts the result-set?", options: ["ORDER","SORT","BY","ORDER BY"], answer: "ORDER BY", topic: "DBMS", difficulty: "Beginner" },
+    { question: "Which JOIN returns all records when there is a match in either table?", options: ["INNER JOIN","LEFT JOIN","RIGHT JOIN","FULL JOIN"], answer: "FULL JOIN", topic: "DBMS", difficulty: "Intermediate" },
+    { question: "Which constraint ensures all values in a column are different?", options: ["NOT NULL","UNIQUE","PRIMARY KEY","FOREIGN KEY"], answer: "UNIQUE", topic: "DBMS", difficulty: "Intermediate" },
+    { question: "Which SQL command retrieves data?", options: ["SELECT","INSERT","UPDATE","DELETE"], answer: "SELECT", topic: "DBMS", difficulty: "Beginner" },
+    { question: "What does TCP stand for?", options: ["Transmission Control Protocol","Transfer Control Protocol","Transmission Communication Protocol","Transport Communication Protocol"], answer: "Transmission Control Protocol", topic: "Networking", difficulty: "Beginner" },
+    { question: "Which of these is a connection-oriented protocol?", options: ["UDP","TCP","IP","ICMP"], answer: "TCP", topic: "Networking", difficulty: "Intermediate" },
+    { question: "Which OSI layer is responsible for routing?", options: ["Application Layer","Network Layer","Transport Layer","Data Link Layer"], answer: "Network Layer", topic: "Networking", difficulty: "Intermediate" },
+    { question: "Which protocol is used for secure communication over the internet?", options: ["HTTP","HTTPS","FTP","POP3"], answer: "HTTPS", topic: "Networking", difficulty: "Beginner" },
+    { question: "What is the main function of ARP?", options: ["Resolving IP addresses to MAC addresses","Routing IP addresses","Error correction","Message encryption"], answer: "Resolving IP addresses to MAC addresses", topic: "Networking", difficulty: "Intermediate" },
+    { question: "What is the default port number for HTTP?", options: ["21","80","443","8080"], answer: "80", topic: "Networking", difficulty: "Beginner" },
+    { question: "What is the main function of DNS?", options: ["Translation of IP to MAC address","Translation of domain name to IP address","Data transmission","Routing"], answer: "Translation of domain name to IP address", topic: "Networking", difficulty: "Intermediate" },
+    { question: "Which device connects different networks?", options: ["Switch","Router","Hub","Bridge"], answer: "Router", topic: "Networking", difficulty: "Intermediate" },
+    { question: "The OSI model has how many layers?", options: ["4","5","6","7"], answer: "7", topic: "Networking", difficulty: "Beginner" },
+    { question: "Which layer of OSI model is responsible for end-to-end communication?", options: ["Network Layer","Transport Layer","Session Layer","Data Link Layer"], answer: "Transport Layer", topic: "Networking", difficulty: "Intermediate" },
+    { question: "What is the purpose of a subnet mask?", options: ["Identify the network portion of IP","Encrypt data","Route packets","Connect devices"], answer: "Identify the network portion of IP", topic: "Networking", difficulty: "Advanced" },
+    { question: "Which protocol sends email?", options: ["POP3","SMTP","IMAP","FTP"], answer: "SMTP", topic: "Networking", difficulty: "Intermediate" },
+    { question: "Which class of IP address supports the most hosts per network?", options: ["Class A","Class B","Class C","Class D"], answer: "Class A", topic: "Networking", difficulty: "Advanced" }
+  ];
+
+  let correct = 0, wrong = 0, answered = 0;
+  let filtered = [...mcqs];
+
+  const diffMap = { Beginner: 'easy', Intermediate: 'medium', Advanced: 'hard' };
+
+  function updateScore() {
+    document.getElementById('scoreNum').textContent = correct;
+    document.getElementById('scoreDenom').textContent = `out of ${answered} answered`;
+    document.getElementById('correctCount').textContent = correct;
+    document.getElementById('wrongCount').textContent  = wrong;
   }
-  solutionDiv.style.display = 'block';
-}
 
+  function resetScore() {
+    correct = wrong = answered = 0;
+    updateScore();
+    applyFilters();
+  }
 
-displayQuestions(); // Initial display of questions
-</script>
+  function applyFilters() {
+    const topic = document.getElementById('topicFilter').value;
+    const diff  = document.getElementById('diffFilter').value;
+    filtered = mcqs.filter(q =>
+      (topic === 'All' || q.topic === topic) &&
+      (diff  === 'All' || q.difficulty === diff)
+    );
+    renderQuestions();
+  }
 
+  function checkAnswer(idx, chosen, btn) {
+    const q = filtered[idx];
+    const card = document.getElementById('card-' + idx);
+    const opts = card.querySelectorAll('.opt-btn');
+    opts.forEach(b => b.disabled = true);
+
+    const ansDiv = card.querySelector('.card-answer');
+    answered++;
+
+    if (chosen === q.answer) {
+      btn.classList.add('opt-correct');
+      card.classList.replace('unanswered','correct-card');
+      ansDiv.classList.add('show','ans-correct');
+      ansDiv.innerHTML = `<span class="ans-label">✓ Correct!</span> ${q.answer}`;
+      correct++;
+    } else {
+      btn.classList.add('opt-wrong');
+      card.classList.replace('unanswered','wrong-card');
+      opts.forEach(b => { if (b.dataset.val === q.answer) b.classList.add('opt-correct'); });
+      ansDiv.classList.add('show','ans-wrong');
+      ansDiv.innerHTML = `<span class="ans-label" style="color:var(--red)">✗ Wrong.</span> Correct answer: <strong style="color:var(--text-primary)">${q.answer}</strong>`;
+      wrong++;
+    }
+    updateScore();
+  }
+
+  function renderQuestions() {
+    const area = document.getElementById('questionsArea');
+    document.getElementById('questionCountBadge').textContent = filtered.length + ' Questions';
+
+    if (!filtered.length) {
+      area.innerHTML = `<div class="quiz-empty"><h3>No questions match your filters</h3><p>Try changing the topic or difficulty level.</p></div>`;
+      return;
+    }
+
+    area.innerHTML = filtered.map((q, i) => `
+      <div class="quiz-card unanswered" id="card-${i}">
+        <div class="card-meta">
+          <span class="q-num">Q${i + 1}</span>
+          <span class="badge diff-${diffMap[q.difficulty] || 'easy'}">${q.difficulty}</span>
+          <span class="badge badge-blue" style="font-size:0.7rem;">${q.topic}</span>
+        </div>
+        <p class="quiz-question">${q.question}</p>
+        <div class="options-grid">
+          ${q.options.map(opt => `
+            <button class="opt-btn" data-val="${opt}" onclick="checkAnswer(${i}, '${opt.replace(/'/g,"\\'")}', this)">${opt}</button>
+          `).join('')}
+        </div>
+        <div class="card-answer"></div>
+      </div>
+    `).join('');
+  }
+
+  renderQuestions();
+  </script>
+  <script src="js/particles.js"></script>
 </body>
 </html>

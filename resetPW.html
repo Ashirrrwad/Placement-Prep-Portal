@@ -1,26 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Reset Password | Arankerzz</title>
-    <link rel="stylesheet" href="resetPW.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reset Password | Arankerzz</title>
+  <meta name="description" content="Reset your Arankerzz account password." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/login.css" />
 </head>
-<body>
-    <div class="container">
-        <div class="glass-card">
-            <h2>Reset Password</h2>
-            <p>Enter your email to receive a reset link.</p>
-            
-            <form>
-                <div class="input-group">
-                    <input type="email" placeholder="Enter your email" required>
-                </div>
-                <button type="submit">Send Reset Link</button>
-            </form>
+<body class="auth-body">
 
-            <a href="login.html" class="back-link">Back to Login</a>
+  <!-- Left Brand Panel -->
+  <div class="auth-brand">
+    <div class="auth-brand-bg"></div>
+    <div class="auth-brand-orb orb-a"></div>
+    <div class="auth-brand-orb orb-b"></div>
+
+    <div class="auth-brand-content">
+      <a href="index.html" class="auth-logo" style="text-decoration:none;">
+        <div class="nav-logo-mark">A</div>
+        <span class="nav-logo-text">Arankerzz</span>
+      </a>
+
+      <div class="auth-brand-text">
+        <h2>Forgot your<br><span class="gradient-text">password?</span></h2>
+        <p>No worries — enter your email and we'll send you a reset link instantly.</p>
+      </div>
+
+      <!-- Steps -->
+      <div class="reset-steps">
+        <div class="reset-step">
+          <div class="step-num">1</div>
+          <div>
+            <strong>Enter your email</strong>
+            <p>The address linked to your account</p>
+          </div>
         </div>
+        <div class="reset-step">
+          <div class="step-num">2</div>
+          <div>
+            <strong>Check your inbox</strong>
+            <p>Click the reset link we send you</p>
+          </div>
+        </div>
+        <div class="reset-step">
+          <div class="step-num">3</div>
+          <div>
+            <strong>Set a new password</strong>
+            <p>Pick something strong and unique</p>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
+
+  <!-- Right Form Panel -->
+  <div class="auth-panel">
+    <div class="auth-form-wrap">
+      <div class="auth-header">
+        <h1>Reset your password</h1>
+        <p>Remembered it? <a href="login.html">Back to Sign In</a></p>
+      </div>
+
+      <div id="resetSuccess" class="reset-success" style="display:none;">
+        <div class="success-icon">✓</div>
+        <h3>Check your email!</h3>
+        <p>We've sent a password reset link to your email address. It will expire in 10 minutes.</p>
+        <a href="login.html" class="btn btn-primary" style="margin-top:1.25rem;display:inline-flex;width:100%;justify-content:center;">Back to Sign In</a>
+      </div>
+
+      <form class="auth-form" id="resetForm" novalidate>
+        <div class="form-group">
+          <label for="email">Email address</label>
+          <div class="input-wrap">
+            <svg class="input-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+            <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required />
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-primary auth-submit" id="resetBtn">
+          Send Reset Link
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+
+        <p class="auth-footer-note" style="margin-top:1rem;">
+          If you don't receive an email within 5 minutes, check your spam folder or <a href="#">contact support</a>.
+        </p>
+      </form>
+    </div>
+  </div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+    import { getAuth, sendPasswordResetEmail } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCElSztsflZeyVdYD_xH1KYEfNFAwexY98",
+      authDomain: "placement-prep-portal.firebaseapp.com",
+      projectId: "placement-prep-portal",
+      storageBucket: "placement-prep-portal.appspot.com",
+      messagingSenderId: "1069359392527",
+      appId: "1:1069359392527:web:417d334fa18ba4a800007a"
+    };
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+
+    document.getElementById('resetForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const email = document.getElementById('email').value.trim();
+      const btn   = document.getElementById('resetBtn');
+      if (!email) return;
+
+      btn.disabled = true;
+      btn.textContent = 'Sending…';
+
+      try {
+        await sendPasswordResetEmail(auth, email);
+        document.getElementById('resetForm').style.display = 'none';
+        document.getElementById('resetSuccess').style.display = 'block';
+      } catch (err) {
+        btn.disabled = false;
+        btn.textContent = 'Send Reset Link';
+        alert('Error: ' + err.message);
+      }
+    });
+  </script>
+  <script src="js/particles.js"></script>
 </body>
 </html>

@@ -1,144 +1,356 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Learning | Arankerzz</title>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="learning.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Learn | Arankerzz</title>
+  <meta name="description" content="Structured learning paths for DSA, programming languages, certifications and interview preparation kits." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/learning.css" />
 </head>
 <body>
 
-    <div id="chatbot-icon" class="chatbot-icon">&#128172;</div>
-
-    
-    <div id="chatbot-sidebar" class="chatbot-sidebar">
-        <button id="close-btn">&#10005;</button>
-        <h2>Prep Mate</h2>
-        <div id="chatbot-container">
-
-            <div id="chatbot-messages"></div>
-            <textarea id="chatbot-input" rows="3" placeholder="Type your message..."></textarea>
-            
-            <button id="chatbot-submit">SenD</button>
-        </div>
+  <!-- ── CHATBOT ── -->
+  <div id="chatbot-icon" class="chatbot-icon">💬</div>
+  <div id="chatbot-sidebar" class="chatbot-sidebar">
+    <button id="close-btn">✕</button>
+    <h2>Prep Mate</h2>
+    <div id="chatbot-container">
+      <div id="chatbot-messages"></div>
+      <textarea id="chatbot-input" rows="3" placeholder="Ask me anything about placement prep..."></textarea>
+      <button id="chatbot-submit">Send</button>
     </div>
-  
+  </div>
 
+  <!-- ── NAVBAR ── -->
   <header class="navbar">
     <div class="nav-left">
-      <img src="logo.jpg" alt="Logo" class="nav-icon" />
+      <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.5rem;">
+        <div class="nav-logo-mark">A</div>
+        <span class="nav-logo-text">Arankerzz</span>
+      </a>
     </div>
-
     <nav>
-      <a href="index.html">Home</a>
-      <a href="resource.html">Groups</a>
-      <a href="#">Certify</a>
-      <a href="#">Compete</a>
-      <a href="#">Apply</a>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="practice.html">Problems</a></li>
+        <li><a href="learning.html" class="active">Learn</a></li>
+        <li><a href="resource.html">Resources</a></li>
+      </ul>
     </nav>
-
-    <div class="btns" id="auth-buttons">
-      <!-- Dynamic Login/Logout buttons inserted by JS -->
+    <div class="nav-right" id="auth-buttons">
+      <!-- Dynamic login/logout buttons injected by learning.js -->
     </div>
   </header>
 
-  <div class="container">
-    <h2>Learn programming skills</h2>
+  <!-- ── LEARN LAYOUT ── -->
+  <div class="learn-layout">
 
-    <div class="grid">
-      <div class="card">
-        <h3>Interview Preparation Kit</h3>
-        <p>Get interview ready for top companies by solving an interview preparation kit.</p>
-        <a href="#" class="btn">View all kits</a>
-      </div>
-      <div class="card">
-        <h3>Add your first skill</h3>
-        <p>Explore and add your first skill to get started with hands-on learning.</p>
-        <a href="#" class="btn">Explore Skills</a>
-      </div>
-    </div>
-
-    <div class="certifications">
-      <h2>Certification</h2>
-      <div class="grid">
-        <div class="card">
-          <h3>Problem Solving (Basic)</h3>
-          <a href="problemsolving.html" class="btn">Get Certified</a>
-        </div>
-        <div class="card">
-          <h3>Python (Basic)</h3>
-          <a href="pythoncert.html" class="btn">Get Certified</a>
-        </div>
-        <div class="highlight">
-          <h2>Stand out from the crowd</h2>
-          <p>Take the certification test and make your profile stand out.</p>
-          <a href="#" class="btn">View all certifications</a>
+    <!-- Left Sidebar -->
+    <aside class="learn-sidebar">
+      <div class="sidebar-user-card">
+        <div class="user-avatar">U</div>
+        <div class="user-info">
+          <span class="user-name">Guest</span>
+          <span class="user-rank text-muted">Rank: Unranked</span>
         </div>
       </div>
-    </div>
 
-    <section class="topics-container">
-      <h2>Prepare By Topics</h2>
-      <div class="topics-grid">
-        <a href="algorithm.html" class="topic">
-          <span>📌</span> Algorithms
-       </a>
-        
-        
-          <a href="dsa.html" class="topic">
-              <span>📚</span> Data Structures
+      <div class="sidebar-divider"></div>
+
+      <h3 class="sidebar-title">Learning Paths</h3>
+      <ul class="sidebar-nav">
+        <li><a href="#kits" class="sidebar-link active">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/></svg>
+          Preparation Kits
+        </a></li>
+        <li><a href="#certs" class="sidebar-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+          Certifications
+        </a></li>
+        <li><a href="#topics" class="sidebar-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+          Topics
+        </a></li>
+        <li><a href="resource.html" class="sidebar-link">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+          Resources
+        </a></li>
+      </ul>
+
+      <div class="sidebar-divider"></div>
+
+      <!-- Daily streak -->
+      <div class="streak-card">
+        <div class="streak-icon">🔥</div>
+        <div class="streak-info">
+          <span class="streak-num">0</span>
+          <span class="streak-label">Day Streak</span>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="learn-main">
+
+      <!-- Welcome Banner -->
+      <div class="learn-banner">
+        <div class="learn-banner-text">
+          <h1>Learn programming skills</h1>
+          <p>Structured paths to take you from beginner to placement-ready.</p>
+        </div>
+        <div class="learn-banner-actions">
+          <button class="btn btn-primary" onclick="window.location.href='practice.html'">Start Practicing</button>
+          <button class="btn btn-secondary" onclick="window.location.href='signup.html'">Create Account</button>
+        </div>
+      </div>
+
+      <!-- Quick Pick Cards -->
+      <div class="quick-cards" id="kits-anchor">
+        <a href="practice.html" class="quick-card card glow-ring">
+          <div class="quick-card-icon" style="background:var(--orange-bg);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </div>
+          <h3>Interview Preparation Kit</h3>
+          <p>Curated problems to ace top company interviews.</p>
+          <span class="btn-link text-accent">View all kits →</span>
+        </a>
+        <div class="quick-card card glow-ring" style="cursor:default;">
+          <div class="quick-card-icon" style="background:var(--blue-bg);">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          </div>
+          <h3>Add your first skill</h3>
+          <p>Explore and add a skill to start hands-on learning.</p>
+          <a href="#topics" class="btn-link" style="color:var(--blue)">Explore Skills →</a>
+        </div>
+      </div>
+
+      <!-- Preparation Kits -->
+      <section class="learn-section" id="kits">
+        <div class="learn-section-header">
+          <h2>Preparation Kits</h2>
+          <a href="#" class="view-all-link">View all →</a>
+        </div>
+
+        <div class="kits-grid">
+          <div class="kit-card card">
+            <div class="kit-card-top">
+              <div class="kit-icon">📅</div>
+              <span class="badge badge-easy">Beginner</span>
+            </div>
+            <h3>1 Week Preparation Kit</h3>
+            <p>21 challenges · 1,059,266 attempts · 0 mock tests</p>
+            <div class="kit-tags">
+              <span class="kit-tag">Problem Solving (Basic)</span>
+              <span class="kit-tag">Problem Solving (Intermediate)</span>
+              <span class="kit-tag kit-tag-more">+1</span>
+            </div>
+            <a href="codingpractice.html" class="btn btn-secondary kit-btn">Start Kit</a>
+          </div>
+
+          <div class="kit-card card">
+            <div class="kit-card-top">
+              <div class="kit-icon">📆</div>
+              <span class="badge badge-medium">Intermediate</span>
+            </div>
+            <h3>1 Month Preparation Kit</h3>
+            <p>54 challenges · 499,674 attempts · 0 mock tests</p>
+            <div class="kit-tags">
+              <span class="kit-tag">Problem Solving (Basic)</span>
+              <span class="kit-tag">Data Structures</span>
+              <span class="kit-tag kit-tag-more">+2</span>
+            </div>
+            <a href="codingpractice.html" class="btn btn-secondary kit-btn">Start Kit</a>
+          </div>
+
+          <div class="kit-card card">
+            <div class="kit-card-top">
+              <div class="kit-icon">🏆</div>
+              <span class="badge badge-hard">Advanced</span>
+            </div>
+            <h3>3 Month Mastery Kit</h3>
+            <p>120 challenges · 210,000 attempts · 5 mock tests</p>
+            <div class="kit-tags">
+              <span class="kit-tag">DSA Advanced</span>
+              <span class="kit-tag">System Design</span>
+              <span class="kit-tag kit-tag-more">+3</span>
+            </div>
+            <a href="codingpractice.html" class="btn btn-secondary kit-btn">Start Kit</a>
+          </div>
+        </div>
+      </section>
+
+      <!-- Certifications -->
+      <section class="learn-section" id="certs">
+        <div class="learn-section-header">
+          <h2>Certifications</h2>
+          <a href="#" class="view-all-link">View all →</a>
+        </div>
+
+        <div class="certs-grid">
+          <div class="cert-card card">
+            <div class="cert-badge-icon">🏅</div>
+            <div class="cert-info">
+              <h4>Problem Solving (Basic)</h4>
+              <p>Test your fundamental problem-solving skills</p>
+              <div class="cert-meta">
+                <span class="badge badge-easy">Basic</span>
+                <span class="cert-time">~90 min</span>
+              </div>
+            </div>
+            <a href="problemsolving.html" class="btn btn-primary cert-cta">Get Certified</a>
+          </div>
+
+          <div class="cert-card card">
+            <div class="cert-badge-icon">🐍</div>
+            <div class="cert-info">
+              <h4>Python (Basic)</h4>
+              <p>Demonstrate your Python programming skills</p>
+              <div class="cert-meta">
+                <span class="badge badge-easy">Basic</span>
+                <span class="cert-time">~60 min</span>
+              </div>
+            </div>
+            <a href="pythoncert.html" class="btn btn-primary cert-cta">Get Certified</a>
+          </div>
+
+          <div class="cert-card card">
+            <div class="cert-badge-icon">☕</div>
+            <div class="cert-info">
+              <h4>Java (Basic)</h4>
+              <p>Validate your Java OOP and programming fundamentals</p>
+              <div class="cert-meta">
+                <span class="badge badge-easy">Basic</span>
+                <span class="cert-time">~75 min</span>
+              </div>
+            </div>
+            <a href="#" class="btn btn-secondary cert-cta">Coming Soon</a>
+          </div>
+
+          <div class="cert-card card">
+            <div class="cert-badge-icon">💻</div>
+            <div class="cert-info">
+              <h4>Problem Solving (Intermediate)</h4>
+              <p>Advanced algorithms, data structures and optimization</p>
+              <div class="cert-meta">
+                <span class="badge badge-medium">Intermediate</span>
+                <span class="cert-time">~120 min</span>
+              </div>
+            </div>
+            <a href="problemsolving.html" class="btn btn-primary cert-cta">Get Certified</a>
+          </div>
+        </div>
+
+        <!-- Highlight Card -->
+        <div class="cert-highlight">
+          <div class="cert-hl-icon">🚀</div>
+          <div class="cert-hl-text">
+            <h3>Stand out from the crowd</h3>
+            <p>Take a certification test and make your profile stand out to top recruiters.</p>
+          </div>
+          <a href="#" class="btn btn-primary">View all certifications</a>
+        </div>
+      </section>
+
+      <!-- Prepare by Topics -->
+      <section class="learn-section" id="topics">
+        <div class="learn-section-header">
+          <h2>Prepare by Topics</h2>
+        </div>
+
+        <div class="topics-grid-learn">
+          <a href="algorithm.html" class="topic-card card">
+            <span class="topic-emoji">📌</span>
+            <span class="topic-name">Algorithms</span>
+            <span class="topic-count">320 problems</span>
           </a>
-  
-          <div class="topic"><span>🧮</span> Mathematics</div>
-          <div class="topic"><span>🤖</span> AI</div>
-          <div class="topic"><span>💻</span> C</div>
-          <div class="topic"><span>⚙️</span> C++</div>
-          <div class="topic"><span>☕</span> Java</div>
-          <div class="topic" onclick="window.open('https://www.geeksforgeeks.org/python-programming-language-tutorial/', '_blank');"><span>🐍</span> Python</div>
-          <div class="topic"><span>💎</span> Ruby</div>
-          <div class="topic"><span>🔢</span> SQL</div>
-          <div class="topic"><span>📊</span> Databases</div>
-          <div class="topic"><span>🐚</span> Linux Shell</div>
-          <div class="topic"><span>🔗</span> Functional Programming</div>
-          <div class="topic"><span>📝</span> Regex</div>
-          <div class="topic" onclick="window.open('https://react.dev/learn');"><span>⚛️</span> ReactJS</div>
-      </div>
-  </section>
-  
-
-    <div class="kits-header">
-      <h3>Preparation Kits</h3>
-      <a href="#" class="view-all">View all kits</a>
-    </div>
-
-    <div class="kits-grid">
-      <div class="kit">
-        <h3>1 Week Preparation Kit</h3>
-        <p>Challenges: 21, Attempts: 1,059,266, Mock Tests: 0</p>
-        <div class="tags">
-          <span>Problem Solving (Basic)</span>
-          <span>Problem Solving (Intermediate)</span>
-          <span>+1</span>
+          <a href="dsa.html" class="topic-card card">
+            <span class="topic-emoji">📚</span>
+            <span class="topic-name">Data Structures</span>
+            <span class="topic-count">280 problems</span>
+          </a>
+          <div class="topic-card card">
+            <span class="topic-emoji">🧮</span>
+            <span class="topic-name">Mathematics</span>
+            <span class="topic-count">180 problems</span>
+          </div>
+          <div class="topic-card card">
+            <span class="topic-emoji">🤖</span>
+            <span class="topic-name">AI / ML</span>
+            <span class="topic-count">90 problems</span>
+          </div>
+          <div class="topic-card card">
+            <span class="topic-emoji">💻</span>
+            <span class="topic-name">C</span>
+            <span class="topic-count">120 problems</span>
+          </div>
+          <div class="topic-card card">
+            <span class="topic-emoji">⚙️</span>
+            <span class="topic-name">C++</span>
+            <span class="topic-count">200 problems</span>
+          </div>
+          <div class="topic-card card">
+            <span class="topic-emoji">☕</span>
+            <span class="topic-name">Java</span>
+            <span class="topic-count">210 problems</span>
+          </div>
+          <div class="topic-card card" onclick="window.open('https://www.geeksforgeeks.org/python-programming-language-tutorial/', '_blank');" style="cursor:pointer;">
+            <span class="topic-emoji">🐍</span>
+            <span class="topic-name">Python</span>
+            <span class="topic-count">230 problems</span>
+          </div>
+          <div class="topic-card card">
+            <span class="topic-emoji">💎</span>
+            <span class="topic-name">Ruby</span>
+            <span class="topic-count">60 problems</span>
+          </div>
+          <div class="topic-card card">
+            <span class="topic-emoji">🔢</span>
+            <span class="topic-name">SQL</span>
+            <span class="topic-count">150 problems</span>
+          </div>
+          <div class="topic-card card">
+            <span class="topic-emoji">📊</span>
+            <span class="topic-name">Databases</span>
+            <span class="topic-count">80 problems</span>
+          </div>
+          <div class="topic-card card">
+            <span class="topic-emoji">🐚</span>
+            <span class="topic-name">Linux Shell</span>
+            <span class="topic-count">55 problems</span>
+          </div>
+          <div class="topic-card card">
+            <span class="topic-emoji">🔗</span>
+            <span class="topic-name">Functional Programming</span>
+            <span class="topic-count">45 problems</span>
+          </div>
+          <div class="topic-card card">
+            <span class="topic-emoji">📝</span>
+            <span class="topic-name">Regex</span>
+            <span class="topic-count">30 problems</span>
+          </div>
+          <div class="topic-card card" onclick="window.open('https://react.dev/learn');" style="cursor:pointer;">
+            <span class="topic-emoji">⚛️</span>
+            <span class="topic-name">ReactJS</span>
+            <span class="topic-count">75 problems</span>
+          </div>
+          <div class="topic-card card">
+            <span class="topic-emoji">📐</span>
+            <span class="topic-name">System Design</span>
+            <span class="topic-count">40 problems</span>
+          </div>
         </div>
-      </div>
-      <div class="kit">
-        <h3>1 Month Preparation Kit</h3>
-        <p>Challenges: 54, Attempts: 499,674, Mock Tests: 0</p>
-        <div class="tags">
-          <span>Problem Solving (Basic)</span>
-          <span>Problem Solving (Intermediate)</span>
-          <span>+1</span>
-        </div>
-      </div>
-    </div>
+      </section>
+
+    </main>
   </div>
 
   <footer>
     <p>&copy; 2025 Placement Prep Portal. All rights reserved.</p>
   </footer>
 
-  <script type="module" src="learning.js" defer></script>
-  <script src="chatbot.js" defer></script>
+  <script type="module" src="js/learning.js" defer></script>
+  <script src="js/chatbot.js" defer></script>
+<script src="js/particles.js"></script>
 </body>
 </html>

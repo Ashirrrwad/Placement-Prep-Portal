@@ -1,183 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>DSA | Linked List</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    .question-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .question-table th, .question-table td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: center;
-    }
-    .question-table th {
-      background-color: #f2f2f2;
-    }
-    .progress-bar {
-      width: 100%;
-      background-color: #eee;
-      height: 20px;
-      margin: 20px 0;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background-color: #4caf50;
-      transition: width 0.4s ease;
-    }
-    .note-input {
-      display: none;
-      width: 90%;
-      margin-top: 5px;
-    }
-    .emoji-btn {
-      font-size: 20px;
-      cursor: pointer;
-    }
-    .bookmarked {
-      background-color: yellow;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Linked Lists | Arankerzz</title>
+  <meta name="description" content="Traverse, reverse, detect cycles and merge — linked list problems for every interview." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/topic-page.css" />
 </head>
 <body>
 
-  <h1>Linked List - Practice Questions</h1>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.5rem;">
+        <div class="nav-logo-mark">A</div>
+        <span class="nav-logo-text">Arankerzz</span>
+      </a>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="practice.html">Problems</a></li>
+        <li><a href="learning.html">Learn</a></li>
+        <li><a href="resource.html">Resources</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-btn nav-btn-ghost" onclick="window.location.href='login.html'">Sign In</button>
+      <button class="nav-btn nav-btn-primary" onclick="window.location.href='signup.html'">Get Started</button>
+    </div>
+  </header>
 
-  <!-- Progress Bar -->
-  <div class="progress-bar">
-    <div class="progress-fill" id="progressFill"></div>
+  <!-- HERO -->
+  <div class="topic-hero">
+    <div class="topic-hero-left">
+      <div class="topic-hero-badges">
+        <span class="badge" style="background:rgba(59,130,246,0.1);color:#3b82f6;font-size:1rem;padding:0.3rem 0.75rem;">🔗 Linked Lists</span>
+      </div>
+      <h1 style="margin-top:0.75rem;">Linked Lists <span style="color:#3b82f6">Practice</span></h1>
+      <p>Traverse, reverse, detect cycles and merge — linked list problems for every interview.</p>
+      <div class="topic-hero-badges">
+        <span class="badge badge-easy">7 Easy</span>
+        <span class="badge badge-medium">8 Medium</span>
+        <span class="badge badge-hard">5 Hard</span>
+      </div>
+    </div>
+
+    <div class="topic-progress-wrap">
+      <div class="topic-ring-container">
+        <svg class="topic-ring" width="90" height="90" viewBox="0 0 90 90">
+          <circle class="ring-bg"   cx="45" cy="45" r="36"/>
+          <circle class="ring-prog" id="progressRing" cx="45" cy="45" r="36"
+            stroke-dasharray="226" stroke-dashoffset="226"/>
+        </svg>
+        <div class="ring-center">
+          <span class="ring-num" id="solvedCount">0</span>
+          <span class="ring-total">/ 20</span>
+        </div>
+      </div>
+      <div class="topic-stats">
+        <div class="topic-stat-item"><div class="stat-dot" style="background:var(--green)"></div><span id="easyCount">0 / 7 Easy</span></div>
+        <div class="topic-stat-item"><div class="stat-dot" style="background:var(--orange)"></div><span id="medCount">0 / 8 Medium</span></div>
+        <div class="topic-stat-item"><div class="stat-dot" style="background:var(--red)"></div><span id="hardCount">0 / 5 Hard</span></div>
+      </div>
+    </div>
   </div>
 
-  <!-- Questions Table -->
-  <table class="question-table" id="questionsTable">
-    <thead>
-      <tr>
-        <th>✅</th>
-        <th>📋 Question</th>
-        <th>🔖 Bookmark</th>
-        <th>📝 Notes</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Questions will be injected here -->
-    </tbody>
-  </table>
+  <!-- TOOLBAR -->
+  <div class="topic-toolbar">
+    <div class="toolbar-left">
+      <button class="filter-btn active" data-filter="all" onclick="setFilter('all',this)">All (20)</button>
+      <button class="filter-btn" data-filter="Easy"   onclick="setFilter('Easy',this)">Easy (7)</button>
+      <button class="filter-btn" data-filter="Medium" onclick="setFilter('Medium',this)">Medium (8)</button>
+      <button class="filter-btn" data-filter="Hard"   onclick="setFilter('Hard',this)">Hard (5)</button>
+      <button class="filter-btn" data-filter="solved" onclick="setFilter('solved',this)">✓ Solved</button>
+    </div>
+    <div class="toolbar-right">
+      <div class="toolbar-search">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search problems…" id="searchBox" oninput="renderTable()" />
+      </div>
+      <button class="clear-btn" onclick="clearAll()">Clear All</button>
+    </div>
+  </div>
+
+  <!-- PROBLEM TABLE -->
+  <div class="topic-main">
+    <div class="problem-table-wrap">
+      <table class="prob-table" id="problemTable">
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>#</th>
+            <th>Problem</th>
+            <th>Difficulty</th>
+            <th>Bookmark</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Placement Prep Portal. All rights reserved.</p>
+  </footer>
 
   <script>
-    const questions = [
-      "Reverse a Linked List",
-      "Find the middle of a Linked List",
-      "Detect a loop in a Linked List",
-      "Remove loop in a Linked List",
-      "Merge two sorted Linked Lists",
-      "Add two numbers represented by Linked Lists",
-      "Intersection point in Y shaped Linked Lists",
-      "Detect and remove loop",
-      "Delete without head pointer",
-      "Clone a linked list with next and random pointer",
-      "Rotate a linked list",
-      "Flattening a Linked List",
-      "Sort a linked list",
-      "Remove duplicates from a sorted Linked List",
-      "Remove duplicates from an unsorted Linked List",
-      "Pairwise swap elements of a linked list",
-      "Move last element to front of a given Linked List",
-      "Add 1 to a number represented as linked list",
-      "Segregate even and odd nodes in a Linked List",
-      "Merge k sorted linked lists",
-      "Multiply two numbers represented by Linked Lists",
-      "Check if Linked List is palindrome",
-      "Intersection of two sorted Linked Lists",
-      "Merge Sort for Linked List",
-      "Quick Sort for Linked List",
-      "Add two numbers in linked lists without modifying the lists",
-      "Flatten a multilevel doubly linked list",
-      "Copy a linked list with arbitrary pointers",
-      "Convert a Binary Tree to a Doubly Linked List",
-      "Delete nodes which have a greater value on the right side",
-      "Rearrange a linked list in zig-zag fashion",
-      "Find the first non-repeating character from a stream",
-      "Find the starting point of the loop in linked list",
-      "Find Nth node from the end of Linked List"
-    ];
+  const PROBLEMS = [{"id":0,"title":"Reverse a Linked List (Iterative & Recursive)","diff":"Easy"},{"id":1,"title":"Find the middle of a Linked List (Slow-Fast Pointer)","diff":"Easy"},{"id":2,"title":"Detect a cycle in a Linked List (Floyd's Algorithm)","diff":"Medium"},{"id":3,"title":"Remove Nth node from end of list","diff":"Medium"},{"id":4,"title":"Merge two sorted linked lists","diff":"Easy"},{"id":5,"title":"Find intersection point of two linked lists","diff":"Medium"},{"id":6,"title":"Add two numbers represented as Linked Lists","diff":"Medium"},{"id":7,"title":"Check if a Linked List is a palindrome","diff":"Easy"},{"id":8,"title":"Flatten a multilevel doubly linked list","diff":"Hard"},{"id":9,"title":"Clone a Linked List with next and random pointers","diff":"Hard"},{"id":10,"title":"Delete a node without head pointer access","diff":"Easy"},{"id":11,"title":"Rotate a Linked List by K positions","diff":"Medium"},{"id":12,"title":"Segregate even and odd nodes in a Linked List","diff":"Easy"},{"id":13,"title":"Reverse a Linked List in groups of K","diff":"Hard"},{"id":14,"title":"LRU Cache using Doubly Linked List","diff":"Hard"},{"id":15,"title":"Sort a Linked List (Merge Sort)","diff":"Hard"},{"id":16,"title":"Remove duplicates from sorted Linked List","diff":"Easy"},{"id":17,"title":"Find starting point of cycle in Linked List","diff":"Medium"},{"id":18,"title":"Doubly Linked List: Insert at front/end/middle","diff":"Easy"},{"id":19,"title":"XOR Linked List implementation","diff":"Hard"}];
 
-    let completedCount = 0;
+  const state = JSON.parse(localStorage.getItem('topic_linkedlist') || '{}');
 
-    const tableBody = document.querySelector("#questionsTable tbody");
-    const progressFill = document.getElementById("progressFill");
+  function saveState() {
+    localStorage.setItem('topic_linkedlist', JSON.stringify(state));
+  }
 
-    function updateProgress() {
-      const percent = (completedCount / questions.length) * 100;
-      progressFill.style.width = percent + "%";
-    }
+  let activeFilter = 'all';
 
-    function createQuestionRow(index, questionText) {
-      const row = document.createElement("tr");
+  function setFilter(f, btn) {
+    activeFilter = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderTable();
+  }
 
-      // Tickbox
-      const tickCell = document.createElement("td");
-      const tickInput = document.createElement("input");
-      tickInput.type = "checkbox";
-      tickInput.addEventListener("change", (e) => {
-        if (e.target.checked) {
-          completedCount++;
-        } else {
-          completedCount--;
-        }
-        updateProgress();
-      });
-      tickCell.appendChild(tickInput);
-      row.appendChild(tickCell);
+  function updateProgress() {
+    const solved = PROBLEMS.filter(p => state[p.id]?.done).length;
+    const easy   = PROBLEMS.filter(p => p.diff==='Easy'   && state[p.id]?.done).length;
+    const med    = PROBLEMS.filter(p => p.diff==='Medium'  && state[p.id]?.done).length;
+    const hard   = PROBLEMS.filter(p => p.diff==='Hard'    && state[p.id]?.done).length;
 
-      // Question Text
-      const questionCell = document.createElement("td");
-      questionCell.innerText = questionText;
-      row.appendChild(questionCell);
+    document.getElementById('solvedCount').textContent = solved;
+    document.getElementById('easyCount').textContent = easy + ' / 7 Easy';
+    document.getElementById('medCount').textContent  = med  + ' / 8 Medium';
+    document.getElementById('hardCount').textContent = hard + ' / 5 Hard';
 
-      // Bookmark
-      const bookmarkCell = document.createElement("td");
-      const bookmarkBtn = document.createElement("span");
-      bookmarkBtn.innerText = "🔖";
-      bookmarkBtn.classList.add("emoji-btn");
-      bookmarkBtn.addEventListener("click", () => {
-        row.classList.toggle("bookmarked");
-      });
-      bookmarkCell.appendChild(bookmarkBtn);
-      row.appendChild(bookmarkCell);
+    const pct = solved / PROBLEMS.length;
+    const circ = 2 * Math.PI * 36;
+    const offset = circ * (1 - pct);
+    document.getElementById('progressRing').style.strokeDashoffset = offset;
+  }
 
-      // Notes
-      const notesCell = document.createElement("td");
-      const noteBtn = document.createElement("span");
-      noteBtn.innerText = "📝";
-      noteBtn.classList.add("emoji-btn");
-      const noteInput = document.createElement("textarea");
-      noteInput.className = "note-input";
-      notesCell.appendChild(noteBtn);
-      notesCell.appendChild(noteInput);
+  function renderTable() {
+    const search = document.getElementById('searchBox').value.toLowerCase();
+    const tbody  = document.getElementById('tableBody');
 
-      noteBtn.addEventListener("click", () => {
-        noteInput.style.display = noteInput.style.display === "block" ? "none" : "block";
-      });
-
-      row.appendChild(notesCell);
-
-      tableBody.appendChild(row);
-    }
-
-    // Populate the questions
-    questions.forEach((question, index) => {
-      createQuestionRow(index, question);
+    const filtered = PROBLEMS.filter(p => {
+      const matchDiff   = activeFilter === 'all' || p.diff === activeFilter || (activeFilter === 'solved' && state[p.id]?.done);
+      const matchSearch = !search || p.title.toLowerCase().includes(search);
+      return matchDiff && matchSearch;
     });
-  </script>
 
+    if (!filtered.length) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:3rem;color:var(--text-muted);">No problems match your filters.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = filtered.map(p => {
+      const done  = state[p.id]?.done  || false;
+      const bm    = state[p.id]?.bm    || false;
+      const note  = state[p.id]?.note  || '';
+      const diffClass = { Easy: 'diff-easy', Medium: 'diff-medium', Hard: 'diff-hard' }[p.diff];
+      return `
+        <tr class="prob-row${done ? ' solved' : ''}${bm ? ' bookmarked' : ''}" id="row-${p.id}">
+          <td><input type="checkbox" class="prob-check" ${done ? 'checked' : ''} onchange="toggleDone('${p.id}', this)" /></td>
+          <td class="prob-num">${String(p.id + 1).padStart(2, '0')}</td>
+          <td class="prob-title" onclick="window.open('https://www.google.com/search?q='+encodeURIComponent('${p.title}'+' leetcode geeksforgeeks'),'_blank')">${p.title}</td>
+          <td><span class="badge ${diffClass}">${p.diff}</span></td>
+          <td><button class="bookmark-btn ${bm ? 'bookmarked' : ''}" onclick="toggleBm('${p.id}', this)">${bm ? '🔖' : '🔖'}</button></td>
+          <td class="notes-cell">
+            <button class="notes-btn ${note ? 'active' : ''}" onclick="toggleNote('${p.id}', this)">📝</button>
+            <div class="notes-popover" id="note-${p.id}">
+              <textarea placeholder="Write your notes here…" onchange="saveNote('${p.id}', this.value)">${note}</textarea>
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+  }
+
+  function toggleDone(id, cb) {
+    if (!state[id]) state[id] = {};
+    state[id].done = cb.checked;
+    saveState();
+    updateProgress();
+    const row = document.getElementById('row-' + id);
+    if (cb.checked) row.classList.add('solved'); else row.classList.remove('solved');
+  }
+
+  function toggleBm(id, btn) {
+    if (!state[id]) state[id] = {};
+    state[id].bm = !state[id].bm;
+    btn.classList.toggle('bookmarked', state[id].bm);
+    const row = document.getElementById('row-' + id);
+    if (state[id].bm) row.classList.add('bookmarked'); else row.classList.remove('bookmarked');
+    saveState();
+  }
+
+  function toggleNote(id, btn) {
+    const pop = document.getElementById('note-' + id);
+    pop.classList.toggle('open');
+    btn.classList.toggle('active', pop.classList.contains('open'));
+  }
+
+  function saveNote(id, val) {
+    if (!state[id]) state[id] = {};
+    state[id].note = val;
+    const btn = document.querySelector('#row-' + id + ' .notes-btn');
+    if (btn) btn.classList.toggle('active', !!val);
+    saveState();
+  }
+
+  function clearAll() {
+    if (!confirm('Clear all progress for this topic?')) return;
+    Object.keys(state).forEach(k => delete state[k]);
+    saveState();
+    updateProgress();
+    renderTable();
+  }
+
+  renderTable();
+  updateProgress();
+  </script>
+  <script src="js/particles.js"></script>
 </body>
 </html>

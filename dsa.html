@@ -1,31 +1,210 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>DSA | Arankerzz</title>
-  <link href="dsa.css" rel="stylesheet">
- 
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>DSA Topics | Arankerzz</title>
+  <meta name="description" content="Choose a Data Structures & Algorithms topic and start tracking your progress today." />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    .dsa-hero {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(255,161,22,0.05) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 4rem;
+      text-align: center;
+    }
+    .dsa-hero h1 { font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; margin-bottom: 0.6rem; }
+    .dsa-hero p  { color: var(--text-secondary); font-size: 1rem; max-width: 520px; margin: 0 auto; line-height: 1.7; }
+
+    .dsa-grid-section { padding: 3rem 4rem; }
+    .dsa-topics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+
+    .dsa-topic-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .dsa-topic-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 2px;
+      background: var(--card-accent, var(--accent));
+      transform: scaleX(0);
+      transition: transform 0.25s ease;
+    }
+    .dsa-topic-card:hover { border-color: rgba(255,255,255,0.12); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.35); }
+    .dsa-topic-card:hover::after { transform: scaleX(1); }
+
+    .card-emoji { font-size: 1.75rem; margin-bottom: 0.2rem; }
+    .card-name  { font-size: 1rem; font-weight: 700; color: var(--text-primary); }
+    .card-desc  { font-size: 0.8rem; color: var(--text-secondary); line-height: 1.5; flex: 1; }
+    .card-foot  { display: flex; align-items: center; justify-content: space-between; margin-top: 0.25rem; }
+    .card-count { font-size: 0.75rem; color: var(--text-muted); }
+    .card-arrow { color: var(--text-muted); font-size: 0.85rem; transition: var(--transition); }
+    .dsa-topic-card:hover .card-arrow { color: var(--accent); transform: translateX(4px); }
+
+    @media (max-width: 768px) {
+      .dsa-hero, .dsa-grid-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .dsa-hero h1 { font-size: 1.75rem; }
+    }
+  </style>
 </head>
 <body>
 
-  <h1>DSA Insights</h1>
-  <h3>Master Data Structures and Algorithms</h3>
-  <h3>Start Learning</h3>
+  <header class="navbar">
+    <div class="nav-left">
+      <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.5rem;">
+        <div class="nav-logo-mark">A</div>
+        <span class="nav-logo-text">Arankerzz</span>
+      </a>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="practice.html">Problems</a></li>
+        <li><a href="learning.html" class="active">Learn</a></li>
+        <li><a href="resource.html">Resources</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-btn nav-btn-ghost" onclick="window.location.href='login.html'">Sign In</button>
+      <button class="nav-btn nav-btn-primary" onclick="window.location.href='signup.html'">Get Started</button>
+    </div>
+  </header>
 
-  <div class="main-tracker">
-    <div class="main-progress" id="mainProgress"></div>
-  </div>
+  <!-- Hero -->
+  <section class="dsa-hero">
+    <span class="section-label">📚 Topic Library</span>
+    <h1>Data Structures & <span class="gradient-text">Algorithms</span></h1>
+    <p>Pick a topic and track your progress as you solve curated problems. Your progress is saved locally.</p>
+  </section>
 
-  <button class="reset-button" onclick="resetProgress()">Reset Progress</button>
+  <!-- Topics Grid -->
+  <section class="dsa-grid-section">
+    <div class="section-header" style="margin-bottom:2rem;">
+      <span class="section-label">Choose a topic</span>
+      <h2>All <span class="gradient-text">14 topic tracks</span></h2>
+    </div>
 
-  <div class="grid-container" id="cardContainer">
-    
-  </div>
+    <div class="dsa-topics-grid">
+      <a href="arrays.html" class="dsa-topic-card" style="--card-accent:#ffa116;">
+        <div class="card-emoji">📌</div>
+        <div class="card-name">Arrays</div>
+        <div class="card-desc">Kadane's, two-pointer, sliding window, Dutch flag and more.</div>
+        <div class="card-foot"><span class="card-count">20 Problems</span><span class="card-arrow">→</span></div>
+      </a>
 
+      <a href="linkedlist.html" class="dsa-topic-card" style="--card-accent:#3b82f6;">
+        <div class="card-emoji">🔗</div>
+        <div class="card-name">Linked Lists</div>
+        <div class="card-desc">Reverse, detect cycles, merge, and clone linked lists.</div>
+        <div class="card-foot"><span class="card-count">20 Problems</span><span class="card-arrow">→</span></div>
+      </a>
 
-    
-  
-<script src="dsa.js"></script>
+      <a href="binarytrees.html" class="dsa-topic-card" style="--card-accent:#2cbb5d;">
+        <div class="card-emoji">🌳</div>
+        <div class="card-name">Binary Trees</div>
+        <div class="card-desc">Traversals, views, LCA, diameter and path sum problems.</div>
+        <div class="card-foot"><span class="card-count">20 Problems</span><span class="card-arrow">→</span></div>
+      </a>
+
+      <a href="bst.html" class="dsa-topic-card" style="--card-accent:#059669;">
+        <div class="card-emoji">🌲</div>
+        <div class="card-name">Binary Search Trees</div>
+        <div class="card-desc">Insert, delete, validate, LCA and convert BST operations.</div>
+        <div class="card-foot"><span class="card-count">20 Problems</span><span class="card-arrow">→</span></div>
+      </a>
+
+      <a href="graphs.html" class="dsa-topic-card" style="--card-accent:#a78bfa;">
+        <div class="card-emoji">🔵</div>
+        <div class="card-name">Graphs</div>
+        <div class="card-desc">BFS, DFS, shortest paths, MST, and topological sort.</div>
+        <div class="card-foot"><span class="card-count">24 Problems</span><span class="card-arrow">→</span></div>
+      </a>
+
+      <a href="dynamicprogramming.html" class="dsa-topic-card" style="--card-accent:#fbbf24;">
+        <div class="card-emoji">💡</div>
+        <div class="card-name">Dynamic Programming</div>
+        <div class="card-desc">Knapsack, LCS, LIS, edit distance and bitmask DP.</div>
+        <div class="card-foot"><span class="card-count">22 Problems</span><span class="card-arrow">→</span></div>
+      </a>
+
+      <a href="stacks&queues.html" class="dsa-topic-card" style="--card-accent:#ef4743;">
+        <div class="card-emoji">📦</div>
+        <div class="card-name">Stacks & Queues</div>
+        <div class="card-desc">Monotonic stack, LRU cache, sliding window and valid parens.</div>
+        <div class="card-foot"><span class="card-count">20 Problems</span><span class="card-arrow">→</span></div>
+      </a>
+
+      <a href="heaps.html" class="dsa-topic-card" style="--card-accent:#10b981;">
+        <div class="card-emoji">⛰️</div>
+        <div class="card-name">Heaps & Priority Queues</div>
+        <div class="card-desc">Kth element, merge K lists, median stream and task scheduler.</div>
+        <div class="card-foot"><span class="card-count">20 Problems</span><span class="card-arrow">→</span></div>
+      </a>
+
+      <a href="strings.html" class="dsa-topic-card" style="--card-accent:#06b6d4;">
+        <div class="card-emoji">📝</div>
+        <div class="card-name">Strings</div>
+        <div class="card-desc">KMP, Rabin-Karp, anagram groups and minimum window substring.</div>
+        <div class="card-foot"><span class="card-count">20 Problems</span><span class="card-arrow">→</span></div>
+      </a>
+
+      <a href="backtracking.html" class="dsa-topic-card" style="--card-accent:#f59e0b;">
+        <div class="card-emoji">🔄</div>
+        <div class="card-name">Backtracking</div>
+        <div class="card-desc">N-Queens, Sudoku, subsets, permutations and word search.</div>
+        <div class="card-foot"><span class="card-count">20 Problems</span><span class="card-arrow">→</span></div>
+      </a>
+
+      <a href="bitmanipulation.html" class="dsa-topic-card" style="--card-accent:#8b5cf6;">
+        <div class="card-emoji">⚙️</div>
+        <div class="card-name">Bit Manipulation</div>
+        <div class="card-desc">XOR tricks, bitmask DP, set bits and power-of-two checks.</div>
+        <div class="card-foot"><span class="card-count">20 Problems</span><span class="card-arrow">→</span></div>
+      </a>
+
+      <a href="algorithm.html" class="dsa-topic-card" style="--card-accent:#ffa116;">
+        <div class="card-emoji">⚡</div>
+        <div class="card-name">Algorithms</div>
+        <div class="card-desc">Sorting, greedy, divide & conquer and recursion algorithms.</div>
+        <div class="card-foot"><span class="card-count">22 Problems</span><span class="card-arrow">→</span></div>
+      </a>
+
+      <a href="quick-sort.html" class="dsa-topic-card" style="--card-accent:#06b6d4;">
+        <div class="card-emoji">↕️</div>
+        <div class="card-name">Sorting Algorithms</div>
+        <div class="card-desc">Deep dive into all major sorting algorithms with complexity analysis.</div>
+        <div class="card-foot"><span class="card-count">18 Problems</span><span class="card-arrow">→</span></div>
+      </a>
+
+      <a href="search&sort.html" class="dsa-topic-card" style="--card-accent:#3b82f6;">
+        <div class="card-emoji">🔍</div>
+        <div class="card-name">Search & Sort</div>
+        <div class="card-desc">Binary search on answers, k-th element and combined search/sort problems.</div>
+        <div class="card-foot"><span class="card-count">20 Problems</span><span class="card-arrow">→</span></div>
+      </a>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Placement Prep Portal. All rights reserved.</p>
+  </footer>
+
+  <script src="js/particles.js"></script>
 </body>
 </html>

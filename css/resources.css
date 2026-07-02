@@ -1,0 +1,236 @@
+/* ========================================
+   resources.css — Resources Page
+   ======================================== */
+
+/* ── Nav Logo Mark (shared) ── */
+.nav-logo-mark {
+  width: 30px;
+  height: 30px;
+  background: var(--accent);
+  color: #000;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 900;
+  font-size: 1rem;
+}
+
+/* ══════════════════════════════════════
+   HERO
+══════════════════════════════════════ */
+.res-hero {
+  position: relative;
+  padding: 5rem 2rem 4rem;
+  text-align: center;
+  overflow: hidden;
+  background: var(--bg-secondary);
+  border-bottom: 1px solid var(--border);
+}
+
+.res-hero-orb {
+  position: absolute;
+  top: -60px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  height: 300px;
+  background: radial-gradient(ellipse, rgba(255,161,22,0.12), transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+  filter: blur(30px);
+}
+
+.res-hero .container {
+  position: relative;
+  z-index: 1;
+}
+
+.res-hero h1 {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 900;
+  letter-spacing: -1.5px;
+  margin: 0.75rem 0;
+}
+
+.res-hero p {
+  font-size: 1rem;
+  color: var(--text-secondary);
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.7;
+}
+
+/* ══════════════════════════════════════
+   MAIN RESOURCES GRID
+══════════════════════════════════════ */
+.resources-main-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.25rem;
+}
+
+.resource-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.resource-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.resource-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.resource-card h3 {
+  font-size: 1rem;
+  font-weight: 700;
+}
+
+.resource-card p {
+  font-size: 0.875rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+.resource-features {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  flex: 1;
+}
+
+.resource-features li {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.resource-cta {
+  width: 100%;
+  margin-top: auto;
+}
+
+/* ══════════════════════════════════════
+   INTERVIEW GRID
+══════════════════════════════════════ */
+.interview-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.interview-card {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  transition: var(--transition);
+}
+
+.interview-icon {
+  font-size: 1.75rem;
+  margin-bottom: 0.25rem;
+}
+
+.interview-card h4 {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.interview-card p {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  line-height: 1.5;
+  flex: 1;
+}
+
+.interview-link {
+  font-size: 0.8rem;
+  font-weight: 600;
+  transition: var(--transition);
+  margin-top: auto;
+}
+
+.interview-card:hover .interview-link {
+  transform: translateX(4px);
+}
+
+/* ══════════════════════════════════════
+   RESOURCES CTA
+══════════════════════════════════════ */
+.resources-cta-card {
+  position: relative;
+  background: linear-gradient(135deg, rgba(255,161,22,0.07) 0%, rgba(59,130,246,0.07) 100%);
+  border: 1px solid rgba(255,161,22,0.2);
+  border-radius: var(--radius-xl);
+  padding: 3rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  overflow: hidden;
+}
+
+.resources-cta-orb {
+  position: absolute;
+  top: 50%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(255,161,22,0.1), transparent 70%);
+  border-radius: 50%;
+  z-index: 0;
+  filter: blur(40px);
+}
+
+.resources-cta-text {
+  position: relative;
+  z-index: 1;
+  max-width: 460px;
+}
+
+.resources-cta-text h2 {
+  font-size: 1.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.resources-cta-text p {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+.resources-cta-actions {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  gap: 0.75rem;
+  flex-shrink: 0;
+}
+
+/* ── Responsive ── */
+@media (max-width: 960px) {
+  .resources-main-grid { grid-template-columns: 1fr; }
+  .interview-grid { grid-template-columns: repeat(2, 1fr); }
+  .resources-cta-card { flex-direction: column; text-align: center; }
+  .resources-cta-actions { justify-content: center; }
+}
+
+@media (max-width: 600px) {
+  .interview-grid { grid-template-columns: 1fr; }
+}

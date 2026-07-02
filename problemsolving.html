@@ -1,145 +1,212 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Problem Solving Pro | Arankerzz</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Problem Solving Certification | Arankerzz</title>
+  <meta name="description" content="Sharpen your problem solving skills — logical reasoning, data structures, algorithm challenges and mock contests." />
+  <link rel="stylesheet" href="css/style.css" />
   <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #f0f4f8;
-      color: #333;
-    }
-
-    .navbar {
-      background-color: #1e3a8a;
-      padding: 15px;
-      color: #fff;
+    .cert-page-hero {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, rgba(255,161,22,0.05) 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 3rem 4rem;
       text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      letter-spacing: 1px;
     }
+    .cert-page-hero .section-label { margin-bottom: 0.75rem; }
+    .cert-page-hero h1 { font-size: 2.5rem; font-weight: 900; letter-spacing: -1px; margin-bottom: 0.75rem; }
+    .cert-page-hero p  { font-size: 1rem; color: var(--text-secondary); max-width: 520px; margin: 0 auto; line-height: 1.7; }
 
-    .header {
-      text-align: center;
-      margin: 30px 20px;
+    .cert-info-bar {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      padding: 1.25rem;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
     }
+    .cert-info-item { display: flex; align-items: center; gap: 0.5rem; font-size: 0.875rem; color: var(--text-secondary); }
+    .cert-info-item svg { color: var(--accent); }
 
-    .header h1 {
-      font-size: 36px;
-      color: #1e3a8a;
-    }
+    .cert-modules-section { padding: 3rem 4rem; }
+    .modules-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.25rem; margin-top: 2rem; }
 
-    .header p {
-      font-size: 18px;
-      color: #555;
-    }
-
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      padding: 40px;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      transition: transform 0.3s ease;
-      cursor: pointer;
+    .module-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.5rem;
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-    }
-
-    .card h3 {
-      color: #1e3a8a;
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      flex-grow: 1;
-      font-size: 14px;
-      color: #666;
-    }
-
-    .start-btn {
-      background-color: #3b82f6;
-      color: #fff;
-      padding: 10px;
-      margin-top: 15px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      transition: background-color 0.3s;
-    }
-
-    .start-btn:hover {
-      background-color: #2563eb;
+      gap: 0.85rem;
+      transition: var(--transition);
       cursor: pointer;
     }
+    .module-card:hover { border-color: rgba(255,161,22,0.3); transform: translateY(-3px); box-shadow: 0 12px 32px rgba(0,0,0,0.3); }
 
-    @media (max-width: 600px) {
-      .header h1 {
-        font-size: 28px;
-      }
+    .module-icon {
+      width: 48px; height: 48px;
+      border-radius: var(--radius-md);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 1.5rem;
+    }
+    .module-card h3 { font-size: 1rem; font-weight: 700; }
+    .module-card p  { font-size: 0.82rem; color: var(--text-secondary); line-height: 1.6; flex: 1; }
+    .module-card .btn { margin-top: auto; }
+
+    /* Cert CTA */
+    .cert-cta-section {
+      padding: 3rem 4rem;
+      background: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+    }
+    .cert-cta-inner {
+      max-width: 680px;
+      margin: 0 auto;
+      text-align: center;
+      background: linear-gradient(135deg, rgba(255,161,22,0.07), rgba(59,130,246,0.07));
+      border: 1px solid rgba(255,161,22,0.2);
+      border-radius: var(--radius-xl);
+      padding: 2.5rem;
+    }
+    .cert-cta-inner h2  { font-size: 1.5rem; font-weight: 800; margin-bottom: 0.5rem; }
+    .cert-cta-inner p   { color: var(--text-secondary); font-size: 0.9rem; margin-bottom: 1.5rem; }
+    .cert-cta-inner .btn { display: inline-flex; }
+
+    @media (max-width: 768px) {
+      .cert-page-hero, .cert-modules-section, .cert-cta-section { padding-left: 1.5rem; padding-right: 1.5rem; }
+      .cert-info-bar { gap: 1rem; }
     }
   </style>
 </head>
 <body>
 
-  <div class="navbar">Problem Solving Pro ⚡</div>
+  <header class="navbar">
+    <div class="nav-left">
+      <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.5rem;">
+        <div class="nav-logo-mark">A</div>
+        <span class="nav-logo-text">Arankerzz</span>
+      </a>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="practice.html">Problems</a></li>
+        <li><a href="learning.html" class="active">Learn</a></li>
+        <li><a href="resource.html">Resources</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-btn nav-btn-ghost" onclick="window.location.href='login.html'">Sign In</button>
+      <button class="nav-btn nav-btn-primary" onclick="window.location.href='signup.html'">Get Started</button>
+    </div>
+  </header>
 
-  <div class="header">
-    <h1>Sharpen Your Problem Solving</h1>
-    <p>Logical Thinking. Quick Coding. Smart Solutions.</p>
+  <!-- Hero -->
+  <section class="cert-page-hero">
+    <span class="section-label">🏅 Certification</span>
+    <h1>Problem Solving <span class="gradient-text">Pro</span></h1>
+    <p>Demonstrate your logical reasoning, algorithm knowledge, and coding ability with our certification track.</p>
+    <div style="display:flex;gap:0.75rem;justify-content:center;margin-top:1.5rem;">
+      <button class="btn btn-primary" onclick="window.location.href='mcqnquiz.html'">Take Certification Quiz</button>
+      <button class="btn btn-secondary" onclick="window.location.href='practice.html'">Practice Problems</button>
+    </div>
+  </section>
+
+  <!-- Info Bar -->
+  <div class="cert-info-bar">
+    <div class="cert-info-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      ~90 minutes
+    </div>
+    <div class="cert-info-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      6 Modules
+    </div>
+    <div class="cert-info-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      Shareable Certificate
+    </div>
+    <div class="cert-info-item">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      Beginner Friendly
+    </div>
   </div>
 
-  <div class="container">
-    <div class="card">
-      <h3>Logical Reasoning</h3>
-      <p>Practice puzzles, pattern recognition, and logical flow building.</p>
-      <button class="start-btn">Start Practicing</button>
-    </div>
-    
-    <div class="card">
-      <h3>Math Skills</h3>
-      <p>Boost your speed with number theory, combinatorics, and probability basics.</p>
-      <button class="start-btn">Master Math</button>
+  <!-- Modules -->
+  <section class="cert-modules-section">
+    <div class="section-header">
+      <span class="section-label">Learning Modules</span>
+      <h2>What you'll <span class="gradient-text">master</span></h2>
+      <p>Six focused modules covering everything from logical thinking to mock contests.</p>
     </div>
 
-    <div class="card">
-      <h3>Data Structures Practice</h3>
-      <p>Hands-on coding with Arrays, Linked Lists, Stacks, Queues, and more.</p>
-      <button class="start-btn">Practice Now</button>
-    </div>
+    <div class="modules-grid">
+      <div class="module-card">
+        <div class="module-icon" style="background:var(--orange-bg);">🧩</div>
+        <h3>Logical Reasoning</h3>
+        <p>Practice puzzles, pattern recognition, and systematic logical flow building for aptitude rounds.</p>
+        <span class="badge badge-easy">Beginner</span>
+        <button class="btn btn-secondary" onclick="window.location.href='mcqnquiz.html'">Start Module</button>
+      </div>
 
-    <div class="card">
-      <h3>Algorithm Challenges</h3>
-      <p>Sorting, Searching, Recursion, Greedy — Build faster solutions.</p>
-      <button class="start-btn">Take Challenges</button>
-    </div>
+      <div class="module-card">
+        <div class="module-icon" style="background:rgba(251,191,36,0.12);">🧮</div>
+        <h3>Math & Quantitative</h3>
+        <p>Boost speed with number theory, combinatorics, probability, and permutations.</p>
+        <span class="badge badge-easy">Beginner</span>
+        <button class="btn btn-secondary" onclick="window.location.href='mcqnquiz.html'">Start Module</button>
+      </div>
 
-    <div class="card">
-      <h3>Code Optimization</h3>
-      <p>Learn tricks to make your code efficient and interview-ready.</p>
-      <button class="start-btn">Optimize Code</button>
-    </div>
+      <div class="module-card">
+        <div class="module-icon" style="background:var(--blue-bg);">📚</div>
+        <h3>Data Structures Practice</h3>
+        <p>Hands-on coding with Arrays, Linked Lists, Stacks, Queues, Trees, and Graphs.</p>
+        <span class="badge badge-medium">Intermediate</span>
+        <button class="btn btn-secondary" onclick="window.location.href='arrays.html'">Start Module</button>
+      </div>
 
-    <div class="card">
-      <h3>Mock Contests</h3>
-      <p>Test yourself under real contest environments and time pressure.</p>
-      <button class="start-btn">Join Contest</button>
-    </div>
-  </div>
+      <div class="module-card">
+        <div class="module-icon" style="background:var(--green-bg);">⚡</div>
+        <h3>Algorithm Challenges</h3>
+        <p>Sorting, Searching, Recursion, Greedy — build faster solutions that impress interviewers.</p>
+        <span class="badge badge-medium">Intermediate</span>
+        <button class="btn btn-secondary" onclick="window.location.href='algorithm.html'">Start Module</button>
+      </div>
 
+      <div class="module-card">
+        <div class="module-icon" style="background:rgba(167,139,250,0.12);">🚀</div>
+        <h3>Code Optimization</h3>
+        <p>Learn time and space complexity reduction tricks. Write clean, interview-ready solutions.</p>
+        <span class="badge badge-hard">Advanced</span>
+        <button class="btn btn-secondary" onclick="window.location.href='practice.html'">Start Module</button>
+      </div>
+
+      <div class="module-card">
+        <div class="module-icon" style="background:rgba(239,71,67,0.12);">🏆</div>
+        <h3>Mock Contests</h3>
+        <p>Test yourself under real contest environments with time pressure and a live leaderboard.</p>
+        <span class="badge badge-hard">Advanced</span>
+        <button class="btn btn-primary" onclick="window.location.href='mcqnquiz.html'">Join Contest</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cert-cta-section">
+    <div class="cert-cta-inner">
+      <h2>Ready to get certified?</h2>
+      <p>Take the timed certification quiz and earn a shareable badge you can add to your LinkedIn and resume.</p>
+      <button class="btn btn-primary" onclick="window.location.href='mcqnquiz.html'">Start Certification →</button>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Placement Prep Portal. All rights reserved.</p>
+  </footer>
+
+  <script src="js/particles.js"></script>
 </body>
 </html>

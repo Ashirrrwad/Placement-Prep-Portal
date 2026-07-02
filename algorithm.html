@@ -1,223 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Algorithms | Arankerzz</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      padding: 0;
-      background-color: #f4f4f4;
-    }
-
-    .container {
-      max-width: 1000px;
-      margin: 50px auto;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-    }
-
-    h1 {
-      text-align: center;
-    }
-
-    .topic-header {
-      text-align: center;
-    }
-
-    .progress-container {
-      margin: 20px 0;
-    }
-
-    .progress-bar {
-      width: 100%;
-      height: 25px;
-      background-color: #e0e0e0;
-      border-radius: 5px;
-    }
-
-    .progress-fill {
-      height: 100%;
-      width: 0;
-      background-color: #4caf50;
-      border-radius: 5px;
-    }
-
-    .card-container {
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 20px;
-      margin-top: 30px;
-    }
-
-    .card {
-      background-color: #f9f9f9;
-      border-radius: 10px;
-      padding: 20px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-      cursor: pointer;
-      transition: transform 0.3s;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .card:hover {
-      transform: scale(1.05);
-    }
-
-    .card-title {
-      font-size: 20px;
-      font-weight: bold;
-    }
-
-    .card-description {
-      font-size: 16px;
-      margin-top: 10px;
-    }
-
-    .start-btn {
-      background-color: #2196f3;
-      color: #fff;
-      padding: 10px;
-      width: 100%;
-      text-align: center;
-      border: none;
-      border-radius: 5px;
-      cursor: pointer;
-      margin-top: 3rem;
-      margin-bottom: 10px;
-      width: 40%;
-      margin-left: 4.5rem;
-    }
-
-    .start-btn:hover {
-      background-color: #387ec9;
-    }
-
-    .checkbox-container {
-      margin-top: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .checkbox-container input {
-      margin-right: 10px;
-    }
-
-    button {
-      background-color: #f44336;
-      color: #fff;
-      padding: 10px;
-      border: none;
-      cursor: pointer;
-      margin-left: 42%;
-      margin-top: 20px;
-      font-size: 16px;
-    }
-
-    button:hover {
-      background-color: #d32f2f;
-    }
-
-    /* Make the grid responsive */
-    @media (max-width: 768px) {
-      .card-container {
-        grid-template-columns: repeat(2, 1fr);
-      }
-    }
-
-    @media (max-width: 480px) {
-      .card-container {
-        grid-template-columns: 1fr;
-      }
-    }
-  </style>
+  <meta name="description" content="Sorting, searching, divide & conquer, greedy and recursion algorithms." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/topic-page.css" />
 </head>
 <body>
 
-  <div class="container">
-    <h1>The Algorithm Library</h1>
-
-    <div class="topic-header">
-      <h2>"Master Key Algorithms for Placements"</h2>
-      <p>Start Learning</p>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.5rem;">
+        <div class="nav-logo-mark">A</div>
+        <span class="nav-logo-text">Arankerzz</span>
+      </a>
     </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="practice.html">Problems</a></li>
+        <li><a href="learning.html">Learn</a></li>
+        <li><a href="resource.html">Resources</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-btn nav-btn-ghost" onclick="window.location.href='login.html'">Sign In</button>
+      <button class="nav-btn nav-btn-primary" onclick="window.location.href='signup.html'">Get Started</button>
+    </div>
+  </header>
 
-    <!-- Progress Bar for Quick Sort -->
-    <div class="progress-container">
-      <p>Progress: </p>
-      <div class="progress-bar">
-        <div class="progress-fill" id="quick-sort-progress"></div>
+  <!-- HERO -->
+  <div class="topic-hero">
+    <div class="topic-hero-left">
+      <div class="topic-hero-badges">
+        <span class="badge" style="background:rgba(255,161,22,0.1);color:#ffa116;font-size:1rem;padding:0.3rem 0.75rem;">⚡ Algorithms</span>
+      </div>
+      <h1 style="margin-top:0.75rem;">Algorithms <span style="color:#ffa116">Practice</span></h1>
+      <p>Sorting, searching, divide & conquer, greedy and recursion algorithms.</p>
+      <div class="topic-hero-badges">
+        <span class="badge badge-easy">7 Easy</span>
+        <span class="badge badge-medium">9 Medium</span>
+        <span class="badge badge-hard">6 Hard</span>
       </div>
     </div>
 
-    <!-- Cards for Algorithms -->
-    <div class="card-container" id="cardContainer">
-      <!-- Cards will be dynamically added here -->
+    <div class="topic-progress-wrap">
+      <div class="topic-ring-container">
+        <svg class="topic-ring" width="90" height="90" viewBox="0 0 90 90">
+          <circle class="ring-bg"   cx="45" cy="45" r="36"/>
+          <circle class="ring-prog" id="progressRing" cx="45" cy="45" r="36"
+            stroke-dasharray="226" stroke-dashoffset="226"/>
+        </svg>
+        <div class="ring-center">
+          <span class="ring-num" id="solvedCount">0</span>
+          <span class="ring-total">/ 22</span>
+        </div>
+      </div>
+      <div class="topic-stats">
+        <div class="topic-stat-item"><div class="stat-dot" style="background:var(--green)"></div><span id="easyCount">0 / 7 Easy</span></div>
+        <div class="topic-stat-item"><div class="stat-dot" style="background:var(--orange)"></div><span id="medCount">0 / 9 Medium</span></div>
+        <div class="topic-stat-item"><div class="stat-dot" style="background:var(--red)"></div><span id="hardCount">0 / 6 Hard</span></div>
+      </div>
     </div>
-
-    <button onclick="resetProgress()">Reset Progress</button>
   </div>
 
+  <!-- TOOLBAR -->
+  <div class="topic-toolbar">
+    <div class="toolbar-left">
+      <button class="filter-btn active" data-filter="all" onclick="setFilter('all',this)">All (22)</button>
+      <button class="filter-btn" data-filter="Easy"   onclick="setFilter('Easy',this)">Easy (7)</button>
+      <button class="filter-btn" data-filter="Medium" onclick="setFilter('Medium',this)">Medium (9)</button>
+      <button class="filter-btn" data-filter="Hard"   onclick="setFilter('Hard',this)">Hard (6)</button>
+      <button class="filter-btn" data-filter="solved" onclick="setFilter('solved',this)">✓ Solved</button>
+    </div>
+    <div class="toolbar-right">
+      <div class="toolbar-search">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search problems…" id="searchBox" oninput="renderTable()" />
+      </div>
+      <button class="clear-btn" onclick="clearAll()">Clear All</button>
+    </div>
+  </div>
+
+  <!-- PROBLEM TABLE -->
+  <div class="topic-main">
+    <div class="problem-table-wrap">
+      <table class="prob-table" id="problemTable">
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>#</th>
+            <th>Problem</th>
+            <th>Difficulty</th>
+            <th>Bookmark</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Placement Prep Portal. All rights reserved.</p>
+  </footer>
+
   <script>
-    const topics = [
-      { name: "Quick Sort", description: "A fast sorting algorithm that uses divide and conquer.", completed: false },
-      { name: "Merge Sort", description: "A sorting algorithm that divides the list into sublists, sorts them, and merges them.", completed: false },
-      { name: "Binary Search", description: "An efficient algorithm for finding an item from a sorted list.", completed: false },
-      { name: "Dijkstra's Algorithm", description: "An algorithm for finding the shortest paths between nodes in a graph.", completed: false },
-      { name: "Radix Sort", description: "A non-comparative integer sorting algorithm.", completed: false },
-      { name: "Greedy Algorithms", description: "Solving problems by selecting the best option available at each step.", completed: false },
-      { name: "Prim's Algorithm", description: "An algorithm for finding a minimum spanning tree.", completed: false },
-      { name: "Knapsack Problem", description: "An optimization problem where the goal is to maximize the total value.", completed: false },
-    ];
+  const PROBLEMS = [{"id":0,"title":"Bubble Sort — with early termination","diff":"Easy"},{"id":1,"title":"Selection Sort","diff":"Easy"},{"id":2,"title":"Insertion Sort","diff":"Easy"},{"id":3,"title":"Merge Sort — Divide and Conquer","diff":"Medium"},{"id":4,"title":"Quick Sort — Lomuto and Hoare partition","diff":"Medium"},{"id":5,"title":"Heap Sort","diff":"Medium"},{"id":6,"title":"Counting Sort","diff":"Easy"},{"id":7,"title":"Radix Sort","diff":"Medium"},{"id":8,"title":"Binary Search — Iterative and Recursive","diff":"Easy"},{"id":9,"title":"Search in Rotated Sorted Array","diff":"Medium"},{"id":10,"title":"Find first and last position in sorted array","diff":"Medium"},{"id":11,"title":"Ternary Search","diff":"Medium"},{"id":12,"title":"Two Pointer Technique","diff":"Easy"},{"id":13,"title":"Sliding Window Maximum","diff":"Hard"},{"id":14,"title":"Greedy Activity Selection Problem","diff":"Medium"},{"id":15,"title":"Greedy Fractional Knapsack","diff":"Medium"},{"id":16,"title":"Huffman Encoding (Greedy)","diff":"Hard"},{"id":17,"title":"Divide and Conquer — Power function","diff":"Easy"},{"id":18,"title":"Closest Pair of Points","diff":"Hard"},{"id":19,"title":"Strassen's Matrix Multiplication","diff":"Hard"},{"id":20,"title":"Dutch National Flag Algorithm (3-way partition)","diff":"Medium"},{"id":21,"title":"Cycle Sort for minimum swaps","diff":"Hard"}];
 
-    const container = document.getElementById("cardContainer");
+  const state = JSON.parse(localStorage.getItem('topic_algorithm') || '{}');
 
-    function createCards() {
-      topics.forEach((topic, index) => {
-        const card = document.createElement("div");
-        card.className = "card";
+  function saveState() {
+    localStorage.setItem('topic_algorithm', JSON.stringify(state));
+  }
 
-        // Card content
-        card.innerHTML = `
-          <div class="card-title">${topic.name}</div>
-          <div class="card-description">${topic.description}</div>
-          <a href="${topic.name.toLowerCase().replace(/\s+/g, '-')}.html">
-            <button class="start-btn">Start Now</button>
-          </a>
-          <div class="checkbox-container">
-            <input type="checkbox" id="topic-${index}" class="topic-checkbox" onclick="updateProgress()">
-            <label for="topic-${index}"> Mark as Complete</label>
-          </div>
-        `;
+  let activeFilter = 'all';
 
-        container.appendChild(card);
-      });
+  function setFilter(f, btn) {
+    activeFilter = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderTable();
+  }
+
+  function updateProgress() {
+    const solved = PROBLEMS.filter(p => state[p.id]?.done).length;
+    const easy   = PROBLEMS.filter(p => p.diff==='Easy'   && state[p.id]?.done).length;
+    const med    = PROBLEMS.filter(p => p.diff==='Medium'  && state[p.id]?.done).length;
+    const hard   = PROBLEMS.filter(p => p.diff==='Hard'    && state[p.id]?.done).length;
+
+    document.getElementById('solvedCount').textContent = solved;
+    document.getElementById('easyCount').textContent = easy + ' / 7 Easy';
+    document.getElementById('medCount').textContent  = med  + ' / 9 Medium';
+    document.getElementById('hardCount').textContent = hard + ' / 6 Hard';
+
+    const pct = solved / PROBLEMS.length;
+    const circ = 2 * Math.PI * 36;
+    const offset = circ * (1 - pct);
+    document.getElementById('progressRing').style.strokeDashoffset = offset;
+  }
+
+  function renderTable() {
+    const search = document.getElementById('searchBox').value.toLowerCase();
+    const tbody  = document.getElementById('tableBody');
+
+    const filtered = PROBLEMS.filter(p => {
+      const matchDiff   = activeFilter === 'all' || p.diff === activeFilter || (activeFilter === 'solved' && state[p.id]?.done);
+      const matchSearch = !search || p.title.toLowerCase().includes(search);
+      return matchDiff && matchSearch;
+    });
+
+    if (!filtered.length) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:3rem;color:var(--text-muted);">No problems match your filters.</td></tr>';
+      return;
     }
 
-    function updateProgress() {
-      const progressBar = document.getElementById("quick-sort-progress");
-      const checkboxes = document.querySelectorAll(".topic-checkbox");
-      const completedTopics = Array.from(checkboxes).filter(checkbox => checkbox.checked).length;
-      const progressPercent = (completedTopics / topics.length) * 100;
-      progressBar.style.width = progressPercent + "%";
-    }
+    tbody.innerHTML = filtered.map(p => {
+      const done  = state[p.id]?.done  || false;
+      const bm    = state[p.id]?.bm    || false;
+      const note  = state[p.id]?.note  || '';
+      const diffClass = { Easy: 'diff-easy', Medium: 'diff-medium', Hard: 'diff-hard' }[p.diff];
+      return `
+        <tr class="prob-row${done ? ' solved' : ''}${bm ? ' bookmarked' : ''}" id="row-${p.id}">
+          <td><input type="checkbox" class="prob-check" ${done ? 'checked' : ''} onchange="toggleDone('${p.id}', this)" /></td>
+          <td class="prob-num">${String(p.id + 1).padStart(2, '0')}</td>
+          <td class="prob-title" onclick="window.open('https://www.google.com/search?q='+encodeURIComponent('${p.title}'+' leetcode geeksforgeeks'),'_blank')">${p.title}</td>
+          <td><span class="badge ${diffClass}">${p.diff}</span></td>
+          <td><button class="bookmark-btn ${bm ? 'bookmarked' : ''}" onclick="toggleBm('${p.id}', this)">${bm ? '🔖' : '🔖'}</button></td>
+          <td class="notes-cell">
+            <button class="notes-btn ${note ? 'active' : ''}" onclick="toggleNote('${p.id}', this)">📝</button>
+            <div class="notes-popover" id="note-${p.id}">
+              <textarea placeholder="Write your notes here…" onchange="saveNote('${p.id}', this.value)">${note}</textarea>
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+  }
 
-    function resetProgress() {
-      const checkboxes = document.querySelectorAll(".topic-checkbox");
-      checkboxes.forEach(checkbox => checkbox.checked = false);
-      const progressBar = document.getElementById("quick-sort-progress");
-      progressBar.style.width = "0%";
-    }
+  function toggleDone(id, cb) {
+    if (!state[id]) state[id] = {};
+    state[id].done = cb.checked;
+    saveState();
+    updateProgress();
+    const row = document.getElementById('row-' + id);
+    if (cb.checked) row.classList.add('solved'); else row.classList.remove('solved');
+  }
 
-    createCards();
+  function toggleBm(id, btn) {
+    if (!state[id]) state[id] = {};
+    state[id].bm = !state[id].bm;
+    btn.classList.toggle('bookmarked', state[id].bm);
+    const row = document.getElementById('row-' + id);
+    if (state[id].bm) row.classList.add('bookmarked'); else row.classList.remove('bookmarked');
+    saveState();
+  }
+
+  function toggleNote(id, btn) {
+    const pop = document.getElementById('note-' + id);
+    pop.classList.toggle('open');
+    btn.classList.toggle('active', pop.classList.contains('open'));
+  }
+
+  function saveNote(id, val) {
+    if (!state[id]) state[id] = {};
+    state[id].note = val;
+    const btn = document.querySelector('#row-' + id + ' .notes-btn');
+    if (btn) btn.classList.toggle('active', !!val);
+    saveState();
+  }
+
+  function clearAll() {
+    if (!confirm('Clear all progress for this topic?')) return;
+    Object.keys(state).forEach(k => delete state[k]);
+    saveState();
+    updateProgress();
+    renderTable();
+  }
+
+  renderTable();
+  updateProgress();
   </script>
-
+  <script src="js/particles.js"></script>
 </body>
 </html>

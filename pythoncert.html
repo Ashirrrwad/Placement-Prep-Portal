@@ -1,145 +1,198 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Python (Basics) | Arankerzz</title>
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #f5f7fa;
-      color: #333;
-    }
-
-    .navbar {
-      background-color: #1e3a8a;
-      padding: 15px;
-      color: #fff;
-      text-align: center;
-      font-size: 24px;
-      font-weight: bold;
-      letter-spacing: 1px;
-    }
-
-    .header {
-      text-align: center;
-      margin: 30px 20px;
-    }
-
-    .header h1 {
-      font-size: 36px;
-      color: #1e3a8a;
-    }
-
-    .header p {
-      font-size: 18px;
-      color: #555;
-    }
-
-    .container {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-      gap: 20px;
-      padding: 40px;
-    }
-
-    .card {
-      background: white;
-      padding: 20px;
-      border-radius: 12px;
-      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-      transition: 0.3s ease;
-      cursor: pointer;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-    }
-
-    .card:hover {
-      transform: translateY(-8px);
-    }
-
-    .card h3 {
-      color: #1e3a8a;
-      margin-bottom: 10px;
-    }
-
-    .card p {
-      flex-grow: 1;
-      font-size: 14px;
-      color: #666;
-    }
-
-    .start-btn {
-      background-color: #007bff;
-      color: #fff;
-      padding: 10px;
-      margin-top: 15px;
-      border: none;
-      border-radius: 5px;
-      font-size: 16px;
-      transition: 0.3s;
-    }
-
-    .start-btn:hover {
-      background-color: #3681c3;
-      cursor: pointer;
-    }
-
-    @media (max-width: 600px) {
-      .header h1 {
-        font-size: 28px;
-      }
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Python Certification | Arankerzz</title>
+  <meta name="description" content="Master Python for placement interviews — basics, OOP, data structures, problem solving and mini projects." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/resources.css" />
 </head>
 <body>
 
-  <div class="navbar">Python Power ⚡</div>
+  <header class="navbar">
+    <div class="nav-left">
+      <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.5rem;">
+        <div class="nav-logo-mark">A</div>
+        <span class="nav-logo-text">Arankerzz</span>
+      </a>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="practice.html">Problems</a></li>
+        <li><a href="learning.html" class="active">Learn</a></li>
+        <li><a href="resource.html">Resources</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-btn nav-btn-ghost" onclick="window.location.href='login.html'">Sign In</button>
+      <button class="nav-btn nav-btn-primary" onclick="window.location.href='signup.html'">Get Started</button>
+    </div>
+  </header>
 
-  <div class="header">
-    <h1>Master Python for Placements</h1>
-    <p>Quick, Focused & Interview-Ready Topics</p>
+  <!-- Hero -->
+  <section class="res-hero">
+    <div class="res-hero-orb"></div>
+    <div class="container">
+      <span class="section-label">🐍 Certification Track</span>
+      <h1>Master <span class="gradient-text">Python</span> for Placements</h1>
+      <p>Quick, focused, and interview-ready Python topics — from basics to advanced OOP and problem solving.</p>
+      <div style="display:flex;gap:0.75rem;justify-content:center;margin-top:1.5rem;flex-wrap:wrap;">
+        <button class="btn btn-primary" onclick="window.location.href='codingpractice.html'">Practice in Python</button>
+        <button class="btn btn-secondary" onclick="window.location.href='mcqnquiz.html'">Take Quiz</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Info Bar -->
+  <div style="display:flex;align-items:center;justify-content:center;gap:2rem;padding:1.25rem;background:var(--bg-card);border-bottom:1px solid var(--border);flex-wrap:wrap;">
+    <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--text-secondary);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+      ~60 minutes
+    </div>
+    <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--text-secondary);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+      6 Learning Modules
+    </div>
+    <div style="display:flex;align-items:center;gap:0.5rem;font-size:0.875rem;color:var(--text-secondary);">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="var(--accent)" stroke-width="2"><circle cx="12" cy="8" r="6"/><path d="M15.477 12.89L17 22l-5-3-5 3 1.523-9.11"/></svg>
+      Shareable Certificate
+    </div>
+    <span class="badge badge-easy" style="font-size:0.82rem;">Beginner Friendly</span>
   </div>
 
-  <div class="container">
-    <div class="card">
-      <h3>Python Basics</h3>
-      <p>Learn variables, data types, loops, and functions — quickly and clearly.</p>
-      <button class="start-btn">Start Learning</button>
-    </div>
-    
-    <div class="card">
-      <h3>OOP Concepts</h3>
-      <p>Classes, Objects, Inheritance, and Polymorphism explained simply.</p>
-      <button class="start-btn">Explore OOP</button>
-    </div>
+  <!-- Modules Grid -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Python Track</span>
+        <h2>Six modules to <span class="gradient-text">placement readiness</span></h2>
+      </div>
 
-    <div class="card">
-      <h3>Data Structures</h3>
-      <p>Lists, Sets, Tuples, Dictionaries — everything you’ll be asked about!</p>
-      <button class="start-btn">Master Data Structures</button>
-    </div>
+      <div class="resources-main-grid">
+        <div class="resource-card card glow-ring">
+          <div class="resource-card-header">
+            <div class="resource-icon" style="background:rgba(251,191,36,0.1);font-size:1.5rem;">🐍</div>
+            <span class="badge badge-easy">Module 1</span>
+          </div>
+          <h3>Python Basics</h3>
+          <p>Variables, data types, control flow, loops, functions — the essentials covered quickly and clearly.</p>
+          <ul class="resource-features">
+            <li>✓ Variables & Data Types</li>
+            <li>✓ Control Flow & Loops</li>
+            <li>✓ Functions & Scope</li>
+            <li>✓ String Manipulation</li>
+          </ul>
+          <button class="btn btn-secondary resource-cta" onclick="window.location.href='codingpractice.html'">Start Learning</button>
+        </div>
 
-    <div class="card">
-      <h3>Problem Solving</h3>
-      <p>Easy-to-medium level coding problems solved using Python techniques.</p>
-      <button class="start-btn">Solve Problems</button>
-    </div>
+        <div class="resource-card card glow-ring">
+          <div class="resource-card-header">
+            <div class="resource-icon" style="background:var(--blue-bg);font-size:1.5rem;">🏗️</div>
+            <span class="badge badge-easy">Module 2</span>
+          </div>
+          <h3>OOP Concepts</h3>
+          <p>Classes, Objects, Inheritance, Polymorphism, and Encapsulation — explained with real examples.</p>
+          <ul class="resource-features">
+            <li>✓ Classes & Objects</li>
+            <li>✓ Inheritance</li>
+            <li>✓ Polymorphism</li>
+            <li>✓ Dunder Methods</li>
+          </ul>
+          <button class="btn btn-secondary resource-cta" onclick="window.location.href='codingpractice.html'">Explore OOP</button>
+        </div>
 
-    <div class="card">
-      <h3>Mini Projects</h3>
-      <p>Quick real-world mini projects like calculator, file handler, etc.</p>
-      <button class="start-btn">View Projects</button>
-    </div>
+        <div class="resource-card card glow-ring">
+          <div class="resource-card-header">
+            <div class="resource-icon" style="background:var(--green-bg);font-size:1.5rem;">📊</div>
+            <span class="badge badge-medium">Module 3</span>
+          </div>
+          <h3>Data Structures</h3>
+          <p>Lists, Sets, Tuples, Dictionaries, Stacks, Queues — everything interviewers ask about!</p>
+          <ul class="resource-features">
+            <li>✓ Lists & Tuples</li>
+            <li>✓ Sets & Dicts</li>
+            <li>✓ Stack & Queue</li>
+            <li>✓ Comprehensions</li>
+          </ul>
+          <button class="btn btn-secondary resource-cta" onclick="window.location.href='arrays.html'">Master Data Structures</button>
+        </div>
+      </div>
 
-    <div class="card">
-      <h3>Interview Prep</h3>
-      <p>Python-specific interview questions and quick revision notes.</p>
-      <button class="start-btn">Get Prepared</button>
-    </div>
-  </div>
+      <div class="resources-main-grid" style="margin-top:1.25rem;">
+        <div class="resource-card card glow-ring">
+          <div class="resource-card-header">
+            <div class="resource-icon" style="background:rgba(167,139,250,0.1);font-size:1.5rem;">🧩</div>
+            <span class="badge badge-medium">Module 4</span>
+          </div>
+          <h3>Problem Solving</h3>
+          <p>Easy-to-medium level coding problems solved using Python: two-sum, palindrome, anagrams, and more.</p>
+          <ul class="resource-features">
+            <li>✓ Array Problems</li>
+            <li>✓ String Challenges</li>
+            <li>✓ Hash Map Patterns</li>
+            <li>✓ Sliding Window</li>
+          </ul>
+          <button class="btn btn-secondary resource-cta" onclick="window.location.href='codingpractice.html'">Solve Problems</button>
+        </div>
 
+        <div class="resource-card card glow-ring">
+          <div class="resource-card-header">
+            <div class="resource-icon" style="background:rgba(239,71,67,0.1);font-size:1.5rem;">🔨</div>
+            <span class="badge badge-hard">Module 5</span>
+          </div>
+          <h3>Mini Projects</h3>
+          <p>Quick real-world mini projects: calculator, file handler, student grade system, and REST API basics.</p>
+          <ul class="resource-features">
+            <li>✓ Calculator App</li>
+            <li>✓ File I/O Handler</li>
+            <li>✓ Grade System</li>
+            <li>✓ REST API with Flask</li>
+          </ul>
+          <button class="btn btn-secondary resource-cta" onclick="window.location.href='resource.html'">View Projects</button>
+        </div>
+
+        <div class="resource-card card glow-ring">
+          <div class="resource-card-header">
+            <div class="resource-icon" style="background:var(--orange-bg);font-size:1.5rem;">🎤</div>
+            <span class="badge badge-hard">Module 6</span>
+          </div>
+          <h3>Interview Prep</h3>
+          <p>Python-specific interview questions, quick revision notes, and common gotchas that trip up candidates.</p>
+          <ul class="resource-features">
+            <li>✓ GIL & Threading</li>
+            <li>✓ Generators</li>
+            <li>✓ Decorators</li>
+            <li>✓ Memory Model</li>
+          </ul>
+          <button class="btn btn-primary resource-cta" onclick="window.location.href='mcqnquiz.html'">Get Certified</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="resources-cta-card">
+        <div class="resources-cta-orb"></div>
+        <div class="resources-cta-text">
+          <h2>Earn your Python certification</h2>
+          <p>Complete all 6 modules, pass the quiz, and get a certificate you can share on LinkedIn and add to your resume.</p>
+        </div>
+        <div class="resources-cta-actions">
+          <button class="btn btn-primary" onclick="window.location.href='mcqnquiz.html'">Take the Quiz</button>
+          <button class="btn btn-secondary" onclick="window.location.href='learning.html'">Back to Learning</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Placement Prep Portal. All rights reserved.</p>
+  </footer>
+
+  <script src="js/particles.js"></script>
 </body>
 </html>

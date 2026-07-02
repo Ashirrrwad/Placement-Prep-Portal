@@ -1,187 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>DSA | Graphs</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 20px;
-    }
-    .question-table {
-      width: 100%;
-      border-collapse: collapse;
-    }
-    .question-table th, .question-table td {
-      border: 1px solid #ddd;
-      padding: 8px;
-      text-align: center;
-    }
-    .question-table th {
-      background-color: #f2f2f2;
-    }
-    .progress-bar {
-      width: 100%;
-      background-color: #eee;
-      height: 20px;
-      margin: 20px 0;
-      border-radius: 10px;
-      overflow: hidden;
-    }
-    .progress-fill {
-      height: 100%;
-      width: 0%;
-      background-color: #4caf50;
-      transition: width 0.4s ease;
-    }
-    .note-input {
-      display: none;
-      width: 90%;
-      margin-top: 5px;
-    }
-    .emoji-btn {
-      font-size: 20px;
-      cursor: pointer;
-    }
-    .bookmarked {
-      background-color: yellow;
-    }
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Graphs | Arankerzz</title>
+  <meta name="description" content="BFS, DFS, shortest paths, cycles and spanning trees — complete graph interview prep." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/topic-page.css" />
 </head>
 <body>
 
-  <h1>Graphs - Practice Questions</h1>
+  <!-- NAVBAR -->
+  <header class="navbar">
+    <div class="nav-left">
+      <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.5rem;">
+        <div class="nav-logo-mark">A</div>
+        <span class="nav-logo-text">Arankerzz</span>
+      </a>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="practice.html">Problems</a></li>
+        <li><a href="learning.html">Learn</a></li>
+        <li><a href="resource.html">Resources</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-btn nav-btn-ghost" onclick="window.location.href='login.html'">Sign In</button>
+      <button class="nav-btn nav-btn-primary" onclick="window.location.href='signup.html'">Get Started</button>
+    </div>
+  </header>
 
-  <!-- Progress Bar -->
-  <div class="progress-bar">
-    <div class="progress-fill" id="progressFill"></div>
+  <!-- HERO -->
+  <div class="topic-hero">
+    <div class="topic-hero-left">
+      <div class="topic-hero-badges">
+        <span class="badge" style="background:rgba(167,139,250,0.1);color:#a78bfa;font-size:1rem;padding:0.3rem 0.75rem;">🔵 Graphs</span>
+      </div>
+      <h1 style="margin-top:0.75rem;">Graphs <span style="color:#a78bfa">Practice</span></h1>
+      <p>BFS, DFS, shortest paths, cycles and spanning trees — complete graph interview prep.</p>
+      <div class="topic-hero-badges">
+        <span class="badge badge-easy">6 Easy</span>
+        <span class="badge badge-medium">10 Medium</span>
+        <span class="badge badge-hard">8 Hard</span>
+      </div>
+    </div>
+
+    <div class="topic-progress-wrap">
+      <div class="topic-ring-container">
+        <svg class="topic-ring" width="90" height="90" viewBox="0 0 90 90">
+          <circle class="ring-bg"   cx="45" cy="45" r="36"/>
+          <circle class="ring-prog" id="progressRing" cx="45" cy="45" r="36"
+            stroke-dasharray="226" stroke-dashoffset="226"/>
+        </svg>
+        <div class="ring-center">
+          <span class="ring-num" id="solvedCount">0</span>
+          <span class="ring-total">/ 24</span>
+        </div>
+      </div>
+      <div class="topic-stats">
+        <div class="topic-stat-item"><div class="stat-dot" style="background:var(--green)"></div><span id="easyCount">0 / 6 Easy</span></div>
+        <div class="topic-stat-item"><div class="stat-dot" style="background:var(--orange)"></div><span id="medCount">0 / 10 Medium</span></div>
+        <div class="topic-stat-item"><div class="stat-dot" style="background:var(--red)"></div><span id="hardCount">0 / 8 Hard</span></div>
+      </div>
+    </div>
   </div>
 
-  <!-- Questions Table -->
-  <table class="question-table" id="questionsTable">
-    <thead>
-      <tr>
-        <th>✅</th>
-        <th>📋 Question</th>
-        <th>🔖 Bookmark</th>
-        <th>📝 Notes</th>
-      </tr>
-    </thead>
-    <tbody>
-      <!-- Questions will be injected here -->
-    </tbody>
-  </table>
+  <!-- TOOLBAR -->
+  <div class="topic-toolbar">
+    <div class="toolbar-left">
+      <button class="filter-btn active" data-filter="all" onclick="setFilter('all',this)">All (24)</button>
+      <button class="filter-btn" data-filter="Easy"   onclick="setFilter('Easy',this)">Easy (6)</button>
+      <button class="filter-btn" data-filter="Medium" onclick="setFilter('Medium',this)">Medium (10)</button>
+      <button class="filter-btn" data-filter="Hard"   onclick="setFilter('Hard',this)">Hard (8)</button>
+      <button class="filter-btn" data-filter="solved" onclick="setFilter('solved',this)">✓ Solved</button>
+    </div>
+    <div class="toolbar-right">
+      <div class="toolbar-search">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        <input type="text" placeholder="Search problems…" id="searchBox" oninput="renderTable()" />
+      </div>
+      <button class="clear-btn" onclick="clearAll()">Clear All</button>
+    </div>
+  </div>
+
+  <!-- PROBLEM TABLE -->
+  <div class="topic-main">
+    <div class="problem-table-wrap">
+      <table class="prob-table" id="problemTable">
+        <thead>
+          <tr>
+            <th>Status</th>
+            <th>#</th>
+            <th>Problem</th>
+            <th>Difficulty</th>
+            <th>Bookmark</th>
+            <th>Notes</th>
+          </tr>
+        </thead>
+        <tbody id="tableBody"></tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <p>&copy; 2025 Placement Prep Portal. All rights reserved.</p>
+  </footer>
 
   <script>
-    const questions = [
-      "Introduction to Graphs",
-      "Graph Representation (Adjacency List & Matrix)",
-      "Breadth-First Search (BFS)",
-      "Depth-First Search (DFS)",
-      "Topological Sort",
-      "Graph Cycle Detection",
-      "Shortest Path (Dijkstra's Algorithm)",
-      "Bellman-Ford Algorithm",
-      "Floyd-Warshall Algorithm",
-      "Kruskal's Algorithm (MST)",
-      "Prim's Algorithm (MST)",
-      "Graph Connectivity",
-      "Strongly Connected Components (Kosaraju’s Algorithm)",
-      "Graph Traversal Using DFS/BFS",
-      "Graph Coloring",
-      "Detecting Bipartite Graph",
-      "Eulerian Path and Circuit",
-      "Hamiltonian Path and Circuit",
-      "Graph Cut Problems",
-      "Articulation Points and Bridges",
-      "Find Bridges in a Graph",
-      "Find Articulation Points in a Graph",
-      "Dijkstra’s Algorithm with Priority Queue",
-      "Graph Representation Using HashMap",
-      "Connected Components in Graph",
-      "Find Shortest Path in a Graph",
-      "Graph Algorithms in C++/Java/Python",
-      "Network Flow Algorithms",
-      "Minimum Cut in a Graph",
-      "Max Flow Problem",
-      "Find Shortest Path in Weighted Graph",
-      "Cycle Detection in Directed Graph",
-      "Cycle Detection in Undirected Graph",
-      "Bellman-Ford Algorithm with Negative Cycles",
-      "Kahn's Algorithm for Topological Sort",
-      "Graph Traversal in Directed Graph",
-      "BFS and DFS in Directed Acyclic Graphs",
-      "Solving Graph Problems using Matrix Exponentiation"
-    ];
+  const PROBLEMS = [{"id":0,"title":"Graph Representation (Adjacency List & Matrix)","diff":"Easy"},{"id":1,"title":"Breadth-First Search (BFS)","diff":"Easy"},{"id":2,"title":"Depth-First Search (DFS)","diff":"Easy"},{"id":3,"title":"Detect Cycle in Undirected Graph","diff":"Medium"},{"id":4,"title":"Detect Cycle in Directed Graph","diff":"Medium"},{"id":5,"title":"Topological Sort (Kahn's Algorithm)","diff":"Medium"},{"id":6,"title":"Topological Sort (DFS-based)","diff":"Medium"},{"id":7,"title":"Shortest Path in Unweighted Graph (BFS)","diff":"Easy"},{"id":8,"title":"Dijkstra's Shortest Path Algorithm","diff":"Medium"},{"id":9,"title":"Bellman-Ford Algorithm (Negative Weights)","diff":"Hard"},{"id":10,"title":"Floyd-Warshall All-Pairs Shortest Path","diff":"Hard"},{"id":11,"title":"Kruskal's MST Algorithm (Union-Find)","diff":"Hard"},{"id":12,"title":"Prim's MST Algorithm","diff":"Hard"},{"id":13,"title":"Bipartite Graph Check","diff":"Medium"},{"id":14,"title":"Strongly Connected Components (Kosaraju's)","diff":"Hard"},{"id":15,"title":"Articulation Points and Bridges","diff":"Hard"},{"id":16,"title":"Graph Coloring (m-Coloring Problem)","diff":"Hard"},{"id":17,"title":"Number of Islands (Connected Components)","diff":"Medium"},{"id":18,"title":"Word Ladder (BFS on implicit graph)","diff":"Hard"},{"id":19,"title":"Alien Dictionary (Topological Sort)","diff":"Hard"},{"id":20,"title":"Rotten Oranges (Multi-source BFS)","diff":"Medium"},{"id":21,"title":"Course Schedule (Cycle in DAG)","diff":"Medium"},{"id":22,"title":"Network Delay Time (Dijkstra)","diff":"Medium"},{"id":23,"title":"Redundant Connection (Union-Find)","diff":"Medium"}];
 
-    let completedCount = 0;
+  const state = JSON.parse(localStorage.getItem('topic_graphs') || '{}');
 
-    const tableBody = document.querySelector("#questionsTable tbody");
-    const progressFill = document.getElementById("progressFill");
+  function saveState() {
+    localStorage.setItem('topic_graphs', JSON.stringify(state));
+  }
 
-    function updateProgress() {
-      const percent = (completedCount / questions.length) * 100;
-      progressFill.style.width = percent + "%";
-    }
+  let activeFilter = 'all';
 
-    function createQuestionRow(index, questionText) {
-      const row = document.createElement("tr");
+  function setFilter(f, btn) {
+    activeFilter = f;
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    renderTable();
+  }
 
-      // Tickbox
-      const tickCell = document.createElement("td");
-      const tickInput = document.createElement("input");
-      tickInput.type = "checkbox";
-      tickInput.addEventListener("change", (e) => {
-        if (e.target.checked) {
-          completedCount++;
-        } else {
-          completedCount--;
-        }
-        updateProgress();
-      });
-      tickCell.appendChild(tickInput);
-      row.appendChild(tickCell);
+  function updateProgress() {
+    const solved = PROBLEMS.filter(p => state[p.id]?.done).length;
+    const easy   = PROBLEMS.filter(p => p.diff==='Easy'   && state[p.id]?.done).length;
+    const med    = PROBLEMS.filter(p => p.diff==='Medium'  && state[p.id]?.done).length;
+    const hard   = PROBLEMS.filter(p => p.diff==='Hard'    && state[p.id]?.done).length;
 
-      // Question Text
-      const questionCell = document.createElement("td");
-      questionCell.innerText = questionText;
-      row.appendChild(questionCell);
+    document.getElementById('solvedCount').textContent = solved;
+    document.getElementById('easyCount').textContent = easy + ' / 6 Easy';
+    document.getElementById('medCount').textContent  = med  + ' / 10 Medium';
+    document.getElementById('hardCount').textContent = hard + ' / 8 Hard';
 
-      // Bookmark
-      const bookmarkCell = document.createElement("td");
-      const bookmarkBtn = document.createElement("span");
-      bookmarkBtn.innerText = "🔖";
-      bookmarkBtn.classList.add("emoji-btn");
-      bookmarkBtn.addEventListener("click", () => {
-        row.classList.toggle("bookmarked");
-      });
-      bookmarkCell.appendChild(bookmarkBtn);
-      row.appendChild(bookmarkCell);
+    const pct = solved / PROBLEMS.length;
+    const circ = 2 * Math.PI * 36;
+    const offset = circ * (1 - pct);
+    document.getElementById('progressRing').style.strokeDashoffset = offset;
+  }
 
-      // Notes
-      const notesCell = document.createElement("td");
-      const noteBtn = document.createElement("span");
-      noteBtn.innerText = "📝";
-      noteBtn.classList.add("emoji-btn");
-      const noteInput = document.createElement("textarea");
-      noteInput.className = "note-input";
-      notesCell.appendChild(noteBtn);
-      notesCell.appendChild(noteInput);
+  function renderTable() {
+    const search = document.getElementById('searchBox').value.toLowerCase();
+    const tbody  = document.getElementById('tableBody');
 
-      noteBtn.addEventListener("click", () => {
-        noteInput.style.display = noteInput.style.display === "block" ? "none" : "block";
-      });
-
-      row.appendChild(notesCell);
-
-      tableBody.appendChild(row);
-    }
-
-    // Populate the questions
-    questions.forEach((question, index) => {
-      createQuestionRow(index, question);
+    const filtered = PROBLEMS.filter(p => {
+      const matchDiff   = activeFilter === 'all' || p.diff === activeFilter || (activeFilter === 'solved' && state[p.id]?.done);
+      const matchSearch = !search || p.title.toLowerCase().includes(search);
+      return matchDiff && matchSearch;
     });
-  </script>
 
+    if (!filtered.length) {
+      tbody.innerHTML = '<tr><td colspan="6" style="text-align:center;padding:3rem;color:var(--text-muted);">No problems match your filters.</td></tr>';
+      return;
+    }
+
+    tbody.innerHTML = filtered.map(p => {
+      const done  = state[p.id]?.done  || false;
+      const bm    = state[p.id]?.bm    || false;
+      const note  = state[p.id]?.note  || '';
+      const diffClass = { Easy: 'diff-easy', Medium: 'diff-medium', Hard: 'diff-hard' }[p.diff];
+      return `
+        <tr class="prob-row${done ? ' solved' : ''}${bm ? ' bookmarked' : ''}" id="row-${p.id}">
+          <td><input type="checkbox" class="prob-check" ${done ? 'checked' : ''} onchange="toggleDone('${p.id}', this)" /></td>
+          <td class="prob-num">${String(p.id + 1).padStart(2, '0')}</td>
+          <td class="prob-title" onclick="window.open('https://www.google.com/search?q='+encodeURIComponent('${p.title}'+' leetcode geeksforgeeks'),'_blank')">${p.title}</td>
+          <td><span class="badge ${diffClass}">${p.diff}</span></td>
+          <td><button class="bookmark-btn ${bm ? 'bookmarked' : ''}" onclick="toggleBm('${p.id}', this)">${bm ? '🔖' : '🔖'}</button></td>
+          <td class="notes-cell">
+            <button class="notes-btn ${note ? 'active' : ''}" onclick="toggleNote('${p.id}', this)">📝</button>
+            <div class="notes-popover" id="note-${p.id}">
+              <textarea placeholder="Write your notes here…" onchange="saveNote('${p.id}', this.value)">${note}</textarea>
+            </div>
+          </td>
+        </tr>`;
+    }).join('');
+  }
+
+  function toggleDone(id, cb) {
+    if (!state[id]) state[id] = {};
+    state[id].done = cb.checked;
+    saveState();
+    updateProgress();
+    const row = document.getElementById('row-' + id);
+    if (cb.checked) row.classList.add('solved'); else row.classList.remove('solved');
+  }
+
+  function toggleBm(id, btn) {
+    if (!state[id]) state[id] = {};
+    state[id].bm = !state[id].bm;
+    btn.classList.toggle('bookmarked', state[id].bm);
+    const row = document.getElementById('row-' + id);
+    if (state[id].bm) row.classList.add('bookmarked'); else row.classList.remove('bookmarked');
+    saveState();
+  }
+
+  function toggleNote(id, btn) {
+    const pop = document.getElementById('note-' + id);
+    pop.classList.toggle('open');
+    btn.classList.toggle('active', pop.classList.contains('open'));
+  }
+
+  function saveNote(id, val) {
+    if (!state[id]) state[id] = {};
+    state[id].note = val;
+    const btn = document.querySelector('#row-' + id + ' .notes-btn');
+    if (btn) btn.classList.toggle('active', !!val);
+    saveState();
+  }
+
+  function clearAll() {
+    if (!confirm('Clear all progress for this topic?')) return;
+    Object.keys(state).forEach(k => delete state[k]);
+    saveState();
+    updateProgress();
+    renderTable();
+  }
+
+  renderTable();
+  updateProgress();
+  </script>
+  <script src="js/particles.js"></script>
 </body>
 </html>

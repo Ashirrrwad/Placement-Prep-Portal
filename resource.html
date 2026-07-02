@@ -1,62 +1,188 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resources | Arankerzz</title>
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="resources.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Resources | Arankerzz</title>
+  <meta name="description" content="Curated study materials, aptitude prep, CS fundamentals, and resume optimization resources for placement preparation." />
+  <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" href="css/resources.css" />
 </head>
 <body>
-    <nav class="navbar">
-        <div class="nav-left">
-            <img src="logo.jpg" alt="Logo" class="nav-icon">
-           
-        </div>
-        <ul class="nav-links">
-            <li><a href="index.html">Home</a></li>
-            <li><a href="resource.html">Resources</a></li>
-            <li><a href="practice.html">Practice</a></li>
-            <li><a href="learning.html">Learning</a></li>
-        </ul>
+
+  <!-- ── NAVBAR ── -->
+  <header class="navbar">
+    <div class="nav-left">
+      <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.5rem;">
+        <div class="nav-logo-mark">A</div>
+        <span class="nav-logo-text">Arankerzz</span>
+      </a>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="practice.html">Problems</a></li>
+        <li><a href="learning.html">Learn</a></li>
+        <li><a href="resource.html" class="active">Resources</a></li>
+      </ul>
     </nav>
-    <section id="home" class="hero">
-        <h3>Resources</h3>
-        <p1>**"Unlock your potential with the right resources—practice, prepare, and ace your placements!"** 🚀</p1>
-        
-    </section>
+    <div class="nav-right">
+      <button class="nav-btn nav-btn-ghost" onclick="window.location.href='login.html'">Sign In</button>
+      <button class="nav-btn nav-btn-primary" onclick="window.location.href='signup.html'">Get Started</button>
+    </div>
+  </header>
 
-    <section id="resources" class="content">
-        <h2>Empower  </h2>
-        <p1>The Resources section of the Placement Prep Portal provides carefully curated study materials, coding challenges, and interview preparation guides. It includes aptitude & reasoning practice, computer science fundamentals, and resume & LinkedIn optimization to ensure you're fully prepared for placement success. Whether you're strengthening your problem-solving skills or refining your resume, these resources will help you learn, practice, and excel.</p1>
-    </section>
-    
-    <section class="resources-container">
-        <div class="resource-box">
-            <img src="apti.png" alt="Aptitude & Reasoning">
-            <h3>Aptitude & Reasoning Prep</h3>
-            <p>Practice quantitative aptitude, logical reasoning, and verbal ability with top resources and question banks.</p>
-            <a href="aptitude.html" class="resource-btn">Start Practicing</a>
-        </div>
-        
-        <div class="resource-box">
-            <img src="cs.png" alt="CS Fundamentals">
-            <h3>CS Fundamentals & Notes</h3>
-            <p>Learn Operating Systems, DBMS, Computer Networks, and OOP with detailed notes and cheat sheets.</p>
-            <button class="resource-btn">View Notes</button>
-        </div>
-        
-        <div class="resource-box">
-            <img src="resume.avif" alt="Resume & LinkedIn Optimization">
-            <h3>Resume & LinkedIn Optimization</h3>
-            <p>Optimize your resume and LinkedIn profile with templates, best practices, and personal branding tips.</p>
-            <button class="resource-btn">Optimize Now</button>
-        </div>
-    </section>
-    
+  <!-- ── HERO ── -->
+  <section class="res-hero">
+    <div class="res-hero-orb"></div>
+    <div class="container">
+      <span class="section-label">Study Materials</span>
+      <h1>Placement <span class="gradient-text">Resources</span></h1>
+      <p>Carefully curated materials to power every stage of your placement journey — from aptitude to resume.</p>
+    </div>
+  </section>
 
-    <footer>
-        <p>&copy; 2025 Placement Prep Portal. All rights reserved.</p>
-    </footer>
+  <!-- ── MAIN RESOURCES ── -->
+  <section class="section" id="resources">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Core Resources</span>
+        <h2>Empower your <span class="gradient-text">preparation</span></h2>
+        <p>Everything you need to ace technical rounds, aptitude tests, and HR interviews.</p>
+      </div>
+
+      <div class="resources-main-grid">
+        <div class="resource-card card glow-ring">
+          <div class="resource-card-header">
+            <div class="resource-icon" style="background:rgba(251,191,36,0.12); color:#fbbf24;">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+            </div>
+            <span class="badge badge-medium">Aptitude</span>
+          </div>
+          <h3>Aptitude & Reasoning Prep</h3>
+          <p>Practice quantitative aptitude, logical reasoning, and verbal ability with top resources and question banks.</p>
+          <ul class="resource-features">
+            <li>✓ Quantitative Aptitude</li>
+            <li>✓ Logical Reasoning</li>
+            <li>✓ Verbal Ability</li>
+            <li>✓ 1000+ Practice Questions</li>
+          </ul>
+          <a href="#" class="btn btn-primary resource-cta">Start Practicing</a>
+        </div>
+
+        <div class="resource-card card glow-ring">
+          <div class="resource-card-header">
+            <div class="resource-icon" style="background:var(--blue-bg); color:var(--blue);">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+            </div>
+            <span class="badge badge-blue">Technical</span>
+          </div>
+          <h3>CS Fundamentals & Notes</h3>
+          <p>Learn Operating Systems, DBMS, Computer Networks, and OOP with detailed notes and cheat sheets.</p>
+          <ul class="resource-features">
+            <li>✓ Operating Systems</li>
+            <li>✓ DBMS & SQL</li>
+            <li>✓ Computer Networks</li>
+            <li>✓ OOP Concepts</li>
+          </ul>
+          <button class="btn btn-primary resource-cta">View Notes</button>
+        </div>
+
+        <div class="resource-card card glow-ring">
+          <div class="resource-card-header">
+            <div class="resource-icon" style="background:var(--green-bg); color:var(--green);">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
+            </div>
+            <span class="badge badge-easy">Career</span>
+          </div>
+          <h3>Resume & LinkedIn Optimization</h3>
+          <p>Optimize your resume and LinkedIn profile with templates, best practices, and personal branding tips.</p>
+          <ul class="resource-features">
+            <li>✓ ATS-friendly Templates</li>
+            <li>✓ LinkedIn Optimization</li>
+            <li>✓ Cover Letter Guide</li>
+            <li>✓ Personal Branding</li>
+          </ul>
+          <button class="btn btn-primary resource-cta">Optimize Now</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── INTERVIEW PREP ── -->
+  <section class="section" style="padding-top:0;" id="interview">
+    <div class="container">
+      <div class="section-header">
+        <span class="section-label">Interview Ready</span>
+        <h2>Ace your <span class="gradient-text">interviews</span></h2>
+      </div>
+
+      <div class="interview-grid">
+        <a href="practice.html" class="interview-card card">
+          <div class="interview-icon">🎤</div>
+          <h4>Interview Practice</h4>
+          <p>Prepare for technical and HR interviews with mock questions and answer frameworks.</p>
+          <span class="interview-link text-accent">Practice →</span>
+        </a>
+
+        <a href="practice.html" class="interview-card card">
+          <div class="interview-icon">👥</div>
+          <h4>Group Discussion</h4>
+          <p>Improve your communication and presentation skills with GD practice material.</p>
+          <span class="interview-link text-accent">Practice →</span>
+        </a>
+
+        <a href="practice.html" class="interview-card card">
+          <div class="interview-icon">💡</div>
+          <h4>HR Interview Tips</h4>
+          <p>Master STAR method answers and common HR questions that trip up candidates.</p>
+          <span class="interview-link text-accent">Learn More →</span>
+        </a>
+
+        <a href="practice.html" class="interview-card card">
+          <div class="interview-icon">📋</div>
+          <h4>Past Placement Papers</h4>
+          <p>Access previous years' placement papers from top companies to understand patterns.</p>
+          <span class="interview-link text-accent">View Papers →</span>
+        </a>
+
+        <a href="learning.html" class="interview-card card">
+          <div class="interview-icon">⏱️</div>
+          <h4>Time Management</h4>
+          <p>Learn effective strategies to manage your preparation time and maximize output.</p>
+          <span class="interview-link text-accent">Read Guide →</span>
+        </a>
+
+        <a href="mcqnquiz.html" class="interview-card card">
+          <div class="interview-icon">📊</div>
+          <h4>Aptitude Quizzes</h4>
+          <p>Timed aptitude quiz sessions that simulate real campus placement rounds.</p>
+          <span class="interview-link text-accent">Take Quiz →</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CTA ── -->
+  <section class="section">
+    <div class="container">
+      <div class="resources-cta-card">
+        <div class="resources-cta-orb"></div>
+        <div class="resources-cta-text">
+          <h2>Ready to start your journey?</h2>
+          <p>Create a free account and access all resources, coding problems, and certifications.</p>
+        </div>
+        <div class="resources-cta-actions">
+          <button class="btn btn-primary" onclick="window.location.href='signup.html'">Get Started Free</button>
+          <button class="btn btn-secondary" onclick="window.location.href='practice.html'">Browse Problems</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>&copy; 2025 Placement Prep Portal. All rights reserved.</p>
+  </footer>
+<script src="js/particles.js"></script>
 </body>
 </html>

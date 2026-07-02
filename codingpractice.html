@@ -1,163 +1,277 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>CodeQuest | Arankerzz</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Coding Practice | Arankerzz</title>
+  <meta name="description" content="Practice coding problems in Python, Java, C++, and JavaScript with difficulty filters." />
+  <link rel="stylesheet" href="css/style.css" />
   <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      background: #f4f7fa;
-      color: #333;
-    }
+    .practice-kit-layout { display: flex; min-height: calc(100vh - 60px); }
 
-    .navbar {
-      background: #1e3a8a;
-      color: #fff;
-      padding: 15px;
-      text-align: center;
-      font-size: 26px;
-      font-weight: bold;
+    /* Sidebar */
+    .kit-sidebar {
+      width: 220px; flex-shrink: 0;
+      background: var(--bg-secondary);
+      border-right: 1px solid var(--border);
+      padding: 1.5rem 1rem;
+      position: sticky; top: 60px;
+      height: calc(100vh - 60px);
+      overflow-y: auto;
+      display: flex; flex-direction: column; gap: 1.25rem;
     }
-
-    .container {
-      display: flex;
-      flex-wrap: wrap;
-      padding: 20px;
+    .sidebar-title { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; color: var(--text-muted); margin-bottom: 0.4rem; }
+    .kit-select {
+      width: 100%; padding: 0.5rem 0.75rem;
+      background: var(--bg-card); border: 1px solid var(--border);
+      border-radius: var(--radius-sm); color: var(--text-secondary);
+      font-size: 0.83rem; font-family: 'Inter', sans-serif;
+      outline: none; cursor: pointer; margin-bottom: 0.5rem;
+      transition: var(--transition);
     }
-
-    .sidebar {
-      flex: 1;
-      min-width: 250px;
-      background: #edf2f4;
-      padding: 20px;
-      border-right: 2px solid #ccc;
+    .kit-select:focus { border-color: var(--accent); }
+    .apply-btn {
+      width: 100%; padding: 0.6rem; background: var(--accent);
+      color: #000; border: none; border-radius: var(--radius-sm);
+      font-weight: 700; font-size: 0.875rem; font-family: 'Inter', sans-serif;
+      cursor: pointer; transition: var(--transition);
     }
+    .apply-btn:hover { background: var(--accent-hover); box-shadow: var(--shadow-glow); }
 
-    .sidebar h3 {
-      margin-bottom: 10px;
-      color: #2b2d42;
+    .stat-row { display: flex; align-items: center; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(255,255,255,0.05); font-size: 0.82rem; color: var(--text-secondary); }
+    .stat-row:last-child { border-bottom: none; }
+    .stat-num { font-weight: 700; color: var(--text-primary); }
+
+    /* Main area */
+    .kit-main { flex: 1; padding: 2rem; display: flex; flex-direction: column; gap: 1.25rem; }
+
+    .kit-hero {
+      background: linear-gradient(135deg, var(--bg-card), rgba(255,161,22,0.05));
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.75rem 2rem;
+      display: flex; align-items: center; justify-content: space-between; gap: 2rem;
     }
-
-    .sidebar select, .sidebar button {
-      width: 100%;
-      padding: 10px;
-      margin: 10px 0;
-      font-size: 16px;
-    }
-
-    .main {
-      flex: 3;
-      padding: 20px;
-    }
-
-    .question-card {
-      background: white;
-      margin-bottom: 20px;
-      padding: 20px;
+    .kit-hero h1 { font-size: 1.4rem; font-weight: 800; margin-bottom: 0.25rem; }
+    .kit-hero p  { font-size: 0.875rem; color: var(--text-secondary); }
+    .kit-lang-chips { display: flex; gap: 0.4rem; flex-wrap: wrap; }
+    .lang-chip {
+      padding: 0.25rem 0.65rem;
       border-radius: 10px;
-      box-shadow: 0px 4px 10px rgba(0,0,0,0.1);
-      transition: 0.3s;
+      font-size: 0.72rem;
+      font-weight: 700;
+      background: rgba(255,255,255,0.06);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
     }
 
-    .question-card:hover {
-      transform: translateY(-5px);
+    /* Cards grid */
+    .cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; }
+
+    .prob-card {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 1.25rem;
+      display: flex; flex-direction: column; gap: 0.75rem;
+      transition: var(--transition);
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+    }
+    .prob-card::before {
+      content: '';
+      position: absolute; left: 0; top: 0; bottom: 0;
+      width: 3px; border-radius: 3px 0 0 3px;
+    }
+    .prob-card.level-Beginner::before     { background: var(--green); }
+    .prob-card.level-Intermediate::before { background: var(--orange); }
+    .prob-card.level-Advanced::before     { background: var(--red); }
+
+    .prob-card:hover { border-color: rgba(255,161,22,0.25); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+
+    .prob-card-top { display: flex; align-items: center; justify-content: space-between; }
+    .prob-card h3  { font-size: 0.95rem; font-weight: 700; color: var(--text-primary); line-height: 1.4; }
+    .prob-card p   { font-size: 0.8rem; color: var(--text-muted); }
+
+    .lang-tags { display: flex; gap: 0.3rem; flex-wrap: wrap; }
+    .lang-tag  {
+      padding: 0.15rem 0.5rem;
+      background: rgba(59,130,246,0.1);
+      color: var(--blue);
+      border-radius: 8px;
+      font-size: 0.7rem;
+      font-weight: 600;
     }
 
-    .question-card h4 {
-      margin-bottom: 10px;
+    .prob-card-btn {
+      padding: 0.5rem 1rem;
+      background: transparent;
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-secondary);
+      font-size: 0.8rem;
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      text-align: center;
     }
+    .prob-card-btn:hover { background: var(--accent); color: #000; border-color: var(--accent); }
 
-    .difficulty {
-      display: inline-block;
-      padding: 5px 10px;
-      border-radius: 5px;
-      font-size: 12px;
-      margin-left: 10px;
-    }
-
-    .easy { background: #90ee90; }
-    .medium { background: #ffd700; }
-    .hard { background: #ff6b6b; }
-
-    @media(max-width: 768px) {
-      .container { flex-direction: column; }
-      .sidebar { border-right: none; border-bottom: 2px solid #ccc; }
-    }
+    .no-results { text-align: center; padding: 4rem 2rem; color: var(--text-muted); }
   </style>
 </head>
 <body>
 
-<div class="navbar">
-  CodeQuest ⚡ Practice Arena
-</div>
+  <header class="navbar">
+    <div class="nav-left">
+      <a href="index.html" style="text-decoration:none;display:flex;align-items:center;gap:0.5rem;">
+        <div class="nav-logo-mark">A</div>
+        <span class="nav-logo-text">Arankerzz</span>
+      </a>
+    </div>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="practice.html">Problems</a></li>
+        <li><a href="learning.html">Learn</a></li>
+        <li><a href="resource.html">Resources</a></li>
+      </ul>
+    </nav>
+    <div class="nav-right">
+      <button class="nav-btn nav-btn-ghost" onclick="window.location.href='login.html'">Sign In</button>
+      <button class="nav-btn nav-btn-primary" onclick="window.location.href='signup.html'">Get Started</button>
+    </div>
+  </header>
 
-<div class="container">
+  <div class="practice-kit-layout">
 
-  <div class="sidebar">
-    <h3>Choose Language</h3>
-    <select id="language">
-      <option>Python</option>
-      <option>Java</option>
-      <option>C++</option>
-      <option>JavaScript</option>
-    </select>
+    <!-- Sidebar -->
+    <aside class="kit-sidebar">
+      <div>
+        <div class="sidebar-title">Language</div>
+        <select class="kit-select" id="langFilter">
+          <option value="All">All Languages</option>
+          <option value="Python">Python 🐍</option>
+          <option value="Java">Java ☕</option>
+          <option value="C++">C++ ⚙️</option>
+          <option value="JavaScript">JavaScript 🟨</option>
+        </select>
+        <div class="sidebar-title">Difficulty</div>
+        <select class="kit-select" id="diffFilter">
+          <option value="All">All Levels</option>
+          <option value="Beginner">Beginner</option>
+          <option value="Intermediate">Intermediate</option>
+          <option value="Advanced">Advanced</option>
+        </select>
+        <button class="apply-btn" onclick="applyFilters()">Apply Filters</button>
+      </div>
 
-    <h3>Choose Difficulty</h3>
-    <select id="difficulty">
-      <option>All</option>
-      <option>Beginner</option>
-      <option>Intermediate</option>
-      <option>Advanced</option>
-    </select>
+      <div>
+        <div class="sidebar-title">Stats</div>
+        <div class="stat-row"><span>Total Problems</span><span class="stat-num" id="totalStat">0</span></div>
+        <div class="stat-row"><span>Beginner</span>    <span class="stat-num text-green" id="beginStat">0</span></div>
+        <div class="stat-row"><span>Intermediate</span><span class="stat-num" style="color:var(--orange)" id="midStat">0</span></div>
+        <div class="stat-row"><span>Advanced</span>    <span class="stat-num text-red" id="advStat">0</span></div>
+      </div>
+    </aside>
 
-    <button onclick="filterQuestions()">Apply Filters</button>
+    <!-- Main -->
+    <main class="kit-main">
+      <div class="kit-hero">
+        <div>
+          <h1>⚡ Coding Practice Arena</h1>
+          <p>Filter by language and difficulty to find the perfect challenge for your level.</p>
+        </div>
+        <div class="kit-lang-chips">
+          <span class="lang-chip">Python</span>
+          <span class="lang-chip">Java</span>
+          <span class="lang-chip">C++</span>
+          <span class="lang-chip">JavaScript</span>
+        </div>
+      </div>
+
+      <div class="cards-grid" id="cardsGrid"></div>
+    </main>
   </div>
 
-  <div class="main" id="questionsArea">
-    <!-- Questions will be dynamically inserted here -->
-  </div>
+  <footer style="padding:1.25rem 2rem;text-align:center;border-top:1px solid var(--border);background:var(--bg-secondary);">
+    <p style="color:var(--text-muted);font-size:0.82rem;">&copy; 2025 Placement Prep Portal. All rights reserved.</p>
+  </footer>
 
-</div>
-
-<script>
-  const questions = [
-    { title: "Print Fibonacci Series", difficulty: "Beginner", language: ["Python", "Java", "C++", "JavaScript"] },
-    { title: "Find Prime Numbers", difficulty: "Beginner", language: ["Python", "C++"] },
-    { title: "Longest Substring Without Repeating", difficulty: "Intermediate", language: ["Python", "Java"] },
-    { title: "Implement LRU Cache", difficulty: "Advanced", language: ["C++", "Java"] },
-    { title: "Binary Tree Traversals", difficulty: "Intermediate", language: ["Python", "C++"] },
-    { title: "Dynamic Programming - Knapsack", difficulty: "Advanced", language: ["Python", "Java", "C++"] }
+  <script>
+  const problems = [
+    { title: "Print Fibonacci Series", difficulty: "Beginner", language: ["Python","Java","C++","JavaScript"], desc: "Generate the first N Fibonacci numbers using loops or recursion." },
+    { title: "Find Prime Numbers (Sieve)", difficulty: "Beginner", language: ["Python","C++"], desc: "Implement the Sieve of Eratosthenes to find all primes up to N." },
+    { title: "Reverse a String", difficulty: "Beginner", language: ["Python","Java","C++","JavaScript"], desc: "Reverse a given string without using built-in reverse methods." },
+    { title: "Check Palindrome", difficulty: "Beginner", language: ["Python","Java","JavaScript"], desc: "Determine if a string or number is a palindrome." },
+    { title: "FizzBuzz", difficulty: "Beginner", language: ["Python","Java","C++","JavaScript"], desc: "Print numbers 1-100, substituting Fizz/Buzz/FizzBuzz as needed." },
+    { title: "Factorial (Recursive)", difficulty: "Beginner", language: ["Python","Java","C++"], desc: "Compute n! using both iterative and recursive approaches." },
+    { title: "Sum of Digits", difficulty: "Beginner", language: ["Python","JavaScript"], desc: "Find the sum of all digits in a given number." },
+    { title: "Armstrong Number Check", difficulty: "Beginner", language: ["Python","Java","C++"], desc: "Check if a number is an Armstrong number." },
+    { title: "Longest Substring Without Repeating", difficulty: "Intermediate", language: ["Python","Java"], desc: "Find the length of the longest substring with no duplicate characters. Sliding window." },
+    { title: "Two Sum Problem", difficulty: "Intermediate", language: ["Python","Java","C++","JavaScript"], desc: "Find indices of two numbers that add up to target. Hash map O(n)." },
+    { title: "Binary Search Implementation", difficulty: "Intermediate", language: ["Python","C++","Java"], desc: "Implement binary search on a sorted array — iterative and recursive." },
+    { title: "Merge Two Sorted Arrays", difficulty: "Intermediate", language: ["Python","Java","C++"], desc: "Merge two sorted arrays without using extra space in O(n+m)." },
+    { title: "Implement Stack using Queues", difficulty: "Intermediate", language: ["Python","Java"], desc: "Implement a LIFO stack using two FIFO queues." },
+    { title: "Valid Parentheses", difficulty: "Intermediate", language: ["Python","Java","C++","JavaScript"], desc: "Check if a string of brackets is valid using a stack." },
+    { title: "Implement LRU Cache", difficulty: "Advanced", language: ["C++","Java"], desc: "Design a data structure for Least Recently Used cache in O(1) time." },
+    { title: "Binary Tree Traversals", difficulty: "Intermediate", language: ["Python","C++"], desc: "Implement Inorder, Preorder, Postorder traversals — iterative and recursive." },
+    { title: "Knapsack Problem (0/1)", difficulty: "Advanced", language: ["Python","Java","C++"], desc: "Solve the 0/1 Knapsack using Dynamic Programming." },
+    { title: "Longest Common Subsequence", difficulty: "Advanced", language: ["Python","Java","C++"], desc: "Find the LCS of two strings using DP memoization." },
+    { title: "Graph BFS & DFS", difficulty: "Intermediate", language: ["Python","Java","C++"], desc: "Implement BFS using Queue and DFS using Stack/recursion on an adjacency list." },
+    { title: "Detect Cycle in Linked List", difficulty: "Intermediate", language: ["Python","Java","C++"], desc: "Use Floyd's slow/fast pointer algorithm to detect cycles." },
+    { title: "Dijkstra's Shortest Path", difficulty: "Advanced", language: ["Python","C++","Java"], desc: "Implement Dijkstra's algorithm using a min-heap priority queue." },
+    { title: "Quick Sort Implementation", difficulty: "Intermediate", language: ["Python","Java","C++","JavaScript"], desc: "Implement QuickSort with Lomuto and Hoare partition schemes." },
+    { title: "Merge Sort Implementation", difficulty: "Intermediate", language: ["Python","Java","C++"], desc: "Implement Merge Sort with O(n log n) time complexity." },
+    { title: "Trie Insert and Search", difficulty: "Advanced", language: ["Python","C++","Java"], desc: "Build a Trie data structure and implement insert, search, and startsWith." }
   ];
 
-  function renderQuestions(data) {
-    const container = document.getElementById('questionsArea');
-    container.innerHTML = '';
-
-    data.forEach(q => {
-      const div = document.createElement('div');
-      div.className = 'question-card';
-      div.innerHTML = `
-        <h4>${q.title} <span class="difficulty ${q.difficulty.toLowerCase()}">${q.difficulty}</span></h4>
-        <p>Supported Languages: ${q.language.join(', ')}</p>
-      `;
-      container.appendChild(div);
-    });
+  function updateStats(data) {
+    document.getElementById('totalStat').textContent = data.length;
+    document.getElementById('beginStat').textContent = data.filter(p => p.difficulty === 'Beginner').length;
+    document.getElementById('midStat').textContent   = data.filter(p => p.difficulty === 'Intermediate').length;
+    document.getElementById('advStat').textContent   = data.filter(p => p.difficulty === 'Advanced').length;
   }
 
-  function filterQuestions() {
-    const lang = document.getElementById('language').value;
-    const diff = document.getElementById('difficulty').value;
-
-    const filtered = questions.filter(q => 
-      (diff === "All" || q.difficulty === diff) && q.language.includes(lang)
+  function applyFilters() {
+    const lang = document.getElementById('langFilter').value;
+    const diff = document.getElementById('diffFilter').value;
+    const filtered = problems.filter(p =>
+      (lang === 'All' || p.language.includes(lang)) &&
+      (diff === 'All' || p.difficulty === diff)
     );
-    renderQuestions(filtered);
+    renderCards(filtered);
+    updateStats(filtered);
   }
 
-  window.onload = () => renderQuestions(questions);
-</script>
+  const diffBadge = { Beginner: 'badge-easy', Intermediate: 'badge-medium', Advanced: 'badge-hard' };
 
+  function renderCards(data) {
+    const grid = document.getElementById('cardsGrid');
+    if (!data.length) {
+      grid.innerHTML = `<div class="no-results" style="grid-column:1/-1;"><p>No problems match your filters. Try adjusting the language or difficulty.</p></div>`;
+      return;
+    }
+    grid.innerHTML = data.map(p => `
+      <div class="prob-card level-${p.difficulty}">
+        <div class="prob-card-top">
+          <span class="badge ${diffBadge[p.difficulty]}">${p.difficulty}</span>
+        </div>
+        <h3>${p.title}</h3>
+        <p>${p.desc}</p>
+        <div class="lang-tags">
+          ${p.language.map(l => `<span class="lang-tag">${l}</span>`).join('')}
+        </div>
+        <button class="prob-card-btn" onclick="window.location.href='practice.html'">Solve Problem →</button>
+      </div>
+    `).join('');
+  }
+
+  renderCards(problems);
+  updateStats(problems);
+  </script>
+  <script src="js/particles.js"></script>
 </body>
 </html>
